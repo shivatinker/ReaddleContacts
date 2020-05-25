@@ -8,7 +8,9 @@
 
 import Foundation
 
-public typealias ConditionalCallback<T, E: Error> = (ConditionalResult<T, E>) -> ()
+public protocol ErrorHandler {
+    func error(_ e: Error)
+}
 
 public enum ConditionalResult<T, E: Error> {
     case success(result: T)

@@ -27,10 +27,6 @@ public protocol AllContactsView: AnyObject {
     func stopLoading()
 }
 
-public protocol ErrorHandler {
-    func error(_ e: Error)
-}
-
 public class AllContactsPresenter {
     // MARK: Private Members
     private static let MAX_LOADINGS_ALLOWED = 10
