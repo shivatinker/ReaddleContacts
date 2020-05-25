@@ -3,17 +3,26 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		67283A14BADCEBC9227168AD /* Pods_ReaddleContacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C698E4D33EC62BC36701620 /* Pods_ReaddleContacts.framework */; };
+		68A7C8D99D4D6445CA2D2CFC /* Pods_ReaddleContactsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D75EC9B60BB67E7B97905B41 /* Pods_ReaddleContactsTests.framework */; };
+		DAA4A12A247C229000426E2F /* ContactsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4A129247C229000426E2F /* ContactsProvider.swift */; };
+		DAA4A12C247C240400426E2F /* ContactProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4A12B247C240400426E2F /* ContactProviderTests.swift */; };
+		DAA4A130247C264500426E2F /* DataProviderCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4A12F247C264500426E2F /* DataProviderCommon.swift */; };
+		DAA4A132247C27E000426E2F /* MockContactsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4A131247C27E000426E2F /* MockContactsProvider.swift */; };
 		DAF480E2247C047E00D165D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF480E1247C047E00D165D2 /* AppDelegate.swift */; };
 		DAF480E4247C047E00D165D2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF480E3247C047E00D165D2 /* SceneDelegate.swift */; };
 		DAF480E6247C047E00D165D2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF480E5247C047E00D165D2 /* ViewController.swift */; };
 		DAF480E9247C047E00D165D2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAF480E7247C047E00D165D2 /* Main.storyboard */; };
 		DAF480EB247C048000D165D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAF480EA247C048000D165D2 /* Assets.xcassets */; };
 		DAF480EE247C048000D165D2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAF480EC247C048000D165D2 /* LaunchScreen.storyboard */; };
-		DAF480F9247C048000D165D2 /* ReaddleContactsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF480F8247C048000D165D2 /* ReaddleContactsTests.swift */; };
+		DAF480F9247C048000D165D2 /* GravatarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF480F8247C048000D165D2 /* GravatarTests.swift */; };
+		DAF48105247C069D00D165D2 /* GravatarAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF48104247C069D00D165D2 /* GravatarAPI.swift */; };
+		DAF48108247C07D700D165D2 /* NetGravatarAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF48107247C07D700D165D2 /* NetGravatarAPI.swift */; };
+		DAF4810C247C0C9100D165D2 /* NetCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF4810B247C0C9100D165D2 /* NetCommon.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +36,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		44E39941F4AFE76795B83753 /* Pods-ReaddleContacts.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReaddleContacts.debug.xcconfig"; path = "Target Support Files/Pods-ReaddleContacts/Pods-ReaddleContacts.debug.xcconfig"; sourceTree = "<group>"; };
+		4C698E4D33EC62BC36701620 /* Pods_ReaddleContacts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReaddleContacts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		609D0195C480619734844F69 /* Pods-ReaddleContactsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReaddleContactsTests.debug.xcconfig"; path = "Target Support Files/Pods-ReaddleContactsTests/Pods-ReaddleContactsTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A18E2B046514B77F64031B84 /* Pods-ReaddleContactsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReaddleContactsTests.release.xcconfig"; path = "Target Support Files/Pods-ReaddleContactsTests/Pods-ReaddleContactsTests.release.xcconfig"; sourceTree = "<group>"; };
+		D2D4D9AE1F387A14D8070E61 /* Pods-ReaddleContacts.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReaddleContacts.release.xcconfig"; path = "Target Support Files/Pods-ReaddleContacts/Pods-ReaddleContacts.release.xcconfig"; sourceTree = "<group>"; };
+		D75EC9B60BB67E7B97905B41 /* Pods_ReaddleContactsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReaddleContactsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAA4A129247C229000426E2F /* ContactsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsProvider.swift; sourceTree = "<group>"; };
+		DAA4A12B247C240400426E2F /* ContactProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactProviderTests.swift; sourceTree = "<group>"; };
+		DAA4A12F247C264500426E2F /* DataProviderCommon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProviderCommon.swift; sourceTree = "<group>"; };
+		DAA4A131247C27E000426E2F /* MockContactsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockContactsProvider.swift; sourceTree = "<group>"; };
 		DAF480DE247C047E00D165D2 /* ReaddleContacts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReaddleContacts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAF480E1247C047E00D165D2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DAF480E3247C047E00D165D2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -36,8 +55,11 @@
 		DAF480ED247C048000D165D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DAF480EF247C048000D165D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DAF480F4247C048000D165D2 /* ReaddleContactsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReaddleContactsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DAF480F8247C048000D165D2 /* ReaddleContactsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaddleContactsTests.swift; sourceTree = "<group>"; };
+		DAF480F8247C048000D165D2 /* GravatarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GravatarTests.swift; sourceTree = "<group>"; };
 		DAF480FA247C048000D165D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DAF48104247C069D00D165D2 /* GravatarAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GravatarAPI.swift; sourceTree = "<group>"; };
+		DAF48107247C07D700D165D2 /* NetGravatarAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetGravatarAPI.swift; sourceTree = "<group>"; };
+		DAF4810B247C0C9100D165D2 /* NetCommon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetCommon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67283A14BADCEBC9227168AD /* Pods_ReaddleContacts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,18 +75,60 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68A7C8D99D4D6445CA2D2CFC /* Pods_ReaddleContactsTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9E434AD280D27F7FF7E6450E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4C698E4D33EC62BC36701620 /* Pods_ReaddleContacts.framework */,
+				D75EC9B60BB67E7B97905B41 /* Pods_ReaddleContactsTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A4EBB61A173DA7BE9862509A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				44E39941F4AFE76795B83753 /* Pods-ReaddleContacts.debug.xcconfig */,
+				D2D4D9AE1F387A14D8070E61 /* Pods-ReaddleContacts.release.xcconfig */,
+				609D0195C480619734844F69 /* Pods-ReaddleContactsTests.debug.xcconfig */,
+				A18E2B046514B77F64031B84 /* Pods-ReaddleContactsTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		DAA4A128247C227400426E2F /* ContactsProvider */ = {
+			isa = PBXGroup;
+			children = (
+				DAA4A129247C229000426E2F /* ContactsProvider.swift */,
+				DAA4A131247C27E000426E2F /* MockContactsProvider.swift */,
+			);
+			path = ContactsProvider;
+			sourceTree = "<group>";
+		};
+		DAA4A12E247C262F00426E2F /* DataProviders */ = {
+			isa = PBXGroup;
+			children = (
+				DAF48103247C056A00D165D2 /* Net */,
+				DAA4A128247C227400426E2F /* ContactsProvider */,
+				DAA4A12F247C264500426E2F /* DataProviderCommon.swift */,
+			);
+			path = DataProviders;
+			sourceTree = "<group>";
+		};
 		DAF480D5247C047E00D165D2 = {
 			isa = PBXGroup;
 			children = (
 				DAF480E0247C047E00D165D2 /* ReaddleContacts */,
 				DAF480F7247C048000D165D2 /* ReaddleContactsTests */,
 				DAF480DF247C047E00D165D2 /* Products */,
+				A4EBB61A173DA7BE9862509A /* Pods */,
+				9E434AD280D27F7FF7E6450E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,6 +144,7 @@
 		DAF480E0247C047E00D165D2 /* ReaddleContacts */ = {
 			isa = PBXGroup;
 			children = (
+				DAA4A12E247C262F00426E2F /* DataProviders */,
 				DAF480E1247C047E00D165D2 /* AppDelegate.swift */,
 				DAF480E3247C047E00D165D2 /* SceneDelegate.swift */,
 				DAF480E5247C047E00D165D2 /* ViewController.swift */,
@@ -93,10 +159,29 @@
 		DAF480F7247C048000D165D2 /* ReaddleContactsTests */ = {
 			isa = PBXGroup;
 			children = (
-				DAF480F8247C048000D165D2 /* ReaddleContactsTests.swift */,
+				DAF480F8247C048000D165D2 /* GravatarTests.swift */,
 				DAF480FA247C048000D165D2 /* Info.plist */,
+				DAA4A12B247C240400426E2F /* ContactProviderTests.swift */,
 			);
 			path = ReaddleContactsTests;
+			sourceTree = "<group>";
+		};
+		DAF48103247C056A00D165D2 /* Net */ = {
+			isa = PBXGroup;
+			children = (
+				DAF48106247C07C600D165D2 /* Gravatar */,
+				DAF4810B247C0C9100D165D2 /* NetCommon.swift */,
+			);
+			path = Net;
+			sourceTree = "<group>";
+		};
+		DAF48106247C07C600D165D2 /* Gravatar */ = {
+			isa = PBXGroup;
+			children = (
+				DAF48104247C069D00D165D2 /* GravatarAPI.swift */,
+				DAF48107247C07D700D165D2 /* NetGravatarAPI.swift */,
+			);
+			path = Gravatar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -106,9 +191,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DAF480FD247C048000D165D2 /* Build configuration list for PBXNativeTarget "ReaddleContacts" */;
 			buildPhases = (
+				9247924F366E0A48A31D73B7 /* [CP] Check Pods Manifest.lock */,
 				DAF480DA247C047E00D165D2 /* Sources */,
 				DAF480DB247C047E00D165D2 /* Frameworks */,
 				DAF480DC247C047E00D165D2 /* Resources */,
+				5B7E4106BACDE7D18094FFF4 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -123,6 +210,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DAF48100247C048000D165D2 /* Build configuration list for PBXNativeTarget "ReaddleContactsTests" */;
 			buildPhases = (
+				6AE2420E7643F6E28D6EC558 /* [CP] Check Pods Manifest.lock */,
 				DAF480F0247C048000D165D2 /* Sources */,
 				DAF480F1247C048000D165D2 /* Frameworks */,
 				DAF480F2247C048000D165D2 /* Resources */,
@@ -195,13 +283,83 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5B7E4106BACDE7D18094FFF4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ReaddleContacts/Pods-ReaddleContacts-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ReaddleContacts/Pods-ReaddleContacts-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ReaddleContacts/Pods-ReaddleContacts-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6AE2420E7643F6E28D6EC558 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ReaddleContactsTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9247924F366E0A48A31D73B7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ReaddleContacts-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		DAF480DA247C047E00D165D2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAF4810C247C0C9100D165D2 /* NetCommon.swift in Sources */,
+				DAA4A130247C264500426E2F /* DataProviderCommon.swift in Sources */,
+				DAA4A132247C27E000426E2F /* MockContactsProvider.swift in Sources */,
 				DAF480E6247C047E00D165D2 /* ViewController.swift in Sources */,
+				DAF48108247C07D700D165D2 /* NetGravatarAPI.swift in Sources */,
 				DAF480E2247C047E00D165D2 /* AppDelegate.swift in Sources */,
+				DAA4A12A247C229000426E2F /* ContactsProvider.swift in Sources */,
+				DAF48105247C069D00D165D2 /* GravatarAPI.swift in Sources */,
 				DAF480E4247C047E00D165D2 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -210,7 +368,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAF480F9247C048000D165D2 /* ReaddleContactsTests.swift in Sources */,
+				DAF480F9247C048000D165D2 /* GravatarTests.swift in Sources */,
+				DAA4A12C247C240400426E2F /* ContactProviderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,6 +519,7 @@
 		};
 		DAF480FE247C048000D165D2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 44E39941F4AFE76795B83753 /* Pods-ReaddleContacts.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -378,6 +538,7 @@
 		};
 		DAF480FF247C048000D165D2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D2D4D9AE1F387A14D8070E61 /* Pods-ReaddleContacts.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -396,6 +557,7 @@
 		};
 		DAF48101247C048000D165D2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 609D0195C480619734844F69 /* Pods-ReaddleContactsTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -418,6 +580,7 @@
 		};
 		DAF48102247C048000D165D2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A18E2B046514B77F64031B84 /* Pods-ReaddleContactsTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";

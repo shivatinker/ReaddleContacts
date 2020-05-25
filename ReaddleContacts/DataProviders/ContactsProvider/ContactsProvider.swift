@@ -1,0 +1,87 @@
+//
+//  ContactsProvider.swift
+//  ReaddleContacts
+//
+//  Created by Andrii Zinoviev on 25.05.2020.
+//  Copyright © 2020 Andrii Zinoviev. All rights reserved.
+//
+
+import Foundation
+
+/// Plain data struct for contacts
+public struct Contact {
+    public init(firstName: String, lastName: String? = nil) {
+        self.firstName = firstName
+        self.lastName = lastName
+    }
+
+    public let firstName: String
+    public let lastName: String?
+}
+
+// Util methods
+public extension Contact {
+    var fullName: String {
+        var res = firstName
+        if let l = lastName {
+            res = [res, l].joined(separator: " ")
+        }
+        return res
+    }
+}
+
+public enum ContactsProviderError: Error {
+    case noSuchContact(id: ContactID)
+    case unknown(_ description: String)
+}
+
+extension ContactsProviderError: LocalizedError {
+    public var localizedDescription: String {
+        switch self {
+        case .unknown(let description): return "Unknown: \(description)"
+        case .noSuchContact(let id): return "No such id: \(id)"
+        }
+    }
+}
+
+public typealias Contacts = [ContactID: Contact]
+public typealias ContactID = Int
+
+/// Provides contacts data methods for async queries
+public protocol ContactsProvider {
+    typealias ContactsResult<T> = ConditionalResult<T, ContactsProviderError>
+    typealias ContactsProviderCallback<T> = (ContactsResult<T>) -> ()
+
+    // Read queries
+    var contactsCount: Int { get }
+    
+    /// Returns all contacts
+    /// - Parameter callback: callback
+    func getAllContacts(callback: @escaping ContactsProviderCallback<Contacts>)
+    
+    /// Gets contact by ID, returns error if no such contact
+    /// - Parameters:
+    ///   - id: Contact ID
+    ///   - callback: Returns contact with specified ID
+    func getContact(id: ContactID, callback: @escaping ContactsProviderCallback<Contact>)
+    
+    /// Returns online status of contact, returns error if no such contact
+    /// - Parameters:
+    ///   - id: Contact ID
+    ///   - callback: Returns bool value (is online)
+    func isOnline(id: ContactID, callback: @escaping ContactsProviderCallback<Bool>)
+
+    // Modify queries
+    
+    /// Adds contact and return added contact ID
+    /// - Parameters:
+    ///   - contact: Contact object to add
+    ///   - callback: Returns ID of added contact
+    func addContact(_ contact: Contact, callback: @escaping ContactsProviderCallback<ContactID>)
+    
+    /// Removes contact with specified ID, returns error if no such contact
+    /// - Parameters:
+    ///   - id: Contact ID to remove
+    ///   - callback: Returns removed contact object
+    func removeContact(id: ContactID, callback: @escaping ContactsProviderCallback<Contact>)
+}
