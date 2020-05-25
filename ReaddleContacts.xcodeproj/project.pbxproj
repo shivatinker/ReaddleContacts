@@ -1,0 +1,474 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DAF480E2247C047E00D165D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF480E1247C047E00D165D2 /* AppDelegate.swift */; };
+		DAF480E4247C047E00D165D2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF480E3247C047E00D165D2 /* SceneDelegate.swift */; };
+		DAF480E6247C047E00D165D2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF480E5247C047E00D165D2 /* ViewController.swift */; };
+		DAF480E9247C047E00D165D2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAF480E7247C047E00D165D2 /* Main.storyboard */; };
+		DAF480EB247C048000D165D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAF480EA247C048000D165D2 /* Assets.xcassets */; };
+		DAF480EE247C048000D165D2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAF480EC247C048000D165D2 /* LaunchScreen.storyboard */; };
+		DAF480F9247C048000D165D2 /* ReaddleContactsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF480F8247C048000D165D2 /* ReaddleContactsTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DAF480F5247C048000D165D2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DAF480D6247C047E00D165D2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DAF480DD247C047E00D165D2;
+			remoteInfo = ReaddleContacts;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		DAF480DE247C047E00D165D2 /* ReaddleContacts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReaddleContacts.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAF480E1247C047E00D165D2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DAF480E3247C047E00D165D2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		DAF480E5247C047E00D165D2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DAF480E8247C047E00D165D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DAF480EA247C048000D165D2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DAF480ED247C048000D165D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DAF480EF247C048000D165D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DAF480F4247C048000D165D2 /* ReaddleContactsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReaddleContactsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAF480F8247C048000D165D2 /* ReaddleContactsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaddleContactsTests.swift; sourceTree = "<group>"; };
+		DAF480FA247C048000D165D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DAF480DB247C047E00D165D2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAF480F1247C048000D165D2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DAF480D5247C047E00D165D2 = {
+			isa = PBXGroup;
+			children = (
+				DAF480E0247C047E00D165D2 /* ReaddleContacts */,
+				DAF480F7247C048000D165D2 /* ReaddleContactsTests */,
+				DAF480DF247C047E00D165D2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DAF480DF247C047E00D165D2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DAF480DE247C047E00D165D2 /* ReaddleContacts.app */,
+				DAF480F4247C048000D165D2 /* ReaddleContactsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DAF480E0247C047E00D165D2 /* ReaddleContacts */ = {
+			isa = PBXGroup;
+			children = (
+				DAF480E1247C047E00D165D2 /* AppDelegate.swift */,
+				DAF480E3247C047E00D165D2 /* SceneDelegate.swift */,
+				DAF480E5247C047E00D165D2 /* ViewController.swift */,
+				DAF480E7247C047E00D165D2 /* Main.storyboard */,
+				DAF480EA247C048000D165D2 /* Assets.xcassets */,
+				DAF480EC247C048000D165D2 /* LaunchScreen.storyboard */,
+				DAF480EF247C048000D165D2 /* Info.plist */,
+			);
+			path = ReaddleContacts;
+			sourceTree = "<group>";
+		};
+		DAF480F7247C048000D165D2 /* ReaddleContactsTests */ = {
+			isa = PBXGroup;
+			children = (
+				DAF480F8247C048000D165D2 /* ReaddleContactsTests.swift */,
+				DAF480FA247C048000D165D2 /* Info.plist */,
+			);
+			path = ReaddleContactsTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DAF480DD247C047E00D165D2 /* ReaddleContacts */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAF480FD247C048000D165D2 /* Build configuration list for PBXNativeTarget "ReaddleContacts" */;
+			buildPhases = (
+				DAF480DA247C047E00D165D2 /* Sources */,
+				DAF480DB247C047E00D165D2 /* Frameworks */,
+				DAF480DC247C047E00D165D2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ReaddleContacts;
+			productName = ReaddleContacts;
+			productReference = DAF480DE247C047E00D165D2 /* ReaddleContacts.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DAF480F3247C048000D165D2 /* ReaddleContactsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAF48100247C048000D165D2 /* Build configuration list for PBXNativeTarget "ReaddleContactsTests" */;
+			buildPhases = (
+				DAF480F0247C048000D165D2 /* Sources */,
+				DAF480F1247C048000D165D2 /* Frameworks */,
+				DAF480F2247C048000D165D2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DAF480F6247C048000D165D2 /* PBXTargetDependency */,
+			);
+			name = ReaddleContactsTests;
+			productName = ReaddleContactsTests;
+			productReference = DAF480F4247C048000D165D2 /* ReaddleContactsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DAF480D6247C047E00D165D2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1140;
+				LastUpgradeCheck = 1140;
+				ORGANIZATIONNAME = "Andrii Zinoviev";
+				TargetAttributes = {
+					DAF480DD247C047E00D165D2 = {
+						CreatedOnToolsVersion = 11.4;
+					};
+					DAF480F3247C048000D165D2 = {
+						CreatedOnToolsVersion = 11.4;
+						TestTargetID = DAF480DD247C047E00D165D2;
+					};
+				};
+			};
+			buildConfigurationList = DAF480D9247C047E00D165D2 /* Build configuration list for PBXProject "ReaddleContacts" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DAF480D5247C047E00D165D2;
+			productRefGroup = DAF480DF247C047E00D165D2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DAF480DD247C047E00D165D2 /* ReaddleContacts */,
+				DAF480F3247C048000D165D2 /* ReaddleContactsTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DAF480DC247C047E00D165D2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAF480EE247C048000D165D2 /* LaunchScreen.storyboard in Resources */,
+				DAF480EB247C048000D165D2 /* Assets.xcassets in Resources */,
+				DAF480E9247C047E00D165D2 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAF480F2247C048000D165D2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DAF480DA247C047E00D165D2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAF480E6247C047E00D165D2 /* ViewController.swift in Sources */,
+				DAF480E2247C047E00D165D2 /* AppDelegate.swift in Sources */,
+				DAF480E4247C047E00D165D2 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAF480F0247C048000D165D2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAF480F9247C048000D165D2 /* ReaddleContactsTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DAF480F6247C048000D165D2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DAF480DD247C047E00D165D2 /* ReaddleContacts */;
+			targetProxy = DAF480F5247C048000D165D2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DAF480E7247C047E00D165D2 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DAF480E8247C047E00D165D2 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		DAF480EC247C048000D165D2 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DAF480ED247C048000D165D2 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DAF480FB247C048000D165D2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DAF480FC247C048000D165D2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DAF480FE247C048000D165D2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2V8DLQ6638;
+				INFOPLIST_FILE = ReaddleContacts/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.shivatinker.ReaddleContacts;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DAF480FF247C048000D165D2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2V8DLQ6638;
+				INFOPLIST_FILE = ReaddleContacts/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.shivatinker.ReaddleContacts;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		DAF48101247C048000D165D2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2V8DLQ6638;
+				INFOPLIST_FILE = ReaddleContactsTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.shivatinker.ReaddleContactsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ReaddleContacts.app/ReaddleContacts";
+			};
+			name = Debug;
+		};
+		DAF48102247C048000D165D2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2V8DLQ6638;
+				INFOPLIST_FILE = ReaddleContactsTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.shivatinker.ReaddleContactsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ReaddleContacts.app/ReaddleContacts";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DAF480D9247C047E00D165D2 /* Build configuration list for PBXProject "ReaddleContacts" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAF480FB247C048000D165D2 /* Debug */,
+				DAF480FC247C048000D165D2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DAF480FD247C048000D165D2 /* Build configuration list for PBXNativeTarget "ReaddleContacts" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAF480FE247C048000D165D2 /* Debug */,
+				DAF480FF247C048000D165D2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DAF48100247C048000D165D2 /* Build configuration list for PBXNativeTarget "ReaddleContactsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAF48101247C048000D165D2 /* Debug */,
+				DAF48102247C048000D165D2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DAF480D6247C047E00D165D2 /* Project object */;
+}
