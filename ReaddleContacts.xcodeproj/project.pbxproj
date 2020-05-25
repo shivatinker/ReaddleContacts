@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		67283A14BADCEBC9227168AD /* Pods_ReaddleContacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C698E4D33EC62BC36701620 /* Pods_ReaddleContacts.framework */; };
 		68A7C8D99D4D6445CA2D2CFC /* Pods_ReaddleContactsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D75EC9B60BB67E7B97905B41 /* Pods_ReaddleContactsTests.framework */; };
+		DA899A10247C3B2C006F084D /* AllContactsPresener.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA899A0F247C3B2C006F084D /* AllContactsPresener.swift */; };
+		DA899A12247C49BB006F084D /* AllContactsPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA899A11247C49BB006F084D /* AllContactsPresenterTests.swift */; };
 		DAA4A12A247C229000426E2F /* ContactsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4A129247C229000426E2F /* ContactsProvider.swift */; };
 		DAA4A12C247C240400426E2F /* ContactProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4A12B247C240400426E2F /* ContactProviderTests.swift */; };
 		DAA4A130247C264500426E2F /* DataProviderCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4A12F247C264500426E2F /* DataProviderCommon.swift */; };
@@ -42,6 +44,8 @@
 		A18E2B046514B77F64031B84 /* Pods-ReaddleContactsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReaddleContactsTests.release.xcconfig"; path = "Target Support Files/Pods-ReaddleContactsTests/Pods-ReaddleContactsTests.release.xcconfig"; sourceTree = "<group>"; };
 		D2D4D9AE1F387A14D8070E61 /* Pods-ReaddleContacts.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReaddleContacts.release.xcconfig"; path = "Target Support Files/Pods-ReaddleContacts/Pods-ReaddleContacts.release.xcconfig"; sourceTree = "<group>"; };
 		D75EC9B60BB67E7B97905B41 /* Pods_ReaddleContactsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReaddleContactsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA899A0F247C3B2C006F084D /* AllContactsPresener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContactsPresener.swift; sourceTree = "<group>"; };
+		DA899A11247C49BB006F084D /* AllContactsPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContactsPresenterTests.swift; sourceTree = "<group>"; };
 		DAA4A129247C229000426E2F /* ContactsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsProvider.swift; sourceTree = "<group>"; };
 		DAA4A12B247C240400426E2F /* ContactProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactProviderTests.swift; sourceTree = "<group>"; };
 		DAA4A12F247C264500426E2F /* DataProviderCommon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProviderCommon.swift; sourceTree = "<group>"; };
@@ -102,6 +106,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		DA899A0E247C3B05006F084D /* Presenters */ = {
+			isa = PBXGroup;
+			children = (
+				DA899A0F247C3B2C006F084D /* AllContactsPresener.swift */,
+			);
+			path = Presenters;
+			sourceTree = "<group>";
+		};
 		DAA4A128247C227400426E2F /* ContactsProvider */ = {
 			isa = PBXGroup;
 			children = (
@@ -144,6 +156,7 @@
 		DAF480E0247C047E00D165D2 /* ReaddleContacts */ = {
 			isa = PBXGroup;
 			children = (
+				DA899A0E247C3B05006F084D /* Presenters */,
 				DAA4A12E247C262F00426E2F /* DataProviders */,
 				DAF480E1247C047E00D165D2 /* AppDelegate.swift */,
 				DAF480E3247C047E00D165D2 /* SceneDelegate.swift */,
@@ -162,6 +175,7 @@
 				DAF480F8247C048000D165D2 /* GravatarTests.swift */,
 				DAF480FA247C048000D165D2 /* Info.plist */,
 				DAA4A12B247C240400426E2F /* ContactProviderTests.swift */,
+				DA899A11247C49BB006F084D /* AllContactsPresenterTests.swift */,
 			);
 			path = ReaddleContactsTests;
 			sourceTree = "<group>";
@@ -354,6 +368,7 @@
 			files = (
 				DAF4810C247C0C9100D165D2 /* NetCommon.swift in Sources */,
 				DAA4A130247C264500426E2F /* DataProviderCommon.swift in Sources */,
+				DA899A10247C3B2C006F084D /* AllContactsPresener.swift in Sources */,
 				DAA4A132247C27E000426E2F /* MockContactsProvider.swift in Sources */,
 				DAF480E6247C047E00D165D2 /* ViewController.swift in Sources */,
 				DAF48108247C07D700D165D2 /* NetGravatarAPI.swift in Sources */,
@@ -368,6 +383,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA899A12247C49BB006F084D /* AllContactsPresenterTests.swift in Sources */,
 				DAF480F9247C048000D165D2 /* GravatarTests.swift in Sources */,
 				DAA4A12C247C240400426E2F /* ContactProviderTests.swift in Sources */,
 			);

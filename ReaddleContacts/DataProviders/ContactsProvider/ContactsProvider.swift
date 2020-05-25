@@ -10,13 +10,15 @@ import Foundation
 
 /// Plain data struct for contacts
 public struct Contact {
-    public init(firstName: String, lastName: String? = nil) {
+    public init(firstName: String, lastName: String? = nil, email: String? = nil) {
         self.firstName = firstName
         self.lastName = lastName
+        self.email = email
     }
 
     public let firstName: String
     public let lastName: String?
+    public let email: String?
 }
 
 // Util methods
@@ -70,7 +72,7 @@ public protocol ContactsProvider {
     ///   - id: Contact ID
     ///   - callback: Returns bool value (is online)
     func isOnline(id: ContactID, callback: @escaping ContactsProviderCallback<Bool>)
-
+    
     // Modify queries
     
     /// Adds contact and return added contact ID
