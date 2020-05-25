@@ -11,6 +11,8 @@
 		68A7C8D99D4D6445CA2D2CFC /* Pods_ReaddleContactsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D75EC9B60BB67E7B97905B41 /* Pods_ReaddleContactsTests.framework */; };
 		DA899A10247C3B2C006F084D /* AllContactsPresener.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA899A0F247C3B2C006F084D /* AllContactsPresener.swift */; };
 		DA899A12247C49BB006F084D /* AllContactsPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA899A11247C49BB006F084D /* AllContactsPresenterTests.swift */; };
+		DA899A14247C568E006F084D /* SingleContactViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA899A13247C568E006F084D /* SingleContactViewPresenter.swift */; };
+		DA899A18247C5B3D006F084D /* SingleContactPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA899A17247C5B3D006F084D /* SingleContactPresenterTests.swift */; };
 		DAA4A12A247C229000426E2F /* ContactsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4A129247C229000426E2F /* ContactsProvider.swift */; };
 		DAA4A12C247C240400426E2F /* ContactProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4A12B247C240400426E2F /* ContactProviderTests.swift */; };
 		DAA4A130247C264500426E2F /* DataProviderCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4A12F247C264500426E2F /* DataProviderCommon.swift */; };
@@ -46,6 +48,8 @@
 		D75EC9B60BB67E7B97905B41 /* Pods_ReaddleContactsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReaddleContactsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA899A0F247C3B2C006F084D /* AllContactsPresener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContactsPresener.swift; sourceTree = "<group>"; };
 		DA899A11247C49BB006F084D /* AllContactsPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContactsPresenterTests.swift; sourceTree = "<group>"; };
+		DA899A13247C568E006F084D /* SingleContactViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleContactViewPresenter.swift; sourceTree = "<group>"; };
+		DA899A17247C5B3D006F084D /* SingleContactPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleContactPresenterTests.swift; sourceTree = "<group>"; };
 		DAA4A129247C229000426E2F /* ContactsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsProvider.swift; sourceTree = "<group>"; };
 		DAA4A12B247C240400426E2F /* ContactProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactProviderTests.swift; sourceTree = "<group>"; };
 		DAA4A12F247C264500426E2F /* DataProviderCommon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProviderCommon.swift; sourceTree = "<group>"; };
@@ -110,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				DA899A0F247C3B2C006F084D /* AllContactsPresener.swift */,
+				DA899A13247C568E006F084D /* SingleContactViewPresenter.swift */,
 			);
 			path = Presenters;
 			sourceTree = "<group>";
@@ -176,6 +181,7 @@
 				DAF480FA247C048000D165D2 /* Info.plist */,
 				DAA4A12B247C240400426E2F /* ContactProviderTests.swift */,
 				DA899A11247C49BB006F084D /* AllContactsPresenterTests.swift */,
+				DA899A17247C5B3D006F084D /* SingleContactPresenterTests.swift */,
 			);
 			path = ReaddleContactsTests;
 			sourceTree = "<group>";
@@ -368,6 +374,7 @@
 			files = (
 				DAF4810C247C0C9100D165D2 /* NetCommon.swift in Sources */,
 				DAA4A130247C264500426E2F /* DataProviderCommon.swift in Sources */,
+				DA899A14247C568E006F084D /* SingleContactViewPresenter.swift in Sources */,
 				DA899A10247C3B2C006F084D /* AllContactsPresener.swift in Sources */,
 				DAA4A132247C27E000426E2F /* MockContactsProvider.swift in Sources */,
 				DAF480E6247C047E00D165D2 /* ViewController.swift in Sources */,
@@ -386,6 +393,7 @@
 				DA899A12247C49BB006F084D /* AllContactsPresenterTests.swift in Sources */,
 				DAF480F9247C048000D165D2 /* GravatarTests.swift in Sources */,
 				DAA4A12C247C240400426E2F /* ContactProviderTests.swift in Sources */,
+				DA899A18247C5B3D006F084D /* SingleContactPresenterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

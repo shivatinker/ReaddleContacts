@@ -28,7 +28,7 @@ public protocol AllContactsView: AnyObject {
 }
 
 public class AllContactsPresenter {
-    // MARK: Private Members
+    // MARK: Private members
     private static let MAX_LOADINGS_ALLOWED = 10
 
     private let context: DataContext
@@ -103,10 +103,9 @@ public class AllContactsPresenter {
                 self.setAvatarsAsync(contacts)
                 self.setOnlineStatusesAsync(contacts)
 
-                self.loadingGroup.notify(queue: self.loadingQueue) {
-                    self.view?.stopLoading()
-                }
-            } else {
+            }
+
+            self.loadingGroup.notify(queue: self.loadingQueue) {
                 self.view?.stopLoading()
             }
         }
