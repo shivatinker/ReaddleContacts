@@ -58,23 +58,8 @@ class AllContactsPresenterTests: XCTestCase {
 
     private var view: TestView!
 
-    private let cont: [Contact] = [
-        Contact(firstName: "Andrii", email: "zinoviev@stud.onu.edu.ua"),
-        Contact(firstName: "Inna", email: "lytvynenko@stud.onu.edu.ua"),
-        Contact(firstName: "Stranger", email: "1134ocg@stud.onu.edu.ua"),
-        Contact(firstName: "Andrii", email: "zinoviev@stud.onu.edu.ua"),
-        Contact(firstName: "Inna", email: "lytvynenko@stud.onu.edu.ua"),
-        Contact(firstName: "Stranger", email: "1134ocg@stud.onu.edu.ua"),
-        Contact(firstName: "Andrii", email: "zinoviev@stud.onu.edu.ua"),
-        Contact(firstName: "Inna", email: "lytvynenko@stud.onu.edu.ua"),
-        Contact(firstName: "Stranger", email: "1134ocg@stud.onu.edu.ua"),
-        Contact(firstName: "Andrii", email: "zinoviev@stud.onu.edu.ua"),
-        Contact(firstName: "Inna", email: "lytvynenko@stud.onu.edu.ua"),
-        Contact(firstName: "Stranger", email: "1134ocg@stud.onu.edu.ua"),
-    ]
-
     override func setUp() {
-        let contacts = MockContactsProvider(contacts: cont)
+        let contacts = MockContactsProvider()
         let gravatar = NetGravatarAPI()
 
         view = TestView(expectation: expectation(description: "Load contacts"))

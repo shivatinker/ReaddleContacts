@@ -94,8 +94,8 @@
             filePath = "ReaddleContactsTests/AllContactsPresenterTests.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
             landmarkName = "testPresenter()"
             landmarkType = "7">
          </BreakpointContent>

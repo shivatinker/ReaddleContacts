@@ -13,6 +13,8 @@
 		DA899A12247C49BB006F084D /* AllContactsPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA899A11247C49BB006F084D /* AllContactsPresenterTests.swift */; };
 		DA899A14247C568E006F084D /* SingleContactViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA899A13247C568E006F084D /* SingleContactViewPresenter.swift */; };
 		DA899A18247C5B3D006F084D /* SingleContactPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA899A17247C5B3D006F084D /* SingleContactPresenterTests.swift */; };
+		DA899A1B247D3FC5006F084D /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA899A1A247D3FC5006F084D /* ImageUtils.swift */; };
+		DA899A1D247D5309006F084D /* ArrayUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA899A1C247D5309006F084D /* ArrayUtils.swift */; };
 		DAA4A12A247C229000426E2F /* ContactsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4A129247C229000426E2F /* ContactsProvider.swift */; };
 		DAA4A12C247C240400426E2F /* ContactProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4A12B247C240400426E2F /* ContactProviderTests.swift */; };
 		DAA4A130247C264500426E2F /* DataProviderCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4A12F247C264500426E2F /* DataProviderCommon.swift */; };
@@ -20,7 +22,6 @@
 		DAF480E2247C047E00D165D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF480E1247C047E00D165D2 /* AppDelegate.swift */; };
 		DAF480E4247C047E00D165D2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF480E3247C047E00D165D2 /* SceneDelegate.swift */; };
 		DAF480E6247C047E00D165D2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF480E5247C047E00D165D2 /* ViewController.swift */; };
-		DAF480E9247C047E00D165D2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAF480E7247C047E00D165D2 /* Main.storyboard */; };
 		DAF480EB247C048000D165D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAF480EA247C048000D165D2 /* Assets.xcassets */; };
 		DAF480EE247C048000D165D2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAF480EC247C048000D165D2 /* LaunchScreen.storyboard */; };
 		DAF480F9247C048000D165D2 /* GravatarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF480F8247C048000D165D2 /* GravatarTests.swift */; };
@@ -50,6 +51,8 @@
 		DA899A11247C49BB006F084D /* AllContactsPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContactsPresenterTests.swift; sourceTree = "<group>"; };
 		DA899A13247C568E006F084D /* SingleContactViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleContactViewPresenter.swift; sourceTree = "<group>"; };
 		DA899A17247C5B3D006F084D /* SingleContactPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleContactPresenterTests.swift; sourceTree = "<group>"; };
+		DA899A1A247D3FC5006F084D /* ImageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
+		DA899A1C247D5309006F084D /* ArrayUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayUtils.swift; sourceTree = "<group>"; };
 		DAA4A129247C229000426E2F /* ContactsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsProvider.swift; sourceTree = "<group>"; };
 		DAA4A12B247C240400426E2F /* ContactProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactProviderTests.swift; sourceTree = "<group>"; };
 		DAA4A12F247C264500426E2F /* DataProviderCommon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProviderCommon.swift; sourceTree = "<group>"; };
@@ -58,7 +61,6 @@
 		DAF480E1247C047E00D165D2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DAF480E3247C047E00D165D2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		DAF480E5247C047E00D165D2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		DAF480E8247C047E00D165D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DAF480EA247C048000D165D2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DAF480ED247C048000D165D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DAF480EF247C048000D165D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -119,6 +121,15 @@
 			path = Presenters;
 			sourceTree = "<group>";
 		};
+		DA899A19247D3FBB006F084D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				DA899A1A247D3FC5006F084D /* ImageUtils.swift */,
+				DA899A1C247D5309006F084D /* ArrayUtils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		DAA4A128247C227400426E2F /* ContactsProvider */ = {
 			isa = PBXGroup;
 			children = (
@@ -161,12 +172,12 @@
 		DAF480E0247C047E00D165D2 /* ReaddleContacts */ = {
 			isa = PBXGroup;
 			children = (
+				DA899A19247D3FBB006F084D /* Utils */,
 				DA899A0E247C3B05006F084D /* Presenters */,
 				DAA4A12E247C262F00426E2F /* DataProviders */,
 				DAF480E1247C047E00D165D2 /* AppDelegate.swift */,
 				DAF480E3247C047E00D165D2 /* SceneDelegate.swift */,
 				DAF480E5247C047E00D165D2 /* ViewController.swift */,
-				DAF480E7247C047E00D165D2 /* Main.storyboard */,
 				DAF480EA247C048000D165D2 /* Assets.xcassets */,
 				DAF480EC247C048000D165D2 /* LaunchScreen.storyboard */,
 				DAF480EF247C048000D165D2 /* Info.plist */,
@@ -290,7 +301,6 @@
 			files = (
 				DAF480EE247C048000D165D2 /* LaunchScreen.storyboard in Resources */,
 				DAF480EB247C048000D165D2 /* Assets.xcassets in Resources */,
-				DAF480E9247C047E00D165D2 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,7 +392,9 @@
 				DAF480E2247C047E00D165D2 /* AppDelegate.swift in Sources */,
 				DAA4A12A247C229000426E2F /* ContactsProvider.swift in Sources */,
 				DAF48105247C069D00D165D2 /* GravatarAPI.swift in Sources */,
+				DA899A1D247D5309006F084D /* ArrayUtils.swift in Sources */,
 				DAF480E4247C047E00D165D2 /* SceneDelegate.swift in Sources */,
+				DA899A1B247D3FC5006F084D /* ImageUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,14 +420,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		DAF480E7247C047E00D165D2 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DAF480E8247C047E00D165D2 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		DAF480EC247C048000D165D2 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

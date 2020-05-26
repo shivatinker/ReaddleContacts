@@ -31,7 +31,7 @@ public struct GravatarRequest {
     public let defaultAvatar: DefaultAvatar = .identicon
 
 
-    public init(email: String, size: Int = 200) {
+    public init(email: String, size: Int = 50) {
         self.email = email
         self.size = size
     }

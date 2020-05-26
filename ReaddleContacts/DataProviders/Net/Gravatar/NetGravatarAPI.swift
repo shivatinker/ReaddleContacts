@@ -40,23 +40,32 @@ public class NetGravatarAPI: GravatarAPI {
         return md5Hex
     }
 
+    private let delay: TimeInterval
+    public init(simulatedDelay: TimeInterval = 0) {
+        delay = simulatedDelay
+    }
+
     public func getAvatarImage(_ params: GravatarRequest, callback: @escaping GravatarCallback) {
-        // Create email hash according to https://ru.gravatar.com/site/implement/images/
-        guard let data = params.email.trimmingCharacters(in: [" "]).lowercased().data(using: .utf8) else {
-            callback(.failure(error: .unknown("Failed to convert email to data")))
-            return
-        }
-        let md5 = Self.MD5(messageData: data)
+        // Simulate delay for testing
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + delay) {
+            // Create email hash according to https://ru.gravatar.com/site/implement/images/
+            guard let data = params.email.trimmingCharacters(in: [" "]).lowercased().data(using: .utf8) else {
+                callback(.failure(error: .unknown("Failed to convert email to data")))
+                return
+            }
+            let md5 = Self.MD5(messageData: data)
 
-        let params: Parameters = [
-            "s": params.size,
-            "d": params.defaultAvatar.queryString,
-        ]
+            let params: Parameters = [
+                "s": params.size,
+                "d": params.defaultAvatar.queryString,
+            ]
 
-        AF.request(Self.API_URL.appendingPathComponent(md5), parameters: params).responseImage { (response) in
-            switch response.result {
-            case .failure(let failure): callback(.failure(error: NetError.fromAFError(failure)))
-            case .success(let image): callback(.success(result: image))
+            AF.request(Self.API_URL.appendingPathComponent(md5), parameters: params).responseImage { (response) in
+                switch response.result {
+                case .failure(let failure): callback(.failure(error: NetError.fromAFError(failure)))
+                case .success(let image):
+                    callback(.success(result: image))
+                }
             }
         }
     }

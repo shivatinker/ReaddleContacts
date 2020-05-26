@@ -14,6 +14,19 @@ public class MockContactsProvider {
     private var contacts = Contacts()
     private var nextID = 0
 
+    public convenience init() {
+        var c: [Contact] = [
+            Contact(firstName: "Andrii", email: "zinoviev@stud.onu.edu.ua"),
+            Contact(firstName: "Inna", email: "lytvynenko@stud.onu.edu.ua"),
+        ].repeated(count: 20)
+
+        for i in 0...40 {
+            c.append(Contact(firstName: "Stranger", email: "\(i)@gmail.com"))
+        }
+        
+        self.init(contacts: c)
+    }
+
     public init(contacts: [Contact]) {
         contacts.forEach({
             self.contacts[nextID] = $0
