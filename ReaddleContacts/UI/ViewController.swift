@@ -12,38 +12,27 @@ class ContactTableCell: UITableViewCell {
 
     public static let AVATAR_SIZE = 50
 
-    internal var avatarView: UIImageView!
+    internal var avatarView: AvatarView!
     private var nameLabel: UILabel!
-    private var onlineView: UIImageView!
 
     private var data: ContactViewData!
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        avatarView.image = UIImage(systemName: "circle.fill")
+        avatarView.setImage(nil)
+        avatarView.setOnline(false)
     }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        avatarView = UIImageView(image: UIImage(systemName: "circle.fill"))
-        avatarView.translatesAutoresizingMaskIntoConstraints = false
-        avatarView.layer.masksToBounds = true
-        avatarView.tintColor = .gray
-        addSubview(avatarView)
-
         nameLabel = UILabel()
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(nameLabel)
 
-        let onlineImage: UIImage? = UIImage(systemName: "circle.fill")
-        onlineView = UIImageView(image: onlineImage)
-        onlineView.translatesAutoresizingMaskIntoConstraints = false
-        onlineView.tintColor = .green
-        onlineView.layer.masksToBounds = true
-        onlineView.layer.borderWidth = 1
-        onlineView.layer.borderColor = UIColor.systemBackground.cgColor
-        addSubview(onlineView)
+        avatarView = AvatarView()
+        avatarView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(avatarView)
 
         NSLayoutConstraint.activate([
             // Label constraints
@@ -51,39 +40,24 @@ class ContactTableCell: UITableViewCell {
             nameLabel.leftAnchor.constraint(equalTo: avatarView.rightAnchor, constant: 5),
             nameLabel.heightAnchor.constraint(equalToConstant: 40),
             // Avatar constraints
-            avatarView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 5),
+            avatarView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor),
             avatarView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 5),
             avatarView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -5),
             avatarView.widthAnchor.constraint(equalTo: avatarView.heightAnchor),
-            // Online circle constraints
-            onlineView.bottomAnchor.constraint(equalTo: avatarView.bottomAnchor),
-            onlineView.widthAnchor.constraint(equalTo: onlineView.heightAnchor),
-            onlineView.heightAnchor.constraint(equalToConstant: 15),
-            onlineView.rightAnchor.constraint(equalTo: avatarView.rightAnchor),
         ])
-
-        onlineView.layer.cornerRadius = 7.5
     }
 
     public func setData(_ data: ContactViewData) {
         DispatchQueue.main.async {
             self.nameLabel.text = data.fullName
             self.data = data
-            self.onlineView.alpha = data.online ? 1.0 : 0.0
+            self.avatarView.setOnline(data.online, animated: true)
         }
     }
 
     public func setAvatar(_ avatar: UIImage?, animated: Bool = false) {
         DispatchQueue.main.async {
-            self.avatarView.image = avatar
-            self.avatarView.layer.cornerRadius = self.avatarView.frame.size.width / 2
-
-            if animated {
-                self.avatarView.alpha = 0.0
-                UIView.animate(withDuration: 0.5) {
-                    self.avatarView.alpha = 1.0
-                }
-            }
+            self.avatarView.setImage(avatar, animated: animated)
         }
     }
 

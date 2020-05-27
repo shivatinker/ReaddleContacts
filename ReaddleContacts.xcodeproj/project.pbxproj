@@ -29,6 +29,7 @@
 		DAF48105247C069D00D165D2 /* GravatarAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF48104247C069D00D165D2 /* GravatarAPI.swift */; };
 		DAF48108247C07D700D165D2 /* NetGravatarAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF48107247C07D700D165D2 /* NetGravatarAPI.swift */; };
 		DAF4810C247C0C9100D165D2 /* NetCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF4810B247C0C9100D165D2 /* NetCommon.swift */; };
+		DAF7E2E8247E9CD800FAC543 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF7E2E7247E9CD800FAC543 /* AvatarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		DAF48104247C069D00D165D2 /* GravatarAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GravatarAPI.swift; sourceTree = "<group>"; };
 		DAF48107247C07D700D165D2 /* NetGravatarAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetGravatarAPI.swift; sourceTree = "<group>"; };
 		DAF4810B247C0C9100D165D2 /* NetCommon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetCommon.swift; sourceTree = "<group>"; };
+		DAF7E2E7247E9CD800FAC543 /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,12 +177,12 @@
 		DAF480E0247C047E00D165D2 /* ReaddleContacts */ = {
 			isa = PBXGroup;
 			children = (
+				DAF7E2E6247E9CA800FAC543 /* UI */,
 				DA899A19247D3FBB006F084D /* Utils */,
 				DA899A0E247C3B05006F084D /* Presenters */,
 				DAA4A12E247C262F00426E2F /* DataProviders */,
 				DAF480E1247C047E00D165D2 /* AppDelegate.swift */,
 				DAF480E3247C047E00D165D2 /* SceneDelegate.swift */,
-				DAF480E5247C047E00D165D2 /* ViewController.swift */,
 				DAF480EA247C048000D165D2 /* Assets.xcassets */,
 				DAF480EC247C048000D165D2 /* LaunchScreen.storyboard */,
 				DAF480EF247C048000D165D2 /* Info.plist */,
@@ -216,6 +218,15 @@
 				DAF48107247C07D700D165D2 /* NetGravatarAPI.swift */,
 			);
 			path = Gravatar;
+			sourceTree = "<group>";
+		};
+		DAF7E2E6247E9CA800FAC543 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				DAF480E5247C047E00D165D2 /* ViewController.swift */,
+				DAF7E2E7247E9CD800FAC543 /* AvatarView.swift */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -398,6 +409,7 @@
 				DAF48105247C069D00D165D2 /* GravatarAPI.swift in Sources */,
 				DA899A1D247D5309006F084D /* ArrayUtils.swift in Sources */,
 				DAF480E4247C047E00D165D2 /* SceneDelegate.swift in Sources */,
+				DAF7E2E8247E9CD800FAC543 /* AvatarView.swift in Sources */,
 				DA899A1B247D3FC5006F084D /* ImageUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
