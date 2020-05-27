@@ -1,5 +1,5 @@
 //
-//  ContactsTableView.swift
+//  ContactsCollectionView.swift
 //  ReaddleContacts
 //
 //  Created by Andrii Zinoviev on 27.05.2020.
@@ -9,11 +9,12 @@
 import Foundation
 import UIKit
 
-// MARK: Table cell
-/// Table cell, containing contact avatar, online status and full name
-fileprivate class ContactTableCell: UITableViewCell {
-    private var avatarView: AvatarView = AvatarView()
-    private var nameLabel: UILabel = UILabel()
+/// Actually in real project i'll place Table cell and Collection cell under common protocol, to avoid logic duplication
+
+// MARK: Collection cell
+/// Collection cell, containing
+fileprivate class ContactCollectionCell: UICollectionViewCell {
+    private var avatarView = AvatarView()
 
     private var data: ContactViewData?
 
@@ -22,42 +23,34 @@ fileprivate class ContactTableCell: UITableViewCell {
 
     static let reuseIdentifier = "default"
 
-    public override func prepareForReuse() {
+    override func prepareForReuse() {
         super.prepareForReuse()
 
         // Reset cell, so it won't contain wrong data
-        setData(nil)
         setAvatar(nil)
+        setData(nil)
         currentId = nil
     }
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
 
         // Setting up UI
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(nameLabel)
-
-        avatarView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(avatarView)
+        avatarView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            // Label constraints
-            nameLabel.centerYAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.centerYAnchor),
-            nameLabel.leftAnchor.constraint(equalTo: avatarView.rightAnchor, constant: 5),
-            // Avatar constraints
-            avatarView.leftAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leftAnchor),
+            avatarView.leftAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leftAnchor, constant: 5),
             avatarView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 5),
             avatarView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -5),
             avatarView.widthAnchor.constraint(equalTo: avatarView.heightAnchor),
         ])
     }
 
-    /// Sets contact information
+    /// Sets contact info
     fileprivate func setData(_ data: ContactViewData?, animated: Bool = false) {
         self.data = data
         DispatchQueue.main.async {
-            self.nameLabel.text = data?.fullName ?? ""
             self.avatarView.setOnline(data?.online ?? false, animated: animated)
         }
     }
@@ -74,20 +67,22 @@ fileprivate class ContactTableCell: UITableViewCell {
     }
 }
 
-// MARK: Table class
-/// UITableView, designated to represent contacts as list
-public class ContactsTableView: UITableView, ContactsView {
-    /// Constant row height
-    public static let rHeight = 50.0
+// MARK: Collection class
+/// UICollectionView, designated to represent contacts as grid
+public class ContactsCollectionView: UICollectionView, ContactsView {
     public weak var contactsDataSource: ContactsCollectionDataSource?
 
-    public override init(frame: CGRect, style: UITableView.Style) {
-        super.init(frame: frame, style: style)
-        register(ContactTableCell.self, forCellReuseIdentifier: ContactTableCell.reuseIdentifier)
+    public convenience init() {
+        // Initialize by default with flow layout
+        self.init(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
+    }
+
+    public override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+        super.init(frame: frame, collectionViewLayout: layout)
+        register(ContactCollectionCell.self, forCellWithReuseIdentifier: ContactCollectionCell.reuseIdentifier)
         delegate = self
         dataSource = self
         prefetchDataSource = self
-        rowHeight = CGFloat(Self.rHeight)
     }
 
     required init?(coder: NSCoder) {
@@ -96,14 +91,14 @@ public class ContactsTableView: UITableView, ContactsView {
 }
 
 // MARK: Extensions
-extension ContactsTableView: UITableViewDataSource {
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension ContactsCollectionView: UICollectionViewDataSource {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return contactsDataSource?.contactIds.count ?? 0
     }
 
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ContactTableCell.reuseIdentifier) as? ContactTableCell else {
-            fatalError("Expected `\(ContactTableCell.self)` type for reuseIdentifier \(ContactTableCell.reuseIdentifier).")
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = dequeueReusableCell(withReuseIdentifier: ContactCollectionCell.reuseIdentifier, for: indexPath) as? ContactCollectionCell else {
+            fatalError("Expected `\(ContactCollectionCell.self)` type for reuseIdentifier \(ContactCollectionCell.reuseIdentifier).")
         }
 
         if let ds = contactsDataSource {
@@ -135,19 +130,20 @@ extension ContactsTableView: UITableViewDataSource {
                 }
             }
         }
+
         return cell
     }
 }
 
-extension ContactsTableView: UITableViewDataSourcePrefetching {
-    public func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+extension ContactsCollectionView: UICollectionViewDataSourcePrefetching {
+    public func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         if let ds = contactsDataSource {
             // Request prefetching
             ds.prefetch(ids: indexPaths.map({ ds.contactIds[$0.row] }))
         }
     }
 
-    public func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+    public func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
         if let ds = contactsDataSource {
             // Request cache clearing
             ds.cancelPrefetching(ids: indexPaths.map({ ds.contactIds[$0.row] }))
@@ -155,8 +151,8 @@ extension ContactsTableView: UITableViewDataSourcePrefetching {
     }
 }
 
-extension ContactsTableView: UITableViewDelegate {
-    public func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+extension ContactsCollectionView: UICollectionViewDelegate {
+    public func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
         
     }
 }

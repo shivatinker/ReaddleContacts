@@ -25,7 +25,7 @@
 		DAD4370B247ED105005E8AAE /* ContactsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD4370A247ED105005E8AAE /* ContactsCollectionView.swift */; };
 		DAF480E2247C047E00D165D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF480E1247C047E00D165D2 /* AppDelegate.swift */; };
 		DAF480E4247C047E00D165D2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF480E3247C047E00D165D2 /* SceneDelegate.swift */; };
-		DAF480E6247C047E00D165D2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF480E5247C047E00D165D2 /* ViewController.swift */; };
+		DAF480E6247C047E00D165D2 /* AllContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF480E5247C047E00D165D2 /* AllContactsViewController.swift */; };
 		DAF480EB247C048000D165D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAF480EA247C048000D165D2 /* Assets.xcassets */; };
 		DAF480EE247C048000D165D2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAF480EC247C048000D165D2 /* LaunchScreen.storyboard */; };
 		DAF480F9247C048000D165D2 /* GravatarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF480F8247C048000D165D2 /* GravatarTests.swift */; };
@@ -69,7 +69,7 @@
 		DAF480DE247C047E00D165D2 /* ReaddleContacts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReaddleContacts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAF480E1247C047E00D165D2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DAF480E3247C047E00D165D2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		DAF480E5247C047E00D165D2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DAF480E5247C047E00D165D2 /* AllContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContactsViewController.swift; sourceTree = "<group>"; };
 		DAF480EA247C048000D165D2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DAF480ED247C048000D165D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DAF480EF247C048000D165D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -229,7 +229,7 @@
 		DAF7E2E6247E9CA800FAC543 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				DAF480E5247C047E00D165D2 /* ViewController.swift */,
+				DAF480E5247C047E00D165D2 /* AllContactsViewController.swift */,
 				DAF7E2E7247E9CD800FAC543 /* AvatarView.swift */,
 				DAD43706247EA9F0005E8AAE /* ContactsView.swift */,
 				DAD43708247EAEFA005E8AAE /* ContactsTableView.swift */,
@@ -412,7 +412,7 @@
 				DA899A14247C568E006F084D /* SingleContactViewPresenter.swift in Sources */,
 				DA899A10247C3B2C006F084D /* AllContactsPresener.swift in Sources */,
 				DAA4A132247C27E000426E2F /* MockContactsProvider.swift in Sources */,
-				DAF480E6247C047E00D165D2 /* ViewController.swift in Sources */,
+				DAF480E6247C047E00D165D2 /* AllContactsViewController.swift in Sources */,
 				DAF48108247C07D700D165D2 /* NetGravatarAPI.swift in Sources */,
 				DAD43707247EA9F0005E8AAE /* ContactsView.swift in Sources */,
 				DAF480E2247C047E00D165D2 /* AppDelegate.swift in Sources */,

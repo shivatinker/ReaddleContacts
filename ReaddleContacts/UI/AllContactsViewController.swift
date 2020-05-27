@@ -8,22 +8,28 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class AllContactsViewController: UIViewController {
+
+    private var presenter: AllContactsPresenter?
+    /// Contact IDs to display
+    private var ids: [Int]?
 
     // MARK: UI
     private var segmentedControl: UISegmentedControl!
-
     private var contactsPlaceholder: UIView!
-    private var contactsView: ContactsView?
     private var shuffleButton: UIButton!
     private var activityIndicator: UIActivityIndicatorView!
-    private var currentStyle: Style? = nil
 
-    private enum Style {
+    /// Current contacts display view, for now it can be table or collection
+    private var contactsView: ContactsView?
+
+    private enum ContactsStyle {
         case grid
         case list
     }
+    private var currentStyle: ContactsStyle? = nil
 
+    /// Removes old contacts view and replaces it so only on ContactView stays in memory
     private func setContactsView(_ v: ContactsView) {
         contactsView?.removeFromSuperview()
 
@@ -39,18 +45,19 @@ class ViewController: UIViewController {
         ])
 
         contactsView = v
+
+        // Request update from presenter
         presenter?.update()
     }
 
-    private func setStyle(_ style: Style) {
+    private func setContactsStyle(_ style: ContactsStyle) {
         if style == currentStyle {
             return
         }
 
         switch style {
         case .grid:
-            contactsView?.removeFromSuperview()
-            contactsView = nil
+            setContactsView(ContactsCollectionView())
         case .list:
             setContactsView(ContactsTableView())
         }
@@ -58,6 +65,7 @@ class ViewController: UIViewController {
 
     private func initUI() {
         // UI Init
+        view = UIView()
         view.backgroundColor = .systemBackground
 
         shuffleButton = UIButton(type: .system)
@@ -103,58 +111,61 @@ class ViewController: UIViewController {
         ])
     }
 
-    // MARK: Logic
-    private var presenter: AllContactsPresenter!
 
-    private var ids: [Int]?
 
+    // MARK:
     @objc public func simulateButtonClicked() {
 
     }
 
     @objc public func styleControlValueChanged() {
         switch segmentedControl.selectedSegmentIndex {
-        case 0: setStyle(.list)
-        case 1: setStyle(.grid)
+        case 0: setContactsStyle(.list)
+        case 1: setContactsStyle(.grid)
         default: break
         }
     }
 
     override func loadView() {
-        view = UIView()
-
         initUI()
 
-        let context = DataContext(contact: MockContactsProvider(), gravatar: NetGravatarAPI(simulatedDelay: 0.5))
+        let context = DataContext(
+            contact: MockContactsProvider(),
+            gravatar: NetGravatarAPI(simulatedDelay: 0.5))
         presenter = AllContactsPresenter(context: context, view: self, errorHandler: nil)
 
-        setStyle(.list)
+        setContactsStyle(.list)
     }
 }
 
-extension ViewController: ContactsCollectionDataSource {
+// This extension binds collection views data requests to view's presenter
+extension AllContactsViewController: ContactsCollectionDataSource {
     var contactIds: [Int] {
         return ids ?? []
     }
 
     func getContactInfo(id: Int, callback: @escaping (ContactViewData?, Bool) -> ()) {
-        presenter.getContactInfo(id: id, callback: callback)
+        presenter?.getContactInfo(id: id, callback: callback) ?? callback(nil, false)
     }
 
-    func getAvatar(id: Int, callback: @escaping (UIImage?, Bool) -> ()) {
-        presenter.getAvatar(for: id, callback: callback)
+    func getAvatarImage(id: Int, callback: @escaping (UIImage?, Bool) -> ()) {
+        presenter?.getAvatar(for: id, callback: callback) ?? callback(nil, false)
     }
 
     func prefetch(ids: [Int]) {
-        ids.forEach({ self.presenter.prefetch(id: $0) })
+        if let presenter = presenter {
+            ids.forEach({ presenter.prefetch(id: $0) })
+        }
     }
 
     func cancelPrefetching(ids: [Int]) {
-        ids.forEach({ self.presenter.free(id: $0) })
+        if let presenter = presenter {
+            ids.forEach({ presenter.free(id: $0) })
+        }
     }
 }
 
-extension ViewController: AllContactsPresenterDelegate {
+extension AllContactsViewController: AllContactsPresenterDelegate {
     func setData(_ data: AllContactsViewData) {
         ids = data.contactsIds
         DispatchQueue.main.async {
