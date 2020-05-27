@@ -44,11 +44,11 @@ class ContactTableCell: UITableViewCell {
         ])
     }
 
-    public func setData(_ data: ContactViewData) {
+    public func setData(_ data: ContactViewData, animated: Bool = false) {
         DispatchQueue.main.async {
             self.nameLabel.text = data.fullName
             self.data = data
-            self.avatarView.setOnline(data.online, animated: true)
+            self.avatarView.setOnline(data.online, animated: animated)
         }
     }
 
@@ -105,9 +105,9 @@ class ContactsDataSource: NSObject {
         }
     }
 
-    private func setInfoForId(_ tableView: UITableView, id: Int, data: ContactViewData) {
+    private func setInfoForId(_ tableView: UITableView, id: Int, data: ContactViewData, animated: Bool = false) {
         DispatchQueue.main.async {
-            self.getCellWithID(tableView, id)?.setData(data)
+            self.getCellWithID(tableView, id)?.setData(data, animated: animated)
         }
     }
 }
@@ -123,7 +123,7 @@ extension ContactsDataSource: UITableViewDataSourcePrefetching, UITableViewDataS
 
         contactCache.get(id) { (data, loaded) in
             if let data = data {
-                self.setInfoForId(tableView, id: id, data: data)
+                self.setInfoForId(tableView, id: id, data: data, animated: loaded)
             }
         }
 
