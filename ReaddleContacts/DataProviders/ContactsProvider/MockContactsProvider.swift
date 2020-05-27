@@ -17,13 +17,20 @@ public class MockContactsProvider {
     public convenience init() {
         var c: [Contact] = [
             Contact(firstName: "Andrii", email: "zinoviev@stud.onu.edu.ua"),
-            Contact(firstName: "Inna", email: "lytvynenko@stud.onu.edu.ua"),
-        ].repeated(count: 20)
+        ]
 
-        for i in 0...40 {
+        for i in 0...400 {
             c.append(Contact(firstName: "Stranger", email: "\(i)@gmail.com"))
         }
-        
+
+        self.init(contacts: c)
+    }
+
+    public convenience init(randomCount: Int) {
+        var c = [Contact]()
+        for i in 0..<randomCount {
+            c.append(Contact(firstName: "Stranger", email: "\(i)@gmail.com"))
+        }
         self.init(contacts: c)
     }
 

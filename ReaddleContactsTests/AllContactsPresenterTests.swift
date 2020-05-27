@@ -59,7 +59,7 @@ class AllContactsPresenterTests: XCTestCase {
     private var view: TestView!
 
     override func setUp() {
-        let contacts = MockContactsProvider()
+        let contacts = MockContactsProvider(randomCount: 10)
         let gravatar = NetGravatarAPI()
 
         view = TestView(expectation: expectation(description: "Load contacts"))
@@ -71,7 +71,7 @@ class AllContactsPresenterTests: XCTestCase {
 
     func testPresenter() {
         view.presenter?.update()
-        waitForExpectations(timeout: 5, handler: nil)
+        waitForExpectations(timeout: 10, handler: nil)
 
         if let data = view.contacts {
             XCTAssert(data.contacts.allSatisfy({ self.view.avatars[$0.id] != nil }))

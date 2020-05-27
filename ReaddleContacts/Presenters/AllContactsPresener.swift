@@ -13,6 +13,7 @@ public struct ContactViewData {
     public let id: Int
     public let fullName: String
     public let email: String?
+    public let online: Bool
 }
 
 public struct AllContactsViewData {
@@ -41,35 +42,45 @@ public class AllContactsPresenter {
         self.errorHandler = errorHandler
     }
 
-    public func loadAvatar(for id: Int, size: Int, callback: @escaping (UIImage) -> ()) {
+    public func loadAvatar(for id: Int, size: Int, callback: @escaping (UIImage?) -> ()) {
         context.contact.getContact(id: id) { (res) in
             if let contact = res.unwrap(errorHandler: self.errorHandler),
                 let email = contact.email {
                 let request = GravatarRequest(email: email, size: size)
                 self.context.gravatar.getAvatarImage(request) { (res) in
-                    if let image = res.unwrap(errorHandler: self.errorHandler) {
-                        callback(image)
-                    }
+                    callback(res.unwrap(errorHandler: self.errorHandler))
                 }
+            } else {
+                callback(nil)
             }
         }
     }
 
-    public func loadContact(id: Int, callback: @escaping (ContactViewData) -> ()) {
+    // TODO: Parallel load
+    public func loadContact(id: Int, callback: @escaping (ContactViewData?) -> ()) {
         context.contact.getContact(id: id) { (res) in
             if let contact = res.unwrap(errorHandler: self.errorHandler) {
-                callback(ContactViewData(
-                    id: id, fullName: contact.fullName, email: contact.email))
+                self.context.contact.isOnline(id: id) { (res) in
+                    callback(ContactViewData(
+                        id: id,
+                        fullName: contact.fullName,
+                        email: contact.email,
+                        online: res.unwrap(errorHandler: self.errorHandler) ?? false))
+                }
+            } else {
+                callback(nil)
             }
         }
     }
 
-    public func loadContactIDs(callback: @escaping ([Int]) -> ()) {
+    public func loadContactIDs(callback: @escaping ([Int]?) -> ()) {
         context.contact.getAllContacts { (res) in
             if let contacts = res.unwrap(errorHandler: self.errorHandler) {
                 callback(contacts.sorted(by: { (e1, e2) -> Bool in
                     e1.1.fullName < e2.1.fullName
                 }).map({ $0.0 }))
+            } else {
+                callback(nil)
             }
         }
     }

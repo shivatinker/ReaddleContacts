@@ -17,9 +17,6 @@ class ContactTableCell: UITableViewCell {
     private var onlineView: UIImageView!
 
     private var data: ContactViewData!
-    public var currentID: Int? {
-        data?.id
-    }
 
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -45,7 +42,7 @@ class ContactTableCell: UITableViewCell {
         onlineView.tintColor = .green
         onlineView.layer.masksToBounds = true
         onlineView.layer.borderWidth = 1
-        onlineView.layer.borderColor = UIColor.white.cgColor
+        onlineView.layer.borderColor = UIColor.systemBackground.cgColor
         addSubview(onlineView)
 
         NSLayoutConstraint.activate([
@@ -72,6 +69,7 @@ class ContactTableCell: UITableViewCell {
         DispatchQueue.main.async {
             self.nameLabel.text = data.fullName
             self.data = data
+            self.onlineView.alpha = data.online ? 1.0 : 0.0
         }
     }
 
@@ -96,44 +94,50 @@ class ContactTableCell: UITableViewCell {
 
 class ContactsDataSource: NSObject {
     private var ids = [Int]()
-    private var contactCache = [Int: ContactViewData]()
-    private var avatarCache = [Int: UIImage]()
-
     private var presenter: AllContactsPresenter
 
-    private func loadAvatarForId(_ id: Int, callback: ((UIImage, Bool) -> ())? = nil) {
-        if let image = avatarCache[id] {
-            callback?(image, false)
-        } else {
-            presenter.loadAvatar(for: id, size: ContactTableCell.AVATAR_SIZE) { (image) in
-                self.avatarCache[id] = image
-                callback?(image, true)
-            }
-        }
-    }
-
-    private func loadInfoForId(_ id: Int, callback: ((ContactViewData, Bool) -> ())? = nil) {
-        if let data = contactCache[id] {
-            callback?(data, false)
-        } else {
-            presenter.loadContact(id: id) { (data) in
-                self.contactCache[id] = data
-                callback?(data, true)
-            }
-        }
-    }
+    private var contactCache: CachedStorage<Int, ContactViewData>
+    private var avatarCache: CachedStorage<Int, UIImage>
 
     public func update() {
-        presenter.loadContactIDs(callback: { self.ids = $0 })
+        presenter.loadContactIDs { ids in
+            if let ids = ids {
+                self.ids = ids
+            }
+        }
+    }
+
+    public func clearAvatars() {
+        avatarCache.removeAll()
     }
 
     public init(presenter: AllContactsPresenter) {
         self.presenter = presenter
+
+        contactCache = CachedStorage() { key, callback in
+            presenter.loadContact(id: key) { callback($0) }
+        }
+
+        avatarCache = CachedStorage() { key, callback in
+            presenter.loadAvatar(for: key, size: ContactTableCell.AVATAR_SIZE) { callback($0) }
+        }
     }
 
     private func getCellWithID(_ tableView: UITableView, _ id: Int) -> ContactTableCell? {
         guard let row = ids.firstIndex(of: id) else { return nil }
         return tableView.cellForRow(at: IndexPath(row: row, section: 0)) as? ContactTableCell
+    }
+
+    private func setAvatarForId(_ tableView: UITableView, id: Int, avatar: UIImage?, animated: Bool = false) {
+        DispatchQueue.main.async {
+            self.getCellWithID(tableView, id)?.setAvatar(avatar, animated: animated)
+        }
+    }
+
+    private func setInfoForId(_ tableView: UITableView, id: Int, data: ContactViewData) {
+        DispatchQueue.main.async {
+            self.getCellWithID(tableView, id)?.setData(data)
+        }
     }
 }
 
@@ -143,19 +147,17 @@ extension ContactsDataSource: UITableViewDataSourcePrefetching, UITableViewDataS
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        debugPrint("rowat \(indexPath.row)")
         let id = ids[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "default") as! ContactTableCell
 
-        loadInfoForId(id) { data, loaded in
-            DispatchQueue.main.async {
-                self.getCellWithID(tableView, id)?.setData(data)
+        contactCache.get(id) { (data, loaded) in
+            if let data = data {
+                self.setInfoForId(tableView, id: id, data: data)
             }
         }
-        loadAvatarForId(id) { image, loaded in
-            DispatchQueue.main.async {
-                self.getCellWithID(tableView, id)?.setAvatar(image, animated: loaded)
-            }
+
+        avatarCache.get(id) { (image, loaded) in
+            self.setAvatarForId(tableView, id: id, avatar: image, animated: loaded)
         }
 
         return cell
@@ -163,15 +165,16 @@ extension ContactsDataSource: UITableViewDataSourcePrefetching, UITableViewDataS
 
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         indexPaths.map({ ids[$0.row] }).forEach { (id) in
-            loadInfoForId(id)
-            loadAvatarForId(id)
+            contactCache.load(id)
+            avatarCache.load(id)
         }
     }
 
     func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+        debugPrint("cancel \(indexPaths.map({ $0.row }))")
         indexPaths.map({ ids[$0.row] }).forEach { (id) in
-            self.contactCache[id] = nil
-            self.avatarCache[id] = nil
+            contactCache.remove(id)
+            avatarCache.remove(id)
         }
     }
 }
@@ -185,9 +188,13 @@ class ViewController: UIViewController {
     private var contactsDataSource: ContactsDataSource!
     private var presenter: AllContactsPresenter!
 
+    @objc public func simulateButtonClicked() {
+        contactsDataSource.clearAvatars()
+    }
+
     override func loadView() {
         view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
 
         let context = DataContext(contact: MockContactsProvider(), gravatar: NetGravatarAPI(simulatedDelay: 0.5))
         presenter = AllContactsPresenter(context: context, view: self, errorHandler: nil)
@@ -196,6 +203,7 @@ class ViewController: UIViewController {
         shuffleButton = UIButton(type: .system)
         shuffleButton.translatesAutoresizingMaskIntoConstraints = false
         shuffleButton.setTitle("Simulate changes", for: .normal)
+        shuffleButton.addTarget(self, action: #selector(simulateButtonClicked), for: .touchUpInside)
         view.addSubview(shuffleButton)
 
         segmentedControl = UISegmentedControl(items: ["List", "Grid"])
@@ -235,10 +243,6 @@ class ViewController: UIViewController {
 
 extension ViewController: AllContactsView {
     func setData(_ data: AllContactsViewData) {
-
-    }
-
-    func setOnline(id: Int, _ online: Bool) {
 
     }
 
