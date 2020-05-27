@@ -15,6 +15,7 @@
 		DA899A18247C5B3D006F084D /* SingleContactPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA899A17247C5B3D006F084D /* SingleContactPresenterTests.swift */; };
 		DA899A1B247D3FC5006F084D /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA899A1A247D3FC5006F084D /* ImageUtils.swift */; };
 		DA899A1D247D5309006F084D /* ArrayUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA899A1C247D5309006F084D /* ArrayUtils.swift */; };
+		DA899A1F247DE442006F084D /* CachedStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA899A1E247DE442006F084D /* CachedStorage.swift */; };
 		DAA4A12A247C229000426E2F /* ContactsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4A129247C229000426E2F /* ContactsProvider.swift */; };
 		DAA4A12C247C240400426E2F /* ContactProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4A12B247C240400426E2F /* ContactProviderTests.swift */; };
 		DAA4A130247C264500426E2F /* DataProviderCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4A12F247C264500426E2F /* DataProviderCommon.swift */; };
@@ -53,6 +54,7 @@
 		DA899A17247C5B3D006F084D /* SingleContactPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleContactPresenterTests.swift; sourceTree = "<group>"; };
 		DA899A1A247D3FC5006F084D /* ImageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
 		DA899A1C247D5309006F084D /* ArrayUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayUtils.swift; sourceTree = "<group>"; };
+		DA899A1E247DE442006F084D /* CachedStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedStorage.swift; sourceTree = "<group>"; };
 		DAA4A129247C229000426E2F /* ContactsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsProvider.swift; sourceTree = "<group>"; };
 		DAA4A12B247C240400426E2F /* ContactProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactProviderTests.swift; sourceTree = "<group>"; };
 		DAA4A12F247C264500426E2F /* DataProviderCommon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProviderCommon.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 			children = (
 				DA899A1A247D3FC5006F084D /* ImageUtils.swift */,
 				DA899A1C247D5309006F084D /* ArrayUtils.swift */,
+				DA899A1E247DE442006F084D /* CachedStorage.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 				DAF48108247C07D700D165D2 /* NetGravatarAPI.swift in Sources */,
 				DAF480E2247C047E00D165D2 /* AppDelegate.swift in Sources */,
 				DAA4A12A247C229000426E2F /* ContactsProvider.swift in Sources */,
+				DA899A1F247DE442006F084D /* CachedStorage.swift in Sources */,
 				DAF48105247C069D00D165D2 /* GravatarAPI.swift in Sources */,
 				DA899A1D247D5309006F084D /* ArrayUtils.swift in Sources */,
 				DAF480E4247C047E00D165D2 /* SceneDelegate.swift in Sources */,

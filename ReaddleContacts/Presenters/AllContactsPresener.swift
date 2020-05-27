@@ -21,8 +21,6 @@ public struct AllContactsViewData {
 
 public protocol AllContactsView: AnyObject {
     func setData(_ data: AllContactsViewData)
-    func setAvatar(id: Int, _ avatar: UIImage)
-    func setOnline(id: Int, _ online: Bool)
     func startLoading()
     func stopLoading()
 }
@@ -35,58 +33,6 @@ public class AllContactsPresenter {
     private weak var view: AllContactsView?
     private let errorHandler: ErrorHandler?
 
-    private let loadingGroup = DispatchGroup()
-
-    private let loadingSemaphore = DispatchSemaphore(value: MAX_LOADINGS_ALLOWED)
-    private let loadingQueue = DispatchQueue(label: "Loading contacts", qos: .userInitiated)
-    private func setAvatarsAsync(_ contacts: Contacts) {
-        if let view = self.view {
-            contacts.forEach { (k, v) in
-                if let email = v.email {
-                    self.loadingGroup.enter()
-                    loadingQueue.async {
-                        self.loadingSemaphore.wait()
-                        self.context.gravatar.getAvatarImage(GravatarRequest(email: email)) { (res) in
-                            if let image = res.unwrap(errorHandler: self.errorHandler) {
-                                view.setAvatar(id: k, image)
-                            }
-                            self.loadingSemaphore.signal()
-                            self.loadingGroup.leave()
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private func setOnlineStatusesAsync(_ contacts: Contacts) {
-        if let view = self.view {
-            contacts.forEach { (k, v) in
-                self.loadingGroup.enter()
-                loadingQueue.async {
-                    self.loadingSemaphore.wait()
-                    self.context.contact.isOnline(id: k) { (res) in
-                        view.setOnline(id: k, res.unwrap(errorHandler: self.errorHandler) ?? false)
-                        self.loadingSemaphore.signal()
-                        self.loadingGroup.leave()
-                    }
-                }
-            }
-        }
-    }
-
-    private func setContacts(_ contacts: Contacts) {
-        if let view = view {
-            view.setData(AllContactsViewData(
-                contacts: contacts.map { (k, v) in
-                    ContactViewData(
-                        id: k,
-                        fullName: v.fullName,
-                        email: v.email) }
-            ))
-        }
-    }
-
     // MARK: Public API
 
     public init(context: DataContext, view: AllContactsView, errorHandler: ErrorHandler? = nil) {
@@ -95,19 +41,40 @@ public class AllContactsPresenter {
         self.errorHandler = errorHandler
     }
 
-    public func update() {
-        view?.startLoading()
-        context.contact.getAllContacts { (res) in
-            if let contacts = res.unwrap(errorHandler: self.errorHandler) {
-                self.setContacts(contacts)
-                self.setAvatarsAsync(contacts)
-                self.setOnlineStatusesAsync(contacts)
-
-            }
-
-            self.loadingGroup.notify(queue: self.loadingQueue) {
-                self.view?.stopLoading()
+    public func loadAvatar(for id: Int, size: Int, callback: @escaping (UIImage) -> ()) {
+        context.contact.getContact(id: id) { (res) in
+            if let contact = res.unwrap(errorHandler: self.errorHandler),
+                let email = contact.email {
+                let request = GravatarRequest(email: email, size: size)
+                self.context.gravatar.getAvatarImage(request) { (res) in
+                    if let image = res.unwrap(errorHandler: self.errorHandler) {
+                        callback(image)
+                    }
+                }
             }
         }
+    }
+
+    public func loadContact(id: Int, callback: @escaping (ContactViewData) -> ()) {
+        context.contact.getContact(id: id) { (res) in
+            if let contact = res.unwrap(errorHandler: self.errorHandler) {
+                callback(ContactViewData(
+                    id: id, fullName: contact.fullName, email: contact.email))
+            }
+        }
+    }
+
+    public func loadContactIDs(callback: @escaping ([Int]) -> ()) {
+        context.contact.getAllContacts { (res) in
+            if let contacts = res.unwrap(errorHandler: self.errorHandler) {
+                callback(contacts.sorted(by: { (e1, e2) -> Bool in
+                    e1.1.fullName < e2.1.fullName
+                }).map({ $0.0 }))
+            }
+        }
+    }
+
+    public func update() {
+
     }
 }

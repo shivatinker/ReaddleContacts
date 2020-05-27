@@ -10,13 +10,20 @@ import UIKit
 
 class ContactTableCell: UITableViewCell {
 
-    private var avatarView: UIImageView!
+    public static let AVATAR_SIZE = 50
+
+    internal var avatarView: UIImageView!
     private var nameLabel: UILabel!
     private var onlineView: UIImageView!
 
     private var data: ContactViewData!
-    public var currentID: Int {
-        data.id
+    public var currentID: Int? {
+        data?.id
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        avatarView.image = UIImage(systemName: "circle.fill")
     }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -25,6 +32,7 @@ class ContactTableCell: UITableViewCell {
         avatarView = UIImageView(image: UIImage(systemName: "circle.fill"))
         avatarView.translatesAutoresizingMaskIntoConstraints = false
         avatarView.layer.masksToBounds = true
+        avatarView.tintColor = .gray
         addSubview(avatarView)
 
         nameLabel = UILabel()
@@ -61,18 +69,22 @@ class ContactTableCell: UITableViewCell {
     }
 
     public func setData(_ data: ContactViewData) {
-        nameLabel.text = data.fullName
-        self.data = data
+        DispatchQueue.main.async {
+            self.nameLabel.text = data.fullName
+            self.data = data
+        }
     }
 
     public func setAvatar(_ avatar: UIImage?, animated: Bool = false) {
-        avatarView.image = avatar
-        avatarView.layer.cornerRadius = avatarView.frame.size.width / 2
+        DispatchQueue.main.async {
+            self.avatarView.image = avatar
+            self.avatarView.layer.cornerRadius = self.avatarView.frame.size.width / 2
 
-        if animated {
-            avatarView.alpha = 0.0
-            UIView.animate(withDuration: 0.5) {
-                self.avatarView.alpha = 1.0
+            if animated {
+                self.avatarView.alpha = 0.0
+                UIView.animate(withDuration: 0.5) {
+                    self.avatarView.alpha = 1.0
+                }
             }
         }
     }
@@ -83,21 +95,84 @@ class ContactTableCell: UITableViewCell {
 }
 
 class ContactsDataSource: NSObject {
-    public var contacts = [ContactViewData]()
-    public var avatars = [Int: UIImage]()
+    private var ids = [Int]()
+    private var contactCache = [Int: ContactViewData]()
+    private var avatarCache = [Int: UIImage]()
+
+    private var presenter: AllContactsPresenter
+
+    private func loadAvatarForId(_ id: Int, callback: ((UIImage, Bool) -> ())? = nil) {
+        if let image = avatarCache[id] {
+            callback?(image, false)
+        } else {
+            presenter.loadAvatar(for: id, size: ContactTableCell.AVATAR_SIZE) { (image) in
+                self.avatarCache[id] = image
+                callback?(image, true)
+            }
+        }
+    }
+
+    private func loadInfoForId(_ id: Int, callback: ((ContactViewData, Bool) -> ())? = nil) {
+        if let data = contactCache[id] {
+            callback?(data, false)
+        } else {
+            presenter.loadContact(id: id) { (data) in
+                self.contactCache[id] = data
+                callback?(data, true)
+            }
+        }
+    }
+
+    public func update() {
+        presenter.loadContactIDs(callback: { self.ids = $0 })
+    }
+
+    public init(presenter: AllContactsPresenter) {
+        self.presenter = presenter
+    }
+
+    private func getCellWithID(_ tableView: UITableView, _ id: Int) -> ContactTableCell? {
+        guard let row = ids.firstIndex(of: id) else { return nil }
+        return tableView.cellForRow(at: IndexPath(row: row, section: 0)) as? ContactTableCell
+    }
 }
 
-extension ContactsDataSource: UITableViewDataSource {
+extension ContactsDataSource: UITableViewDataSourcePrefetching, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return contacts.count
+        return ids.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let i = indexPath.row
+        debugPrint("rowat \(indexPath.row)")
+        let id = ids[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "default") as! ContactTableCell
-        cell.setData(contacts[i])
-        cell.setAvatar(avatars[contacts[i].id])
+
+        loadInfoForId(id) { data, loaded in
+            DispatchQueue.main.async {
+                self.getCellWithID(tableView, id)?.setData(data)
+            }
+        }
+        loadAvatarForId(id) { image, loaded in
+            DispatchQueue.main.async {
+                self.getCellWithID(tableView, id)?.setAvatar(image, animated: loaded)
+            }
+        }
+
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        indexPaths.map({ ids[$0.row] }).forEach { (id) in
+            loadInfoForId(id)
+            loadAvatarForId(id)
+        }
+    }
+
+    func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+        indexPaths.map({ ids[$0.row] }).forEach { (id) in
+            self.contactCache[id] = nil
+            self.avatarCache[id] = nil
+        }
     }
 }
 
@@ -107,12 +182,16 @@ class ViewController: UIViewController {
     private var tableView: UITableView!
     private var shuffleButton: UIButton!
 
-    private let contactsDataSource = ContactsDataSource()
+    private var contactsDataSource: ContactsDataSource!
     private var presenter: AllContactsPresenter!
 
     override func loadView() {
         view = UIView()
         view.backgroundColor = .white
+
+        let context = DataContext(contact: MockContactsProvider(), gravatar: NetGravatarAPI(simulatedDelay: 0.5))
+        presenter = AllContactsPresenter(context: context, view: self, errorHandler: nil)
+        contactsDataSource = ContactsDataSource(presenter: presenter)
 
         shuffleButton = UIButton(type: .system)
         shuffleButton.translatesAutoresizingMaskIntoConstraints = false
@@ -127,6 +206,7 @@ class ViewController: UIViewController {
         tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = contactsDataSource
+        tableView.prefetchDataSource = contactsDataSource
         tableView.delegate = self
         tableView.register(ContactTableCell.self, forCellReuseIdentifier: "default")
         view.addSubview(tableView)
@@ -149,30 +229,13 @@ class ViewController: UIViewController {
             tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
         ])
 
-        let context = DataContext(contact: MockContactsProvider(), gravatar: NetGravatarAPI(simulatedDelay: 0.5))
-        presenter = AllContactsPresenter(context: context, view: self, errorHandler: nil)
-        presenter.update()
+        contactsDataSource.update()
     }
 }
 
 extension ViewController: AllContactsView {
     func setData(_ data: AllContactsViewData) {
-        DispatchQueue.main.async {
-            self.contactsDataSource.contacts = data.contacts
-            self.tableView.reloadData()
-        }
-    }
 
-    func setAvatar(id: Int, _ avatar: UIImage) {
-        DispatchQueue.main.async {
-            self.contactsDataSource.avatars[id] = avatar
-            for c in self.tableView.visibleCells {
-                if let c = c as? ContactTableCell,
-                    c.currentID == id {
-                    c.setAvatar(avatar, animated: true)
-                }
-            }
-        }
     }
 
     func setOnline(id: Int, _ online: Bool) {
