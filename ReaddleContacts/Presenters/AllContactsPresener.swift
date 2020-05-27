@@ -32,6 +32,7 @@ public class AllContactsPresenter {
     private weak var view: AllContactsView?
     private let errorHandler: ErrorHandler?
 
+    // MARK: Thread safe task counting
     private var currentTaskCount = 0
     private var taskCountQueue = DispatchQueue(label: "Counting current tasks")
     private var taskCountMutex = DispatchSemaphore(value: 1)

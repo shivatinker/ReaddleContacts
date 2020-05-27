@@ -155,6 +155,7 @@ class ViewController: UIViewController {
     private var segmentedControl: UISegmentedControl!
     private var tableView: UITableView!
     private var shuffleButton: UIButton!
+    private var activityIndicator: UIActivityIndicatorView!
 
     private var contactsDataSource: ContactsDataSource!
     private var presenter: AllContactsPresenter!
@@ -189,6 +190,10 @@ class ViewController: UIViewController {
         tableView.delegate = self
         tableView.register(ContactTableCell.self, forCellReuseIdentifier: "default")
         view.addSubview(tableView)
+        
+        activityIndicator = UIActivityIndicatorView(style: .medium)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(activityIndicator)
 
         NSLayoutConstraint.activate([
             // Button constraints
@@ -206,6 +211,9 @@ class ViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: shuffleButton.topAnchor, constant: 5),
             tableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            // Activity indicator constraints
+            activityIndicator.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -5),
+            activityIndicator.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5)
         ])
 
         contactsDataSource.update()
@@ -218,11 +226,15 @@ extension ViewController: AllContactsView {
     }
 
     func startLoading() {
-        print("Start loading")
+        DispatchQueue.main.async {
+            self.activityIndicator.startAnimating()
+        }
     }
 
     func stopLoading() {
-        print("Stop loading")
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+        }
     }
 }
 
