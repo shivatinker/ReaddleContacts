@@ -15,7 +15,7 @@ private class TestErrorHandler: ErrorHandler {
     }
 }
 
-private class TestView: AllContactsView {
+private class TestView: AllContactsPresenterDelegate {
     public var presenter: AllContactsPresenter?
     private let expectation: XCTestExpectation
 

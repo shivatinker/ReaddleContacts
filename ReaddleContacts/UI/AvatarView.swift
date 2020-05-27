@@ -67,6 +67,8 @@ class AvatarView: UIView {
             UIView.animate(withDuration: 0.3) {
                 self.onlineView.alpha = online ? 1.0 : 0.0
             }
+        } else {
+            self.onlineView.alpha = online ? 1.0 : 0.0
         }
     }
 
