@@ -9,9 +9,6 @@
 import UIKit
 
 class ContactTableCell: UITableViewCell {
-
-    public static let AVATAR_SIZE = 50
-
     internal var avatarView: AvatarView!
     private var nameLabel: UILabel!
 
@@ -93,7 +90,7 @@ class ContactsDataSource: NSObject {
         }
 
         avatarCache = CachedStorage() { key, callback in
-            presenter.loadAvatar(for: key, size: ContactTableCell.AVATAR_SIZE) { callback($0) }
+            presenter.loadAvatar(for: key) { callback($0) }
         }
     }
 
