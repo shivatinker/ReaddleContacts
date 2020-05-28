@@ -18,14 +18,13 @@ public protocol ContactsCollectionDataSource: AnyObject {
     /// - Parameters:
     ///   - id: Contact ID
     ///   - callback: second value will be false if data was already cached
-    func getContactInfo(id: Int, callback: @escaping (ContactViewData?, Bool) -> ())
+    func getContactInfo(id: Int, callback: @escaping (ContactViewData?, Bool) -> Void)
 
     /// Gets avatar image async
     /// - Parameters:
     ///   - id: Contact ID
     ///   - callback: second value will be false if image was already cached
-    func getAvatarImage(id: Int, callback: @escaping (UIImage?, Bool) -> ())
-
+    func getAvatarImage(id: Int, callback: @escaping (UIImage?, Bool) -> Void)
 
     /// Requests data prefetching for contacts
     /// - Parameter ids: Contacts ID's to prefetch

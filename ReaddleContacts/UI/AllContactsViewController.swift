@@ -27,7 +27,7 @@ class AllContactsViewController: UIViewController {
         case grid
         case list
     }
-    private var currentStyle: ContactsStyle? = nil
+    private var currentStyle: ContactsStyle?
 
     /// Removes old contacts view and replaces it so only on ContactView stays in memory
     private func setContactsView(_ v: ContactsView) {
@@ -41,7 +41,7 @@ class AllContactsViewController: UIViewController {
             v.topAnchor.constraint(equalTo: contactsPlaceholder.safeAreaLayoutGuide.topAnchor),
             v.bottomAnchor.constraint(equalTo: contactsPlaceholder.safeAreaLayoutGuide.bottomAnchor),
             v.leftAnchor.constraint(equalTo: contactsPlaceholder.safeAreaLayoutGuide.leftAnchor),
-            v.rightAnchor.constraint(equalTo: contactsPlaceholder.safeAreaLayoutGuide.rightAnchor),
+            v.rightAnchor.constraint(equalTo: contactsPlaceholder.safeAreaLayoutGuide.rightAnchor)
         ])
 
         contactsView = v
@@ -111,8 +111,6 @@ class AllContactsViewController: UIViewController {
         ])
     }
 
-
-
     // MARK: Input handlers
     @objc public func simulateButtonClicked() {
 
@@ -148,11 +146,11 @@ extension AllContactsViewController: ContactsCollectionDataSource {
         return ids ?? []
     }
 
-    func getContactInfo(id: Int, callback: @escaping (ContactViewData?, Bool) -> ()) {
+    func getContactInfo(id: Int, callback: @escaping (ContactViewData?, Bool) -> Void) {
         presenter?.getContactInfo(id: id, callback: callback) ?? callback(nil, false)
     }
 
-    func getAvatarImage(id: Int, callback: @escaping (UIImage?, Bool) -> ()) {
+    func getAvatarImage(id: Int, callback: @escaping (UIImage?, Bool) -> Void) {
         presenter?.getAvatar(for: id, callback: callback) ?? callback(nil, false)
     }
 

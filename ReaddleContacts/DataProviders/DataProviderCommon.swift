@@ -15,7 +15,7 @@ public protocol ErrorHandler {
 public enum ConditionalResult<T, E: Error> {
     case success(result: T)
     case failure(error: E)
-    
+
     /// Unwraps result
     /// If result is success returns unwrapped result object
     /// If result is failure passes an error to errorHandler and returns nil

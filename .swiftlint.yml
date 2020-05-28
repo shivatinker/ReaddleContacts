@@ -1,0 +1,8 @@
+warning_threshold: 15
+
+excluded:
+    - Pods
+    - ReaddleContactsTests
+
+disabled_rules:
+    - variable_name

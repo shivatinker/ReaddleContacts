@@ -11,7 +11,7 @@ import UIKit
 
 // MARK: Table cell
 /// Table cell, containing contact avatar, online status and full name
-fileprivate class ContactTableCell: UITableViewCell {
+private class ContactTableCell: UITableViewCell {
     private var avatarView: AvatarView = AvatarView()
     private var nameLabel: UILabel = UILabel()
 
@@ -49,7 +49,7 @@ fileprivate class ContactTableCell: UITableViewCell {
             avatarView.leftAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leftAnchor),
             avatarView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 5),
             avatarView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -5),
-            avatarView.widthAnchor.constraint(equalTo: avatarView.heightAnchor),
+            avatarView.widthAnchor.constraint(equalTo: avatarView.heightAnchor)
         ])
     }
 
@@ -102,8 +102,13 @@ extension ContactsTableView: UITableViewDataSource {
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ContactTableCell.reuseIdentifier) as? ContactTableCell else {
-            fatalError("Expected `\(ContactTableCell.self)` type for reuseIdentifier \(ContactTableCell.reuseIdentifier).")
+        guard let cell =
+            tableView.dequeueReusableCell(withIdentifier: ContactTableCell.reuseIdentifier) as? ContactTableCell else {
+                fatalError(
+                    """
+                    Expected `\(ContactTableCell.self)` type \
+                    for reuseIdentifier \(ContactTableCell.reuseIdentifier).
+                    """)
         }
 
         if let ds = contactsDataSource {

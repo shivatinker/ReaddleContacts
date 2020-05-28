@@ -10,8 +10,8 @@ import Foundation
 
 /// Storage that supports automatic caching objects from provider
 public class CachedStorage<I: Hashable, T> {
-    public typealias Provider = (I, @escaping ((T?) -> ())) -> ()
-    public typealias Callback = (T?, Bool) -> ()
+    public typealias Provider = (I, @escaping ((T?) -> Void)) -> Void
+    public typealias Callback = (T?, Bool) -> Void
 
     // MARK: Private members
     private var storage = [I: T]()
@@ -26,7 +26,8 @@ public class CachedStorage<I: Hashable, T> {
 
     // Loads item and executes callbacks
     private func load_(_ key: I) {
-        // If item is not loading, load it from provider and execute all pending callbacks, that ensures that item will be loaded only ONCE
+        // If item is not loading, load it from provider and execute all
+        // pending callbacks, that ensures that item will be loaded only ONCE
         if !(self.isLoading[key] ?? false) {
             self.isLoading[key] = true
 
@@ -74,7 +75,6 @@ public class CachedStorage<I: Hashable, T> {
             self.load_(key)
         }
     }
-
 
     private func remove_(_ key: I) {
         self.cachedIDs.removeAll(where: { $0 == key })

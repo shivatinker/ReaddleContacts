@@ -52,35 +52,35 @@ public typealias ContactID = Int
 /// Provides contacts data methods for async queries
 public protocol ContactsProvider {
     typealias ContactsResult<T> = ConditionalResult<T, ContactsProviderError>
-    typealias ContactsProviderCallback<T> = (ContactsResult<T>) -> ()
+    typealias ContactsProviderCallback<T> = (ContactsResult<T>) -> Void
 
     // Read queries
     var contactsCount: Int { get }
-    
+
     /// Returns all contacts
     /// - Parameter callback: callback
     func getAllContacts(callback: @escaping ContactsProviderCallback<Contacts>)
-    
+
     /// Gets contact by ID, returns error if no such contact
     /// - Parameters:
     ///   - id: Contact ID
     ///   - callback: Returns contact with specified ID
     func getContact(id: ContactID, callback: @escaping ContactsProviderCallback<Contact>)
-    
+
     /// Returns online status of contact, returns error if no such contact
     /// - Parameters:
     ///   - id: Contact ID
     ///   - callback: Returns bool value (is online)
     func isOnline(id: ContactID, callback: @escaping ContactsProviderCallback<Bool>)
-    
+
     // Modify queries
-    
+
     /// Adds contact and return added contact ID
     /// - Parameters:
     ///   - contact: Contact object to add
     ///   - callback: Returns ID of added contact
     func addContact(_ contact: Contact, callback: @escaping ContactsProviderCallback<ContactID>)
-    
+
     /// Removes contact with specified ID, returns error if no such contact
     /// - Parameters:
     ///   - id: Contact ID to remove

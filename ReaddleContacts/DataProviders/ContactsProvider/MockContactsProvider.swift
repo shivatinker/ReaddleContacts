@@ -16,7 +16,7 @@ public class MockContactsProvider {
 
     public convenience init() {
         var c: [Contact] = [
-            Contact(firstName: "Andrii", email: "zinoviev@stud.onu.edu.ua"),
+            Contact(firstName: "Andrii", email: "zinoviev@stud.onu.edu.ua")
         ]
 
         for i in 0...1000 {

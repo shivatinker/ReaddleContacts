@@ -52,7 +52,7 @@ public class AllContactsPresenter {
     private var currentTaskCount = 0
     private var taskCountQueue = DispatchQueue(label: "Counting current tasks")
     private var taskCountMutex = DispatchSemaphore(value: 1)
-    private func taskCountSynchronized(_ f: @escaping () -> ()) {
+    private func taskCountSynchronized(_ f: @escaping () -> Void) {
         taskCountQueue.async {
             self.taskCountMutex.wait()
             f()
@@ -78,7 +78,7 @@ public class AllContactsPresenter {
         }
     }
 
-    private func loadAvatar(for id: Int, callback: @escaping (UIImage?) -> ()) {
+    private func loadAvatar(for id: Int, callback: @escaping (UIImage?) -> Void) {
         addTask()
         context.contact.getContact(id: id) { (res) in
             if let contact = res.unwrap(errorHandler: self.errorHandler),
@@ -95,7 +95,7 @@ public class AllContactsPresenter {
         }
     }
 
-    private func loadContact(id: Int, callback: @escaping (ContactViewData?) -> ()) {
+    private func loadContact(id: Int, callback: @escaping (ContactViewData?) -> Void) {
         addTask()
         context.contact.getContact(id: id) { (res) in
             if let contact = res.unwrap(errorHandler: self.errorHandler) {
@@ -114,7 +114,7 @@ public class AllContactsPresenter {
         }
     }
 
-    private func loadContactIDs(callback: @escaping ([Int]?) -> ()) {
+    private func loadContactIDs(callback: @escaping ([Int]?) -> Void) {
         addTask()
         context.contact.getAllContacts { (res) in
             if let contacts = res.unwrap(errorHandler: self.errorHandler) {
@@ -140,17 +140,17 @@ public class AllContactsPresenter {
             self.loadAvatar(for: id) { callback($0) }
         }
 
-        contactCache = CachedStorage() { id, callback in
+        contactCache = CachedStorage { id, callback in
             self.loadContact(id: id) { callback($0) }
         }
 
     }
 
-    public func getContactInfo(id: Int, callback: @escaping (ContactViewData?, Bool) -> ()) {
+    public func getContactInfo(id: Int, callback: @escaping (ContactViewData?, Bool) -> Void) {
         contactCache?.get(id, callback) ?? callback(nil, false)
     }
 
-    public func getAvatar(for id: Int, callback: @escaping (UIImage?, Bool) -> ()) {
+    public func getAvatar(for id: Int, callback: @escaping (UIImage?, Bool) -> Void) {
         avatarCache?.get(id, callback) ?? callback(nil, false)
     }
 

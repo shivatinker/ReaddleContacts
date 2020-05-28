@@ -36,8 +36,7 @@ public extension UIImage {
             let renderFormat = UIGraphicsImageRendererFormat.default()
             renderFormat.opaque = opaque
             let renderer = UIGraphicsImageRenderer(size: CGSize(width: width, height: height), format: renderFormat)
-            newImage = renderer.image {
-                (context) in
+            newImage = renderer.image { (_) in
                 self.draw(in: CGRect(x: 0, y: 0, width: width, height: height))
             }
         } else {
@@ -65,9 +64,10 @@ public extension UIImage {
     var breadthRect: CGRect { .init(origin: .zero, size: breadthSize) }
     var circleMasked: UIImage? {
         guard let cgImage = cgImage?
-            .cropping(to: .init(origin: .init(x: isLandscape ? ((size.width - size.height) * scale / 2).rounded(.down) : 0,
-                                              y: isPortrait ? ((size.height - size.width) * scale / 2).rounded(.down) : 0),
-                                size: breadthSize)) else { return nil }
+            .cropping(to: .init(
+                origin: .init(x: isLandscape ? ((size.width - size.height) * scale / 2).rounded(.down) : 0,
+                              y: isPortrait ? ((size.height - size.width) * scale / 2).rounded(.down) : 0),
+                size: breadthSize)) else { return nil }
         let format = imageRendererFormat
         format.opaque = false
         return UIGraphicsImageRenderer(size: breadthSize, format: format).image { _ in

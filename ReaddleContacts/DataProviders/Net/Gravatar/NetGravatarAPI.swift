@@ -24,7 +24,8 @@ private extension NetGravatarAPI {
 
         _ = digestData.withUnsafeMutableBytes { digestBytes -> UInt8 in
             messageData.withUnsafeBytes { messageBytes -> UInt8 in
-                if let messageBytesBaseAddress = messageBytes.baseAddress, let digestBytesBlindMemory = digestBytes.bindMemory(to: UInt8.self).baseAddress {
+                if let messageBytesBaseAddress = messageBytes.baseAddress,
+                    let digestBytesBlindMemory = digestBytes.bindMemory(to: UInt8.self).baseAddress {
                     let messageLength = CC_LONG(messageData.count)
                     CC_MD5(messageBytesBaseAddress, messageLength, digestBytesBlindMemory)
                 }
@@ -61,7 +62,7 @@ public class NetGravatarAPI: GravatarAPI {
 
             let httpparams: Parameters = [
                 "s": params.size,
-                "d": params.defaultAvatar.queryString,
+                "d": params.defaultAvatar.queryString
             ]
 
             let request = self.afSession.request(Self.API_URL.appendingPathComponent(md5), parameters: httpparams)
@@ -96,11 +97,10 @@ public class NetGravatarAPI: GravatarAPI {
                     }
             }
             self.currentTasks[params.taskId] = request
-            
+
             request.resume()
         }
     }
-
 
     public func cancelLoading(taskId: Int) {
         taskQueue.async {

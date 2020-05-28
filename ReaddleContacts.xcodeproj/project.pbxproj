@@ -21,6 +21,7 @@
 		DAA4A130247C264500426E2F /* DataProviderCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4A12F247C264500426E2F /* DataProviderCommon.swift */; };
 		DAA4A132247C27E000426E2F /* MockContactsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4A131247C27E000426E2F /* MockContactsProvider.swift */; };
 		DAC6513324802BC0004EE935 /* AlertErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC6513224802BC0004EE935 /* AlertErrorHandler.swift */; };
+		DAC6513624807C0E004EE935 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = DAC6513524807C0E004EE935 /* .swiftlint.yml */; };
 		DAD43707247EA9F0005E8AAE /* ContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD43706247EA9F0005E8AAE /* ContactsView.swift */; };
 		DAD43709247EAEFA005E8AAE /* ContactsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD43708247EAEFA005E8AAE /* ContactsTableView.swift */; };
 		DAD4370B247ED105005E8AAE /* ContactsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD4370A247ED105005E8AAE /* ContactsCollectionView.swift */; };
@@ -65,6 +66,7 @@
 		DAA4A12F247C264500426E2F /* DataProviderCommon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProviderCommon.swift; sourceTree = "<group>"; };
 		DAA4A131247C27E000426E2F /* MockContactsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockContactsProvider.swift; sourceTree = "<group>"; };
 		DAC6513224802BC0004EE935 /* AlertErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertErrorHandler.swift; sourceTree = "<group>"; };
+		DAC6513524807C0E004EE935 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		DAD43706247EA9F0005E8AAE /* ContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsView.swift; sourceTree = "<group>"; };
 		DAD43708247EAEFA005E8AAE /* ContactsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTableView.swift; sourceTree = "<group>"; };
 		DAD4370A247ED105005E8AAE /* ContactsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsCollectionView.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 		DAF480D5247C047E00D165D2 = {
 			isa = PBXGroup;
 			children = (
+				DAC6513524807C0E004EE935 /* .swiftlint.yml */,
 				DAF480E0247C047E00D165D2 /* ReaddleContacts */,
 				DAF480F7247C048000D165D2 /* ReaddleContactsTests */,
 				DAF480DF247C047E00D165D2 /* Products */,
@@ -253,6 +256,7 @@
 				DAF480DB247C047E00D165D2 /* Frameworks */,
 				DAF480DC247C047E00D165D2 /* Resources */,
 				5B7E4106BACDE7D18094FFF4 /* [CP] Embed Pods Frameworks */,
+				DAC6513424807A46004EE935 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -325,6 +329,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAC6513624807C0E004EE935 /* .swiftlint.yml in Resources */,
 				DAF480EE247C048000D165D2 /* LaunchScreen.storyboard in Resources */,
 				DAF480EB247C048000D165D2 /* Assets.xcassets in Resources */,
 			);
@@ -400,6 +405,23 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		DAC6513424807A46004EE935 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

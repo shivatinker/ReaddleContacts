@@ -43,7 +43,7 @@ class AvatarView: UIView {
             onlineView.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
             onlineView.widthAnchor.constraint(equalTo: onlineView.heightAnchor),
             onlineView.heightAnchor.constraint(equalToConstant: 15),
-            onlineView.rightAnchor.constraint(equalTo: imageView.rightAnchor),
+            onlineView.rightAnchor.constraint(equalTo: imageView.rightAnchor)
         ])
     }
 
@@ -59,7 +59,6 @@ class AvatarView: UIView {
         let newImage = image ?? UIImage(systemName: "person.fill")
         imageView.layer.cornerRadius = imageView.frame.size.width / 2
 
-        // TODO: Change animation to fade from previous avatar
         if animated {
             UIView.transition(
                 with: self.imageView,

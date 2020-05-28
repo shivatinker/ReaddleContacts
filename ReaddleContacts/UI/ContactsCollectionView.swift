@@ -13,7 +13,7 @@ import UIKit
 
 // MARK: Collection cell
 /// Collection cell, containing
-fileprivate class ContactCollectionCell: UICollectionViewCell {
+private class ContactCollectionCell: UICollectionViewCell {
     private var avatarView = AvatarView()
 
     private var data: ContactViewData?
@@ -43,7 +43,7 @@ fileprivate class ContactCollectionCell: UICollectionViewCell {
             avatarView.leftAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leftAnchor, constant: 5),
             avatarView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 5),
             avatarView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -5),
-            avatarView.widthAnchor.constraint(equalTo: avatarView.heightAnchor),
+            avatarView.widthAnchor.constraint(equalTo: avatarView.heightAnchor)
         ])
     }
 
@@ -96,9 +96,16 @@ extension ContactsCollectionView: UICollectionViewDataSource {
         return contactsDataSource?.contactIds.count ?? 0
     }
 
-    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = dequeueReusableCell(withReuseIdentifier: ContactCollectionCell.reuseIdentifier, for: indexPath) as? ContactCollectionCell else {
-            fatalError("Expected `\(ContactCollectionCell.self)` type for reuseIdentifier \(ContactCollectionCell.reuseIdentifier).")
+    public func collectionView(_ collectionView: UICollectionView,
+                               cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = dequeueReusableCell(
+            withReuseIdentifier: ContactCollectionCell.reuseIdentifier,
+            for: indexPath) as? ContactCollectionCell else {
+            fatalError(
+                """
+                Expected `\(ContactCollectionCell.self)` type \
+                for reuseIdentifier \(ContactCollectionCell.reuseIdentifier).
+                """)
         }
 
         if let ds = contactsDataSource {
@@ -111,7 +118,6 @@ extension ContactsCollectionView: UICollectionViewDataSource {
                 if let data = data {
                     DispatchQueue.main.async {
                         // Check if cell is still waitind for this data
-                        // TODO: Cancel data tasks is them not needed more
                         if cell.currentId == id {
                             // Also, display data animated only if data was loaded from net
                             cell.setData(data, animated: loaded)
@@ -143,7 +149,8 @@ extension ContactsCollectionView: UICollectionViewDataSourcePrefetching {
         }
     }
 
-    public func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
+    public func collectionView(_ collectionView: UICollectionView,
+                               cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
         if let ds = contactsDataSource {
             // Request cache clearing
             ds.cancelPrefetching(ids: indexPaths.map({ ds.contactIds[$0.row] }))
