@@ -57,7 +57,7 @@ public class SingleContactPresenter {
                 // Load avatar
                 if let email = contact.email {
                     self.loadingGroup.enter()
-                    self.context.gravatar.getAvatarImage(GravatarRequest(email: email)) { (res) in
+                    self.context.gravatar.getAvatarImage(GravatarRequest(email: email, taskId: id)) { (res) in
                         if let avatar = res.unwrap(errorHandler: self.errorHandler) {
                             self.view?.setAvatar(avatar)
                         }

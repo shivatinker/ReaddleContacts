@@ -13,9 +13,10 @@ import Alamofire
 public enum NetError: Error {
     case connectionError(_ description: String)
     case unknown(_ description: String)
+    case requestCancelled(_: String)
 
     public static func fromAFError(_ e: AFError) -> NetError {
-        return connectionError(e.errorDescription ?? e.localizedDescription)
+        return connectionError(e.underlyingError?.localizedDescription ?? e.localizedDescription)
     }
 }
 
@@ -24,6 +25,8 @@ extension NetError: LocalizedError {
         switch self {
         case .connectionError(let description): return "Connection error: \(description)"
         case .unknown(let description): return "Unknown error: \(description)"
+        case .requestCancelled(let description):
+            return "Request cancelled: \(description)"
         }
     }
 }

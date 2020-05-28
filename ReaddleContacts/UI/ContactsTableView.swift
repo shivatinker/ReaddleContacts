@@ -116,7 +116,6 @@ extension ContactsTableView: UITableViewDataSource {
                 if let data = data {
                     DispatchQueue.main.async {
                         // Check if cell is still waitind for this data
-                        // TODO: Cancel data tasks is them not needed more
                         if cell.currentId == id {
                             // Also, display data animated only if data was loaded from net
                             cell.setData(data, animated: loaded)

@@ -32,6 +32,18 @@ public class AllContactsPresenter {
     private weak var delegate: AllContactsPresenterDelegate?
     private let errorHandler: ErrorHandler?
 
+    private class AvatarEH: ErrorHandler {
+        func error(_ e: Error) {
+            if let e = e as? NetError,
+                case .requestCancelled = e {
+                // Request was cancelled
+                return
+            }
+            debugPrint("Failed to get avatar: \(e)")
+        }
+    }
+    private let avatarErrorHandler = AvatarEH()
+
     // MARK: Cache
     private var avatarCache: CachedStorage<Int, UIImage>?
     private var contactCache: CachedStorage<Int, ContactViewData>?
@@ -71,9 +83,9 @@ public class AllContactsPresenter {
         context.contact.getContact(id: id) { (res) in
             if let contact = res.unwrap(errorHandler: self.errorHandler),
                 let email = contact.email {
-                let request = GravatarRequest(email: email)
+                let request = GravatarRequest(email: email, taskId: id)
                 self.context.gravatar.getAvatarImage(request) { (res) in
-                    callback(res.unwrap(errorHandler: self.errorHandler) ?? nil)
+                    callback(res.unwrap(errorHandler: self.avatarErrorHandler) ?? nil)
                     self.removeTask()
                 }
             } else {
@@ -148,7 +160,7 @@ public class AllContactsPresenter {
     }
 
     public func cancelPrefetching(id: Int) {
-        
+        context.gravatar.cancelLoading(taskId: id)
     }
 
     public func free(id: Int) {

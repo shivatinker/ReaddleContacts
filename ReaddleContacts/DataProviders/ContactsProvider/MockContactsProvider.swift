@@ -19,7 +19,7 @@ public class MockContactsProvider {
             Contact(firstName: "Andrii", email: "zinoviev@stud.onu.edu.ua"),
         ]
 
-        for i in 0...10000 {
+        for i in 0...1000 {
             c.append(Contact(firstName: "Stranger", email: "\(i)@gmail.com"))
         }
 
