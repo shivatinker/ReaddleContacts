@@ -45,6 +45,9 @@ public class NetGravatarAPI: GravatarAPI {
         delay = simulatedDelay
     }
 
+    // We need it because if it will be a lot of net queries, some strange things will start to happen
+    private let semaphore = DispatchSemaphore(value: 100)
+
     public func getAvatarImage(_ params: GravatarRequest, callback: @escaping GravatarCallback) {
         // Simulate delay for testing
         DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + delay) {
@@ -60,7 +63,11 @@ public class NetGravatarAPI: GravatarAPI {
                 "d": params.defaultAvatar.queryString,
             ]
 
+            // Wait till other queries will finish
+            self.semaphore.wait()
+
             AF.request(Self.API_URL.appendingPathComponent(md5), parameters: httpparams).responseImage { (response) in
+                defer { self.semaphore.signal() }
                 switch response.result {
                 case .failure(let failure):
                     // Check if we expect 404 on missing avatars, so we dont produce NetError

@@ -142,12 +142,16 @@ public class AllContactsPresenter {
         avatarCache?.get(id, callback) ?? callback(nil, false)
     }
 
-    public func prefetch(id: Int){
+    public func prefetch(id: Int) {
         avatarCache?.load(id)
         contactCache?.load(id)
     }
-    
-    public func free(id: Int){
+
+    public func cancelPrefetching(id: Int) {
+        
+    }
+
+    public func free(id: Int) {
         avatarCache?.remove(id)
         contactCache?.remove(id)
     }

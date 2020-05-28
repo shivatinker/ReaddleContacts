@@ -56,17 +56,21 @@ class AvatarView: UIView {
     ///   - image: Avatar image to be set
     ///   - animated: Perform animated avatar change
     public func setImage(_ image: UIImage?, animated: Bool = false) {
-        imageView.image = image ?? UIImage(systemName: "person.fill")
+        let newImage = image ?? UIImage(systemName: "person.fill")
         imageView.layer.cornerRadius = imageView.frame.size.width / 2
 
         // TODO: Change animation to fade from previous avatar
         if animated {
-            self.imageView.alpha = 0.0
-            UIView.animate(withDuration: 0.3) {
-                self.imageView.alpha = 1.0
-            }
+            UIView.transition(
+                with: self.imageView,
+                duration: 0.3,
+                options: .transitionCrossDissolve,
+                animations: {
+                    self.imageView.image = newImage
+                },
+                completion: nil)
         } else {
-            self.imageView.alpha = 1.0
+            self.imageView.image = newImage
         }
     }
 

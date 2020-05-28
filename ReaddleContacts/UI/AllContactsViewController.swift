@@ -132,7 +132,7 @@ class AllContactsViewController: UIViewController {
 
         let context = DataContext(
             contact: MockContactsProvider(),
-            gravatar: NetGravatarAPI(simulatedDelay: 0.5))
+            gravatar: NetGravatarAPI(simulatedDelay: 0))
         presenter = AllContactsPresenter(
             context: context,
             view: self,
@@ -144,6 +144,12 @@ class AllContactsViewController: UIViewController {
 
 // This extension binds collection views data requests to view's presenter
 extension AllContactsViewController: ContactsCollectionDataSource {
+    func free(ids: [Int]) {
+        if let presenter = presenter {
+            ids.forEach({ presenter.free(id: $0) })
+        }
+    }
+    
     var contactIds: [Int] {
         return ids ?? []
     }
@@ -164,7 +170,7 @@ extension AllContactsViewController: ContactsCollectionDataSource {
 
     func cancelPrefetching(ids: [Int]) {
         if let presenter = presenter {
-            ids.forEach({ presenter.free(id: $0) })
+            ids.forEach({ presenter.cancelPrefetching(id: $0) })
         }
     }
 }

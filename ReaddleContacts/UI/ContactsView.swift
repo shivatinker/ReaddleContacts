@@ -31,9 +31,13 @@ public protocol ContactsCollectionDataSource: AnyObject {
     /// - Parameter ids: Contacts ID's to prefetch
     func prefetch(ids: [Int])
 
-    /// Requests data clearing for contacts
-    /// - Parameter ids: Contacts ID's to remove from cache
+    /// Requests cancelling all pending data tasks on selected contacts
+    /// - Parameter ids: Contacts ID's to cancel
     func cancelPrefetching(ids: [Int])
+    
+    /// Requests removing from cache data for contacts
+    /// - Parameter ids: Contacts ID's to remove from cache
+    func free(ids: [Int])
 }
 
 /// UIView, thet displays collection of contacts
