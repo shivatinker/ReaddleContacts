@@ -17,28 +17,20 @@ public class CachedStorage<I: Hashable, T> {
     private var storage = [I: T]()
     private var isLoading = [I: Bool]()
 
-    private let pcSemaphore = DispatchSemaphore(value: 1)
-    private let lQueue = DispatchQueue(label: "Cached storage")
+    private let queue = DispatchQueue(label: "Cached storage")
     private var pendingCallbacks = [I: [Callback]]()
 
     private let provider: Provider
 
-    private func synchronized<R>(_ f: () -> (R)) -> R {
-        pcSemaphore.wait()
-        defer { pcSemaphore.signal() }
-        return f()
-    }
-
     // Loads item and executes callbacks
     private func load_(_ key: I) {
         // If item is not loading, load it from provider and execute all pending callbacks, that ensures that item will be loaded only ONCE
-        if !(synchronized({ isLoading[key] }) ?? false) {
-            synchronized({ isLoading[key] = true })
+        if !(self.isLoading[key] ?? false) {
+            self.isLoading[key] = true
 
             // Load item from provider
-            provider(key) { item in
-                // Lock pendingCallbacks dictionary while executing callbacks
-                self.synchronized {
+            self.provider(key) { item in
+                self.queue.async {
                     self.storage[key] = item
                     self.pendingCallbacks[key]?.forEach({ $0(item, true) })
                     self.pendingCallbacks[key]?.removeAll()
@@ -49,23 +41,18 @@ public class CachedStorage<I: Hashable, T> {
     }
 
     private func get_(_ key: I, _ callback: @escaping Callback) {
-        if let item = synchronized({ storage[key] }) {
+        if let item = self.storage[key] {
             // If item is cached, immediatly return it
             callback(item, false)
         } else {
             // Attach callback to pendingCallbacks of item
-
-            // Wait till all callbacks will be executed, so we can modify pendingCallbacks
-            // Not doing it will lead in possible modify-while-read bug
-            synchronized {
-                if pendingCallbacks[key] != nil {
-                    pendingCallbacks[key]!.append(callback)
-                } else {
-                    pendingCallbacks[key] = [callback]
-                }
+            if self.pendingCallbacks[key] != nil {
+                self.pendingCallbacks[key]!.append(callback)
+            } else {
+                self.pendingCallbacks[key] = [callback]
             }
 
-            load_(key)
+            self.load_(key)
         }
     }
 
@@ -81,7 +68,7 @@ public class CachedStorage<I: Hashable, T> {
     ///   - key: item key
     ///   - callback: callback to be called when item is loaded
     public func get(_ key: I, _ callback: @escaping Callback) {
-        lQueue.async {
+        queue.async {
             self.get_(key, callback)
         }
     }
@@ -91,8 +78,8 @@ public class CachedStorage<I: Hashable, T> {
     ///   - key: item key
     ///   - forced: if true, load new item even if it is cached
     public func load(_ key: I, forced: Bool = false) {
-        lQueue.async {
-            if self.synchronized({ self.storage[key] }) == nil || forced {
+        queue.async {
+            if self.storage[key] == nil || forced {
                 self.load_(key)
             }
         }
@@ -101,23 +88,19 @@ public class CachedStorage<I: Hashable, T> {
     /// Removes item from cache
     /// - Parameter key: item key
     public func remove(_ key: I) {
-        lQueue.async {
-            self.synchronized {
-                self.storage[key] = nil
-                self.isLoading[key] = nil
-                self.pendingCallbacks[key] = nil
-            }
+        queue.async {
+            self.storage[key] = nil
+            self.isLoading[key] = nil
+            self.pendingCallbacks[key] = nil
         }
     }
 
     /// Clears all cached items
     public func removeAll() {
-        lQueue.async {
-            self.synchronized {
-                self.storage.removeAll()
-                self.isLoading.removeAll()
-                self.pendingCallbacks.removeAll()
-            }
+        queue.async {
+            self.storage.removeAll()
+            self.isLoading.removeAll()
+            self.pendingCallbacks.removeAll()
         }
     }
 }
