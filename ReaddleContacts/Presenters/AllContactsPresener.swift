@@ -78,6 +78,8 @@ public class AllContactsPresenter {
         }
     }
 
+
+    // MARK: Private core functions
     private func loadAvatar(for id: Int, callback: @escaping (UIImage?) -> Void) {
         addTask()
         context.contact.getContact(id: id) { (res) in

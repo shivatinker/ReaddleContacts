@@ -8,6 +8,7 @@ target 'ReaddleContacts' do
   # Pods for ReaddleContacts
 pod 'Alamofire'
 pod 'AlamofireImage'
+pod 'PromiseKit'
 
   target 'ReaddleContactsTests' do
     inherit! :search_paths
