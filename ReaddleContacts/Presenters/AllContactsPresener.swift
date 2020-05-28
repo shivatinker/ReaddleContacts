@@ -73,7 +73,7 @@ public class AllContactsPresenter {
                 let email = contact.email {
                 let request = GravatarRequest(email: email)
                 self.context.gravatar.getAvatarImage(request) { (res) in
-                    callback(res.unwrap(errorHandler: self.errorHandler))
+                    callback(res.unwrap(errorHandler: self.errorHandler) ?? nil)
                     self.removeTask()
                 }
             } else {

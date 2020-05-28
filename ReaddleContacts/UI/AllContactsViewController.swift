@@ -113,7 +113,7 @@ class AllContactsViewController: UIViewController {
 
 
 
-    // MARK:
+    // MARK: Input handlers
     @objc public func simulateButtonClicked() {
 
     }
@@ -126,13 +126,17 @@ class AllContactsViewController: UIViewController {
         }
     }
 
+    // MARK: Load view
     override func loadView() {
         initUI()
 
         let context = DataContext(
             contact: MockContactsProvider(),
             gravatar: NetGravatarAPI(simulatedDelay: 0.5))
-        presenter = AllContactsPresenter(context: context, view: self, errorHandler: nil)
+        presenter = AllContactsPresenter(
+            context: context,
+            view: self,
+            errorHandler: AlertErrorHandler(parent: self))
 
         setContactsStyle(.list)
     }

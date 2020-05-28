@@ -55,14 +55,23 @@ public class NetGravatarAPI: GravatarAPI {
             }
             let md5 = Self.MD5(messageData: data)
 
-            let params: Parameters = [
+            let httpparams: Parameters = [
                 "s": params.size,
                 "d": params.defaultAvatar.queryString,
             ]
 
-            AF.request(Self.API_URL.appendingPathComponent(md5), parameters: params).responseImage { (response) in
+            AF.request(Self.API_URL.appendingPathComponent(md5), parameters: httpparams).responseImage { (response) in
                 switch response.result {
-                case .failure(let failure): callback(.failure(error: NetError.fromAFError(failure)))
+                case .failure(let failure):
+                    // Check if we expect 404 on missing avatars, so we dont produce NetError
+                    if params.defaultAvatar == .error,
+                        case let AFError.responseValidationFailed(reason: reason) = failure,
+                        case .unacceptableContentType = reason {
+                        callback(.success(result: nil))
+                        return
+                    }
+                    debugPrint(failure)
+                    callback(.failure(error: NetError.fromAFError(failure)))
                 case .success(let image):
                     callback(.success(result: image))
                 }

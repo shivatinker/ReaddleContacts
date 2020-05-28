@@ -15,7 +15,7 @@ public enum NetError: Error {
     case unknown(_ description: String)
 
     public static func fromAFError(_ e: AFError) -> NetError {
-        return connectionError(e.localizedDescription)
+        return connectionError(e.errorDescription ?? e.localizedDescription)
     }
 }
 

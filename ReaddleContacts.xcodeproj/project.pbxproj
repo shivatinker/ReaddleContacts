@@ -20,6 +20,7 @@
 		DAA4A12C247C240400426E2F /* ContactProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4A12B247C240400426E2F /* ContactProviderTests.swift */; };
 		DAA4A130247C264500426E2F /* DataProviderCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4A12F247C264500426E2F /* DataProviderCommon.swift */; };
 		DAA4A132247C27E000426E2F /* MockContactsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4A131247C27E000426E2F /* MockContactsProvider.swift */; };
+		DAC6513324802BC0004EE935 /* AlertErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC6513224802BC0004EE935 /* AlertErrorHandler.swift */; };
 		DAD43707247EA9F0005E8AAE /* ContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD43706247EA9F0005E8AAE /* ContactsView.swift */; };
 		DAD43709247EAEFA005E8AAE /* ContactsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD43708247EAEFA005E8AAE /* ContactsTableView.swift */; };
 		DAD4370B247ED105005E8AAE /* ContactsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD4370A247ED105005E8AAE /* ContactsCollectionView.swift */; };
@@ -63,6 +64,7 @@
 		DAA4A12B247C240400426E2F /* ContactProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactProviderTests.swift; sourceTree = "<group>"; };
 		DAA4A12F247C264500426E2F /* DataProviderCommon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProviderCommon.swift; sourceTree = "<group>"; };
 		DAA4A131247C27E000426E2F /* MockContactsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockContactsProvider.swift; sourceTree = "<group>"; };
+		DAC6513224802BC0004EE935 /* AlertErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertErrorHandler.swift; sourceTree = "<group>"; };
 		DAD43706247EA9F0005E8AAE /* ContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsView.swift; sourceTree = "<group>"; };
 		DAD43708247EAEFA005E8AAE /* ContactsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTableView.swift; sourceTree = "<group>"; };
 		DAD4370A247ED105005E8AAE /* ContactsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsCollectionView.swift; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 				DAD43706247EA9F0005E8AAE /* ContactsView.swift */,
 				DAD43708247EAEFA005E8AAE /* ContactsTableView.swift */,
 				DAD4370A247ED105005E8AAE /* ContactsCollectionView.swift */,
+				DAC6513224802BC0004EE935 /* AlertErrorHandler.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -413,6 +416,7 @@
 				DA899A10247C3B2C006F084D /* AllContactsPresener.swift in Sources */,
 				DAA4A132247C27E000426E2F /* MockContactsProvider.swift in Sources */,
 				DAF480E6247C047E00D165D2 /* AllContactsViewController.swift in Sources */,
+				DAC6513324802BC0004EE935 /* AlertErrorHandler.swift in Sources */,
 				DAF48108247C07D700D165D2 /* NetGravatarAPI.swift in Sources */,
 				DAD43707247EA9F0005E8AAE /* ContactsView.swift in Sources */,
 				DAF480E2247C047E00D165D2 /* AppDelegate.swift in Sources */,

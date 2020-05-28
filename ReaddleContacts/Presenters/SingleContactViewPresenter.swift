@@ -18,7 +18,7 @@ public struct SingleContactViewData {
 public protocol SingleContactView: AnyObject {
     func setData(_ data: SingleContactViewData)
     func setOnline(_ online: Bool)
-    func setAvatar(_ avatar: UIImage)
+    func setAvatar(_ avatar: UIImage?)
     func startLoading()
     func stopLoading()
 }
