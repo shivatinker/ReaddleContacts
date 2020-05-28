@@ -156,10 +156,4 @@ extension ContactsCollectionView: UICollectionViewDelegate {
 
     }
 
-    public func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if let ds = contactsDataSource {
-            // Request cache clearing
-            ds.free(ids: [ds.contactIds[indexPath.row]])
-        }
-    }
 }

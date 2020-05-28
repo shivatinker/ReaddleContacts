@@ -19,6 +19,8 @@ public class CachedStorage<I: Hashable, T> {
 
     private let queue = DispatchQueue(label: "Cached storage")
     private var pendingCallbacks = [I: [Callback]]()
+    private var cachedIDs = [I]()
+    private let maxCount: Int?
 
     private let provider: Provider
 
@@ -31,7 +33,20 @@ public class CachedStorage<I: Hashable, T> {
             // Load item from provider
             self.provider(key) { item in
                 self.queue.async {
-                    self.storage[key] = item
+                    if let item = item {
+                        if self.storage[key] == nil {
+                            // If there are already maximum cached items, remove item, that was accesed longest time ago
+                            if let c = self.maxCount,
+                                self.storage.count == c {
+                                self.remove_(self.cachedIDs.removeFirst())
+                            }
+                            if !self.cachedIDs.contains(key) {
+                                self.cachedIDs.append(key)
+                            }
+                        }
+
+                        self.storage[key] = item
+                    }
                     self.pendingCallbacks[key]?.forEach({ $0(item, true) })
                     self.pendingCallbacks[key]?.removeAll()
                     self.isLoading[key] = false
@@ -42,7 +57,11 @@ public class CachedStorage<I: Hashable, T> {
 
     private func get_(_ key: I, _ callback: @escaping Callback) {
         if let item = self.storage[key] {
-            // If item is cached, immediatly return it
+            // If item is cached, immediatly return it and mark it as relevant
+            let c = self.cachedIDs.count
+            self.cachedIDs.removeAll(where: { $0 == key })
+            self.cachedIDs.append(key)
+            assert(c == self.cachedIDs.count)
             callback(item, false)
         } else {
             // Attach callback to pendingCallbacks of item
@@ -56,11 +75,20 @@ public class CachedStorage<I: Hashable, T> {
         }
     }
 
+
+    private func remove_(_ key: I) {
+        self.cachedIDs.removeAll(where: { $0 == key })
+        self.storage[key] = nil
+        self.isLoading[key] = nil
+        self.pendingCallbacks[key] = nil
+    }
+
     // MARK: Public API
     /// Initiates empty storage with given provider
     /// - Parameter provider: provider closure that will be callsed, when new object requested
-    public init(provider: @escaping Provider) {
+    public init(maxCount: Int? = nil, provider: @escaping Provider) {
         self.provider = provider
+        self.maxCount = maxCount
     }
 
     /// Gets item from cache or loads it from provider
@@ -89,15 +117,14 @@ public class CachedStorage<I: Hashable, T> {
     /// - Parameter key: item key
     public func remove(_ key: I) {
         queue.async {
-            self.storage[key] = nil
-            self.isLoading[key] = nil
-            self.pendingCallbacks[key] = nil
+            self.remove_(key)
         }
     }
 
     /// Clears all cached items
     public func removeAll() {
         queue.async {
+            self.cachedIDs.removeAll()
             self.storage.removeAll()
             self.isLoading.removeAll()
             self.pendingCallbacks.removeAll()

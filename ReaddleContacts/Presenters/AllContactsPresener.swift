@@ -136,7 +136,7 @@ public class AllContactsPresenter {
         self.delegate = view
         self.errorHandler = errorHandler
 
-        avatarCache = CachedStorage() { id, callback in
+        avatarCache = CachedStorage(maxCount: 250) { id, callback in
             self.loadAvatar(for: id) { callback($0) }
         }
 

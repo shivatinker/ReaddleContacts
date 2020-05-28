@@ -222,8 +222,8 @@
             filePath = "ReaddleContacts/Utils/CachedStorage.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
             landmarkName = "remove(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -257,6 +257,39 @@
             startingLineNumber = "37"
             endingLineNumber = "37"
             landmarkName = "error(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9D3E84CA-6433-4050-BBF9-595CD5D90193"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReaddleContacts/Utils/CachedStorage.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "load_(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A25330EB-8ADB-40F7-ABBB-E01F6701A157"
+            shouldBeEnabled = "No"
+            condition = "T == UIImage.self"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReaddleContacts/Utils/CachedStorage.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
+            landmarkName = "get_(_:_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

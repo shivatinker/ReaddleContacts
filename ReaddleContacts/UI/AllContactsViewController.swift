@@ -144,12 +144,6 @@ class AllContactsViewController: UIViewController {
 
 // This extension binds collection views data requests to view's presenter
 extension AllContactsViewController: ContactsCollectionDataSource {
-    func free(ids: [Int]) {
-        if let presenter = presenter {
-            ids.forEach({ presenter.free(id: $0) })
-        }
-    }
-    
     var contactIds: [Int] {
         return ids ?? []
     }

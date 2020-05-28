@@ -159,9 +159,4 @@ extension ContactsTableView: UITableViewDelegate {
 
     }
 
-    public func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let ds = contactsDataSource {
-            ds.free(ids: [ds.contactIds[indexPath.row]])
-        }
-    }
 }
