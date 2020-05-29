@@ -25,7 +25,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = AllContactsViewController()
+
+        let dataContext = DataContext(
+            contact: MockContactsProvider(),
+            gravatar: NetGravatarAPI(simulatedDelay: 0))
+        let rootController: AllContactsViewController = AllContactsViewController(dataContext: dataContext)
+
+        let navController = UINavigationController(rootViewController: rootController)
+        navController.navigationBar.isTranslucent = false
+        window?.rootViewController = navController
         window?.makeKeyAndVisible()
     }
 

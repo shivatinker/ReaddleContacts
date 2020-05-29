@@ -16,7 +16,7 @@ private class TestErrorHandler: ErrorHandler {
     }
 }
 
-private class TestView: SingleContactView {
+private class TestView: SingleContactPresenterDelegate {
     private let expectation: XCTestExpectation
 
     internal var data: SingleContactViewData?

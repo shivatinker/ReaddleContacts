@@ -10,7 +10,8 @@ import UIKit
 
 class AllContactsViewController: UIViewController {
 
-    private var presenter: AllContactsPresenter?
+    private var presenter: AllContactsPresenter
+    private var dataContext: DataContext
     /// Contact IDs to display
     private var ids: [Int]?
 
@@ -29,7 +30,7 @@ class AllContactsViewController: UIViewController {
     }
     private var currentStyle: ContactsStyle?
 
-    /// Removes old contacts view and replaces it so only on ContactView stays in memory
+    /// Removes old contacts view and replaces it so only one `ContactView` stays in memory
     private func setContactsView(_ v: ContactsView) {
         contactsView?.removeFromSuperview()
 
@@ -47,7 +48,7 @@ class AllContactsViewController: UIViewController {
         contactsView = v
 
         // Request update from presenter
-        presenter?.update()
+        presenter.update()
     }
 
     private func setContactsStyle(_ style: ContactsStyle) {
@@ -65,6 +66,8 @@ class AllContactsViewController: UIViewController {
 
     private func initUI() {
         // UI Init
+        title = "Contacts"
+
         view = UIView()
         view.backgroundColor = .systemBackground
 
@@ -113,7 +116,11 @@ class AllContactsViewController: UIViewController {
 
     // MARK: Input handlers
     @objc public func simulateButtonClicked() {
-
+        guard let navController = navigationController else {
+            fatalError("No navigation controller provided")
+        }
+        let newController = SingleContactViewController(contactId: 0, dataContext: dataContext)
+        navController.pushViewController(newController, animated: true)
     }
 
     @objc public func styleControlValueChanged() {
@@ -124,17 +131,20 @@ class AllContactsViewController: UIViewController {
         }
     }
 
+    public init(dataContext: DataContext) {
+        self.presenter = AllContactsPresenter(context: dataContext)
+        self.dataContext = dataContext
+        super.init(nibName: nil, bundle: nil)
+        presenter.delegate = self
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     // MARK: Load view
     override func loadView() {
         initUI()
-
-        let context = DataContext(
-            contact: MockContactsProvider(),
-            gravatar: NetGravatarAPI(simulatedDelay: 0))
-        presenter = AllContactsPresenter(
-            context: context,
-            view: self,
-            errorHandler: AlertErrorHandler(parent: self))
 
         setContactsStyle(.list)
     }
@@ -147,23 +157,19 @@ extension AllContactsViewController: ContactsCollectionDataSource {
     }
 
     func getContactInfo(id: Int, callback: @escaping (ContactViewData?, Bool) -> Void) {
-        presenter?.getContactInfo(id: id, callback: callback) ?? callback(nil, false)
+        presenter.getContactInfo(id: id, callback: callback)
     }
 
     func getAvatarImage(id: Int, callback: @escaping (UIImage?, Bool) -> Void) {
-        presenter?.getAvatar(for: id, callback: callback) ?? callback(nil, false)
+        presenter.getAvatar(for: id, callback: callback)
     }
 
     func prefetch(ids: [Int]) {
-        if let presenter = presenter {
-            ids.forEach({ presenter.prefetch(id: $0) })
-        }
+        ids.forEach({ presenter.prefetch(id: $0) })
     }
 
     func cancelPrefetching(ids: [Int]) {
-        if let presenter = presenter {
-            ids.forEach({ presenter.cancelPrefetching(id: $0) })
-        }
+        ids.forEach({ presenter.cancelPrefetching(id: $0) })
     }
 }
 

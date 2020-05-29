@@ -30,7 +30,7 @@ public protocol AllContactsPresenterDelegate: AnyObject {
 public class AllContactsPresenter {
     // MARK: Private members
     private let context: DataContext
-    private weak var delegate: AllContactsPresenterDelegate?
+    public weak var delegate: AllContactsPresenterDelegate?
     private let errorHandler: ErrorHandler?
 
     private class AvatarEH: ErrorHandler {
@@ -113,9 +113,8 @@ public class AllContactsPresenter {
 
     // MARK: Public API
 
-    public init(context: DataContext, view: AllContactsPresenterDelegate, errorHandler: ErrorHandler? = nil) {
+    public init(context: DataContext, errorHandler: ErrorHandler? = nil) {
         self.context = context
-        self.delegate = view
         self.errorHandler = errorHandler
 
         avatarCache = CachedStorage(maxCount: 250) { id, callback in
