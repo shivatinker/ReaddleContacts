@@ -12,6 +12,7 @@ class AllContactsViewController: UIViewController {
 
     private var presenter: AllContactsPresenter
     private var dataContext: DataContext
+
     /// Contact IDs to display
     private var ids: [Int]?
 
@@ -20,6 +21,8 @@ class AllContactsViewController: UIViewController {
     private var contactsPlaceholder: UIView!
     private var shuffleButton: UIButton!
     private var activityIndicator: UIActivityIndicatorView!
+
+    private let toSingleViewTransition = AllToSingleViewAnimator()
 
     /// Current contacts display view, for now it can be table or collection
     private var contactsView: ContactsView?
@@ -135,6 +138,10 @@ class AllContactsViewController: UIViewController {
         presenter.delegate = self
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        navigationController?.delegate = self
+    }
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -145,8 +152,13 @@ class AllContactsViewController: UIViewController {
 
         setContactsStyle(.list)
     }
+
+    public func getAvatarImageView(for id: Int) -> UIImageView? {
+        return contactsView?.getAvatarImageView(for: id)
+    }
 }
 
+// MARK: Delegates
 // This extension binds collection views data requests to view's presenter
 extension AllContactsViewController: ContactsCollectionDelegate {
     func onContactSelected(id: Int) {
@@ -180,7 +192,11 @@ extension AllContactsViewController: AllContactsPresenterDelegate {
             guard let navController = self.navigationController else {
                 fatalError("No navigation controller provided")
             }
-            let newController = SingleContactViewController(contactId: id, dataContext: self.dataContext)
+            let newController = SingleContactViewController(
+                contactId: id,
+                initialAvatar: self.getAvatarImageView(for: id)?.image,
+                dataContext: self.dataContext)
+//            self.present(newController, animated: true, completion: nil)
             navController.pushViewController(newController, animated: true)
         }
     }
@@ -202,5 +218,14 @@ extension AllContactsViewController: AllContactsPresenterDelegate {
         DispatchQueue.main.async {
             self.activityIndicator.stopAnimating()
         }
+    }
+}
+
+extension AllContactsViewController: UINavigationControllerDelegate {
+    func navigationController(_ navigationController: UINavigationController,
+                              animationControllerFor operation: UINavigationController.Operation,
+                              from fromVC: UIViewController,
+                              to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return toSingleViewTransition
     }
 }

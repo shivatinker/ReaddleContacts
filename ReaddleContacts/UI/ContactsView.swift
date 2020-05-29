@@ -44,4 +44,6 @@ public protocol ContactsView: UIView {
 
     /// Requests immediate data reloading, for example if item count has chenged
     func reloadData()
+
+    func getAvatarImageView(for id: Int) -> UIImageView?
 }

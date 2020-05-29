@@ -12,7 +12,7 @@ import UIKit
 // MARK: Table cell
 /// Table cell, containing contact avatar, online status and full name
 private class ContactTableCell: UITableViewCell {
-    private var avatarView: AvatarView = AvatarView()
+    internal var avatarView: AvatarView = AvatarView()
     private var nameLabel: UILabel = UILabel()
 
     private var data: ContactViewData?
@@ -90,6 +90,17 @@ public class ContactsTableView: UITableView, ContactsView {
         rowHeight = CGFloat(Self.rHeight)
     }
 
+    public func getAvatarImageView(for id: Int) -> UIImageView? {
+        guard let cd = contactsDelegate,
+            let row = cd.contactIds.firstIndex(of: id) else {
+                return nil
+        }
+        guard let cell = cellForRow(at: IndexPath(row: row, section: 0)) as? ContactTableCell else {
+            fatalError("Expected \(ContactTableCell.self) type for \(self) table")
+        }
+        return cell.avatarView.imageView
+    }
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -160,9 +171,10 @@ extension ContactsTableView: UITableViewDataSourcePrefetching {
 }
 
 extension ContactsTableView: UITableViewDelegate {
-    public func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let ds = contactsDelegate {
             ds.onContactSelected(id: ds.contactIds[indexPath.row])
+            deselectRow(at: indexPath, animated: true)
         }
     }
 

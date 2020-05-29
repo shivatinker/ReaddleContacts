@@ -13,21 +13,21 @@ class SingleContactViewController: UIViewController {
     private var presenter: SingleContactPresenter
 
     /// Contact id to display
-    private var id: Int
+    internal var contactId: Int
+    internal var loadFinished: Bool = false
 
     // MARK: UI
-    private var avatarImageView: UIImageView = UIImageView()
-    private var fullNameLabel: UILabel = UILabel()
-    private var onlineLabel: UILabel = UILabel()
-    private var emailLabel: UITextView = UITextView()
+    internal let avatarImageView: UIImageView = UIImageView()
+    private let fullNameLabel: UILabel = UILabel()
+    private let onlineLabel: UILabel = UILabel()
+    private let emailLabel: UITextView = UITextView()
 
-    init(contactId: Int, dataContext: DataContext) {
-        self.id = contactId
+    init(contactId: Int, initialAvatar: UIImage?, dataContext: DataContext) {
+        self.contactId = contactId
         self.presenter = SingleContactPresenter(context: dataContext)
         super.init(nibName: nil, bundle: nil)
         presenter.delegate = self
         presenter.errorHandler = AlertErrorHandler(parent: self)
-
     }
 
     required init?(coder: NSCoder) {
@@ -40,7 +40,7 @@ class SingleContactViewController: UIViewController {
 
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
         avatarImageView.tintColor = .gray
-        avatarImageView.clipsToBounds = true
+//        avatarImageView.clipsToBounds = true
         view.addSubview(avatarImageView)
         fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
         fullNameLabel.adjustsFontSizeToFitWidth = true
@@ -73,14 +73,19 @@ class SingleContactViewController: UIViewController {
             emailLabel.topAnchor.constraint(equalTo: onlineLabel.bottomAnchor, constant: 10),
             emailLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)
         ])
+    }
 
-        avatarImageView.layer.cornerRadius = avatarImageView.frame.size.width / 2
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.delegate = nil
     }
 
     override func viewDidLoad() {
         initUI()
-        setAvatar(nil, animated: false)
-        presenter.update(id: id, avatarSize: 250)
+        presenter.update(id: contactId, avatarSize: 250)
+    }
+
+    private func getAvatarOrDefault(_ image: UIImage?) -> UIImage {
+        return (image ?? UIImage(systemName: "person.fill")!)!
     }
 
 }
@@ -98,13 +103,14 @@ extension SingleContactViewController: SingleContactPresenterDelegate {
             self.onlineLabel.text = online ? "online" : "offline"
         }
     }
-
+    
     func setAvatar(_ avatar: UIImage?, animated: Bool = true) {
         DispatchQueue.main.async {
-            let newImage = (avatar ?? UIImage(systemName: "person.fill"))
+            let newImage = self.getAvatarOrDefault(avatar)
+            self.avatarImageView.layer.cornerRadius = self.avatarImageView.frame.size.width / 2
+            self.avatarImageView.layer.masksToBounds = true
             let anim = {
                 self.avatarImageView.image = newImage
-                self.avatarImageView.layer.cornerRadius = self.avatarImageView.frame.size.width / 2
             }
             if animated {
                 UIView.transition(
@@ -120,10 +126,14 @@ extension SingleContactViewController: SingleContactPresenterDelegate {
     }
 
     func startLoading() {
-
+        DispatchQueue.main.async {
+            self.loadFinished = false
+        }
     }
 
     func stopLoading() {
-
+        DispatchQueue.main.async {
+            self.loadFinished = true
+        }
     }
 }

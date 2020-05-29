@@ -11,7 +11,7 @@ import UIKit
 
 /// View with contact avatar image and online indicator
 class AvatarView: UIView {
-    private let imageView: UIImageView
+    internal let imageView: UIImageView
     private let onlineView: UIImageView
 
     public override init(frame: CGRect) {
@@ -86,5 +86,4 @@ class AvatarView: UIView {
             self.onlineView.alpha = online ? 1.0 : 0.0
         }
     }
-
 }

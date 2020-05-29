@@ -14,7 +14,7 @@ import UIKit
 // MARK: Collection cell
 /// Collection cell, containing
 private class ContactCollectionCell: UICollectionViewCell {
-    private var avatarView = AvatarView()
+    internal var avatarView = AvatarView()
 
     private var data: ContactViewData?
 
@@ -89,6 +89,17 @@ public class ContactsCollectionView: UICollectionView, ContactsView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    public func getAvatarImageView(for id: Int) -> UIImageView? {
+        guard let cd = contactsDelegate,
+            let row = cd.contactIds.firstIndex(of: id) else {
+                return nil
+        }
+        guard let cell = cellForItem(at: IndexPath(row: row, section: 0)) as? ContactCollectionCell else {
+            fatalError("Expected \(ContactCollectionCell.self) type for \(self) table")
+        }
+        return cell.avatarView.imageView
+    }
 }
 
 // MARK: Extensions
@@ -160,10 +171,11 @@ extension ContactsCollectionView: UICollectionViewDataSourcePrefetching {
 }
 
 extension ContactsCollectionView: UICollectionViewDelegate {
-    public func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let ds = contactsDelegate {
             ds.onContactSelected(id: ds.contactIds[indexPath.row])
         }
+        deselectItem(at: indexPath, animated: true)
     }
-
 }
