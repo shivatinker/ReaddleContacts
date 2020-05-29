@@ -14,13 +14,6 @@ public class AvatarView: UIView {
     internal let imageView: UIImageView
     private let onlineView: UIImageView
 
-    public override var bounds: CGRect {
-        didSet {
-//            imageView.layer.cornerRadius = imageView.frame.size.width / 2
-//            imageView.layer.masksToBounds = true
-        }
-    }
-
     public override init(frame: CGRect) {
         imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false

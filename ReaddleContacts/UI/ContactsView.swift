@@ -47,3 +47,25 @@ public protocol ContactsView: UIView {
 
     func getVisibleAvatarViews() -> [Int: AvatarView]
 }
+
+public class ContactsViewContainer: UIView {
+    public var contactsView: ContactsView? {
+        willSet {
+            contactsView?.removeFromSuperview()
+        }
+        didSet {
+            if let newView = contactsView {
+                
+                newView.translatesAutoresizingMaskIntoConstraints = false
+                self.addSubview(newView)
+
+                NSLayoutConstraint.activate([
+                    newView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+                    newView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+                    newView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor),
+                    newView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor)
+                ])
+            }
+        }
+    }
+}

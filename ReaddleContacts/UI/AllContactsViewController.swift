@@ -18,14 +18,13 @@ class AllContactsViewController: UIViewController {
 
     // MARK: UI
     private var segmentedControl: UISegmentedControl!
-    private var contactsPlaceholder: UIView!
     private var shuffleButton: UIButton!
     private var activityIndicator: UIActivityIndicatorView!
 
     private let toSingleViewTransition = AllToSingleViewAnimator()
 
     /// Current contacts display view, for now it can be table or collection
-    private(set) var contactsView: ContactsView?
+    private(set) var contactsContainer: ContactsViewContainer = ContactsViewContainer()
 
     private enum ContactsStyle {
         case grid
@@ -35,21 +34,10 @@ class AllContactsViewController: UIViewController {
 
     /// Removes old contacts view and replaces it so only one `ContactView` stays in memory
     private func setContactsView(_ v: ContactsView) {
-        contactsView?.removeFromSuperview()
-
-        contactsPlaceholder.addSubview(v)
         v.contactsDelegate = self
         v.backgroundColor = .systemBackground
 
-        v.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            v.topAnchor.constraint(equalTo: contactsPlaceholder.safeAreaLayoutGuide.topAnchor),
-            v.bottomAnchor.constraint(equalTo: contactsPlaceholder.safeAreaLayoutGuide.bottomAnchor),
-            v.leftAnchor.constraint(equalTo: contactsPlaceholder.safeAreaLayoutGuide.leftAnchor),
-            v.rightAnchor.constraint(equalTo: contactsPlaceholder.safeAreaLayoutGuide.rightAnchor)
-        ])
-
-        contactsView = v
+        contactsContainer.contactsView = v
 
         // Request update from presenter
         presenter.update()
@@ -91,9 +79,9 @@ class AllContactsViewController: UIViewController {
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(activityIndicator)
 
-        contactsPlaceholder = UIView()
-        contactsPlaceholder.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(contactsPlaceholder)
+        contactsContainer.translatesAutoresizingMaskIntoConstraints = false
+        contactsContainer.accessibilityIdentifier = "ContactsPlaceholder"
+        view.addSubview(contactsContainer)
 
         // Constraints init
         NSLayoutConstraint.activate([
@@ -108,10 +96,10 @@ class AllContactsViewController: UIViewController {
             segmentedControl.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor, constant: -50),
             segmentedControl.heightAnchor.constraint(equalToConstant: 30),
             // Table constraints
-            contactsPlaceholder.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 5),
-            contactsPlaceholder.bottomAnchor.constraint(equalTo: shuffleButton.topAnchor, constant: 5),
-            contactsPlaceholder.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
-            contactsPlaceholder.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            contactsContainer.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 5),
+            contactsContainer.bottomAnchor.constraint(equalTo: shuffleButton.topAnchor, constant: 5),
+            contactsContainer.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            contactsContainer.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
             // Activity indicator constraints
             activityIndicator.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -5),
             activityIndicator.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5)
@@ -199,7 +187,7 @@ extension AllContactsViewController: AllContactsPresenterDelegate {
     func setData(_ data: AllContactsViewData) {
         ids = data.contactsIds
         DispatchQueue.main.async {
-            self.contactsView?.reloadData()
+            self.contactsContainer.contactsView?.reloadData()
         }
     }
 
