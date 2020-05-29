@@ -31,7 +31,7 @@ class AllToSingleViewAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 
         // Check if avatar is visible on previous view
         guard let collectionAvatarView =
-            fromVC.contactsContainer.contactsView?.getVisibleAvatarViews()[toVC.contactId] else {
+            fromVC.contactsContainer.currentView?.getVisibleAvatarViews()[toVC.contactId] else {
             // Perform basic fade animation
             toVC.view.alpha = 0
             UIView.animate(

@@ -26,33 +26,6 @@ class AllContactsViewController: UIViewController {
     /// Current contacts display view, for now it can be table or collection
     private(set) var contactsContainer: ContactsViewContainer = ContactsViewContainer()
 
-    private enum ContactsStyle {
-        case grid
-        case list
-    }
-    private var currentStyle: ContactsStyle?
-
-    /// Removes old contacts view and replaces it so only one `ContactView` stays in memory
-    private func setContactsView(_ v: ContactsView) {
-        v.contactsDelegate = self
-        v.backgroundColor = .systemBackground
-
-        contactsContainer.contactsView = v
-    }
-
-    private func setContactsStyle(_ style: ContactsStyle) {
-        if style == currentStyle {
-            return
-        }
-
-        switch style {
-        case .grid:
-            setContactsView(ContactsCollectionView())
-        case .list:
-            setContactsView(ContactsTableView())
-        }
-    }
-
     private func initUI() {
         // UI Init
         title = "Contacts"
@@ -109,11 +82,7 @@ class AllContactsViewController: UIViewController {
     }
 
     @objc public func styleControlValueChanged() {
-        switch segmentedControl.selectedSegmentIndex {
-        case 0: setContactsStyle(.list)
-        case 1: setContactsStyle(.grid)
-        default: break
-        }
+        contactsContainer.setView(index: segmentedControl.selectedSegmentIndex)
     }
 
     public init(dataContext: DataContext) {
@@ -136,7 +105,15 @@ class AllContactsViewController: UIViewController {
     override func loadView() {
         initUI()
 
-        setContactsStyle(.list)
+        let table = ContactsTableView()
+        table.contactsDelegate = self
+
+        let collection = ContactsCollectionView()
+        collection.contactsDelegate = self
+
+        contactsContainer.contactViews = [table, collection]
+
+        contactsContainer.setView(index: 0)
     }
 }
 
@@ -185,7 +162,7 @@ extension AllContactsViewController: AllContactsPresenterDelegate {
     func setData(_ data: AllContactsViewData) {
         ids = data.contactsIds
         DispatchQueue.main.async {
-            self.contactsContainer.contactsView?.reloadData()
+            self.contactsContainer.currentView?.reloadData()
         }
     }
 

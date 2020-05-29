@@ -76,6 +76,7 @@ public class ContactsCollectionView: UICollectionView, ContactsView {
     public convenience init() {
         // Initialize by default with flow layout
         self.init(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
+        backgroundColor = .systemBackground
     }
 
     public override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
@@ -101,10 +102,6 @@ public class ContactsCollectionView: UICollectionView, ContactsView {
             }
         }
         return res
-    }
-    
-    public override func didMoveToSuperview() {
-//        print(getVisibleAvatarViews().count)
     }
 }
 
@@ -182,9 +179,5 @@ extension ContactsCollectionView: UICollectionViewDelegate {
             ds.onContactSelected(id: ds.contactIds[indexPath.row])
         }
         deselectItem(at: indexPath, animated: true)
-    }
-    
-    public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        print(getVisibleAvatarViews().count)
     }
 }

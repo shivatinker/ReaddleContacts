@@ -88,6 +88,7 @@ public class ContactsTableView: UITableView, ContactsView {
         dataSource = self
         prefetchDataSource = self
         rowHeight = CGFloat(Self.rHeight)
+        backgroundColor = .systemBackground
     }
 
     public func getVisibleAvatarViews() -> [Int: AvatarView] {

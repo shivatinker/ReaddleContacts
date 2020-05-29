@@ -50,15 +50,24 @@ public protocol ContactsView: UIView {
 
 public class ContactsViewContainer: UIView {
 
+    public var contactViews: [ContactsView] = []
+
+    public func setView(index: Int) {
+        guard contactViews.indices.contains(index) else {
+            fatalError("Requested index \(index) does not exists in \(ContactsViewContainer.self)")
+        }
+        currentView = contactViews[index]
+    }
+
     private struct ContactAnimation {
         let image: UIImage?
         let beginFrame: CGRect
         let endFrame: CGRect
     }
 
-    public var contactsView: ContactsView? {
+    var currentView: ContactsView? {
         didSet {
-            if let newView = contactsView {
+            if let newView = currentView {
                 newView.translatesAutoresizingMaskIntoConstraints = false
                 self.addSubview(newView)
 
@@ -79,7 +88,7 @@ public class ContactsViewContainer: UIView {
 //                    newView.reloadData()
 
                     newView.alpha = 0.0
-                    
+
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                         let newAvatars = newView.getVisibleAvatarViews()
 
@@ -111,6 +120,8 @@ public class ContactsViewContainer: UIView {
                             self.addSubview($0.0)
                         })
 
+                        newAvatars.forEach({ if oldAvatars[$0] != nil { $1.alpha = 0.0 } })
+                        oldAvatars.forEach({ $1.alpha = 0.0 })
                         UIView.animate(withDuration: 0.3, animations: {
                             oldView.alpha = 0.0
                             newView.alpha = 1.0
@@ -119,6 +130,8 @@ public class ContactsViewContainer: UIView {
                             }
                         }, completion: { _ in
                             tempViews.forEach({ $0.0.removeFromSuperview() })
+                            newAvatars.forEach({ if oldAvatars[$0] != nil { $1.alpha = 1.0 } })
+                            oldAvatars.forEach({ $1.alpha = 1.0 })
                             oldView.removeFromSuperview()
                         })
                     }

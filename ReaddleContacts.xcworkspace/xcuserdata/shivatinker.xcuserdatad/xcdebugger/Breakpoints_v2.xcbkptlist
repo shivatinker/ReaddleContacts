@@ -174,8 +174,8 @@
             filePath = "ReaddleContacts/UI/ContactsCollectionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
             landmarkName = "init(frame:collectionViewLayout:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -351,9 +351,9 @@
             filePath = "ReaddleContacts/UI/ContactsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
-            landmarkName = "contactsView"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "currentView"
             landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
@@ -367,8 +367,8 @@
             filePath = "ReaddleContacts/UI/ContactsCollectionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
             landmarkName = "collectionView(_:numberOfItemsInSection:)"
             landmarkType = "7">
          </BreakpointContent>
