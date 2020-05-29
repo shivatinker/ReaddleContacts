@@ -43,6 +43,7 @@ public class AllContactsPresenter {
             debugPrint("Failed to get avatar: \(e)")
         }
     }
+
     private let avatarErrorHandler = AvatarEH()
 
     // MARK: Cache
@@ -84,21 +85,18 @@ public class AllContactsPresenter {
 
     private func loadContact(id: Int, callback: @escaping (ContactViewData?) -> Void) {
         addTask()
-        firstly {
-            when(fulfilled: context.getContactInfoP(for: id), context.isOnlineP(id: id))
-        }.map { contact, online in
-            let contactData = ContactViewData(
-                id: id,
-                fullName: contact.fullName,
-                email: contact.email,
-                online: online)
-            callback(contactData)
-        }.catch {
-            self.errorHandler?.error($0)
-            callback(nil)
-        }.finally {
-            self.removeTask()
-        }
+        context.getContactInfoAndOnlineP(for: id)
+            .done { contact, online in
+                let contactData = ContactViewData(
+                    id: id,
+                    fullName: contact.fullName,
+                    email: contact.email,
+                    online: online)
+                callback(contactData)
+            }.catch {
+                self.errorHandler?.error($0)
+                callback(nil)
+            }.finally { self.removeTask() }
     }
 
     private func loadContactIDs(callback: @escaping ([Int]?) -> Void) {

@@ -264,22 +264,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "07EE4BB8-ADF5-4EDC-93E8-D204662D1AEC"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ReaddleContacts/Presenters/AllContactsPresener.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
-            landmarkName = "loadContact(id:callback:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "BAE9D1C5-AF6B-4527-9AB4-FE73467D10C7"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -287,8 +271,8 @@
             filePath = "ReaddleContacts/Presenters/AllContactsPresener.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
             landmarkName = "loadAvatar(for:callback:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -303,8 +287,8 @@
             filePath = "ReaddleContacts/Presenters/AllContactsPresener.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
             landmarkName = "addTask()"
             landmarkType = "7">
          </BreakpointContent>

@@ -34,11 +34,15 @@ public extension DataContext {
     }
 
     func isOnlineP(id: ContactID) -> Promise<Bool> {
-        Promise { seal in
+        return Promise { seal in
             contact.isOnline(id: id) { (res) in
                 self.applyResult(res, seal)
             }
         }
+    }
+
+    func getContactInfoAndOnlineP(for id: ContactID) -> Promise<(Contact, Bool)> {
+        return when(fulfilled: getContactInfoP(for: id), isOnlineP(id: id))
     }
 
     func getAvatarP(for id: ContactID) -> Promise<UIImage?> {
