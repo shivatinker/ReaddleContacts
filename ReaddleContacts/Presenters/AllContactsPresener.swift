@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import PromiseKit
 
 public struct ContactViewData {
     public let id: Int
@@ -51,17 +52,8 @@ public class AllContactsPresenter {
     // MARK: Thread safe task counting
     private var currentTaskCount = 0
     private var taskCountQueue = DispatchQueue(label: "Counting current tasks")
-    private var taskCountMutex = DispatchSemaphore(value: 1)
-    private func taskCountSynchronized(_ f: @escaping () -> Void) {
-        taskCountQueue.async {
-            self.taskCountMutex.wait()
-            f()
-            self.taskCountMutex.signal()
-        }
-    }
-
     private func addTask() {
-        taskCountSynchronized {
+        taskCountQueue.async {
             if self.currentTaskCount == 0 {
                 self.delegate?.startLoading()
             }
@@ -70,7 +62,7 @@ public class AllContactsPresenter {
     }
 
     private func removeTask() {
-        taskCountSynchronized {
+        taskCountQueue.async {
             self.currentTaskCount -= 1
             if self.currentTaskCount == 0 {
                 self.delegate?.stopLoading()
@@ -78,57 +70,47 @@ public class AllContactsPresenter {
         }
     }
 
-
     // MARK: Private core functions
     private func loadAvatar(for id: Int, callback: @escaping (UIImage?) -> Void) {
         addTask()
-        context.contact.getContact(id: id) { (res) in
-            if let contact = res.unwrap(errorHandler: self.errorHandler),
-                let email = contact.email {
-                let request = GravatarRequest(email: email, taskId: id)
-                self.context.gravatar.getAvatarImage(request) { (res) in
-                    callback(res.unwrap(errorHandler: self.avatarErrorHandler) ?? nil)
-                    self.removeTask()
-                }
-            } else {
+        context.getAvatarP(for: id)
+            .done { callback($0) }
+            .catch {
+                self.avatarErrorHandler.error($0)
                 callback(nil)
-                self.removeTask()
             }
-        }
+            .finally { self.removeTask() }
     }
 
     private func loadContact(id: Int, callback: @escaping (ContactViewData?) -> Void) {
         addTask()
-        context.contact.getContact(id: id) { (res) in
-            if let contact = res.unwrap(errorHandler: self.errorHandler) {
-                self.context.contact.isOnline(id: id) { (res) in
-                    callback(ContactViewData(
-                        id: id,
-                        fullName: contact.fullName,
-                        email: contact.email,
-                        online: res.unwrap(errorHandler: self.errorHandler) ?? false))
-                    self.removeTask()
-                }
-            } else {
-                callback(nil)
-                self.removeTask()
-            }
+        firstly {
+            when(fulfilled: context.getContactInfoP(for: id), context.isOnlineP(id: id))
+        }.map { contact, online in
+            let contactData = ContactViewData(
+                id: id,
+                fullName: contact.fullName,
+                email: contact.email,
+                online: online)
+            callback(contactData)
+        }.catch {
+            self.errorHandler?.error($0)
+            callback(nil)
+        }.finally {
+            self.removeTask()
         }
     }
 
     private func loadContactIDs(callback: @escaping ([Int]?) -> Void) {
         addTask()
-        context.contact.getAllContacts { (res) in
-            if let contacts = res.unwrap(errorHandler: self.errorHandler) {
-                callback(contacts.sorted(by: { (e1, e2) -> Bool in
-                    e1.1.fullName < e2.1.fullName
-                }).map({ $0.0 }))
-                self.removeTask()
-            } else {
+        context.getAllContactP()
+            .done { contacts in
+                // Sorting contacts alphabeticly
+                callback(contacts.sorted(by: { $0.1.fullName < $1.1.fullName }).map({ $0.0 }))
+            }.catch {
+                self.errorHandler?.error($0)
                 callback(nil)
-                self.removeTask()
-            }
-        }
+            }.finally { self.removeTask() }
     }
 
     // MARK: Public API

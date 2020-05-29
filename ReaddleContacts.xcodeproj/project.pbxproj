@@ -22,6 +22,7 @@
 		DAA4A132247C27E000426E2F /* MockContactsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4A131247C27E000426E2F /* MockContactsProvider.swift */; };
 		DAC6513324802BC0004EE935 /* AlertErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC6513224802BC0004EE935 /* AlertErrorHandler.swift */; };
 		DAC6513624807C0E004EE935 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = DAC6513524807C0E004EE935 /* .swiftlint.yml */; };
+		DAC6513924808369004EE935 /* Promise+DataContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC6513824808369004EE935 /* Promise+DataContext.swift */; };
 		DAD43707247EA9F0005E8AAE /* ContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD43706247EA9F0005E8AAE /* ContactsView.swift */; };
 		DAD43709247EAEFA005E8AAE /* ContactsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD43708247EAEFA005E8AAE /* ContactsTableView.swift */; };
 		DAD4370B247ED105005E8AAE /* ContactsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD4370A247ED105005E8AAE /* ContactsCollectionView.swift */; };
@@ -67,6 +68,7 @@
 		DAA4A131247C27E000426E2F /* MockContactsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockContactsProvider.swift; sourceTree = "<group>"; };
 		DAC6513224802BC0004EE935 /* AlertErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertErrorHandler.swift; sourceTree = "<group>"; };
 		DAC6513524807C0E004EE935 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		DAC6513824808369004EE935 /* Promise+DataContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Promise+DataContext.swift"; sourceTree = "<group>"; };
 		DAD43706247EA9F0005E8AAE /* ContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsView.swift; sourceTree = "<group>"; };
 		DAD43708247EAEFA005E8AAE /* ContactsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTableView.swift; sourceTree = "<group>"; };
 		DAD4370A247ED105005E8AAE /* ContactsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsCollectionView.swift; sourceTree = "<group>"; };
@@ -157,11 +159,20 @@
 		DAA4A12E247C262F00426E2F /* DataProviders */ = {
 			isa = PBXGroup;
 			children = (
+				DAC6513724808345004EE935 /* Promise Binding */,
 				DAF48103247C056A00D165D2 /* Net */,
 				DAA4A128247C227400426E2F /* ContactsProvider */,
 				DAA4A12F247C264500426E2F /* DataProviderCommon.swift */,
 			);
 			path = DataProviders;
+			sourceTree = "<group>";
+		};
+		DAC6513724808345004EE935 /* Promise Binding */ = {
+			isa = PBXGroup;
+			children = (
+				DAC6513824808369004EE935 /* Promise+DataContext.swift */,
+			);
+			path = "Promise Binding";
 			sourceTree = "<group>";
 		};
 		DAF480D5247C047E00D165D2 = {
@@ -435,6 +446,7 @@
 				DAA4A130247C264500426E2F /* DataProviderCommon.swift in Sources */,
 				DAD4370B247ED105005E8AAE /* ContactsCollectionView.swift in Sources */,
 				DA899A14247C568E006F084D /* SingleContactViewPresenter.swift in Sources */,
+				DAC6513924808369004EE935 /* Promise+DataContext.swift in Sources */,
 				DA899A10247C3B2C006F084D /* AllContactsPresener.swift in Sources */,
 				DAA4A132247C27E000426E2F /* MockContactsProvider.swift in Sources */,
 				DAF480E6247C047E00D165D2 /* AllContactsViewController.swift in Sources */,
