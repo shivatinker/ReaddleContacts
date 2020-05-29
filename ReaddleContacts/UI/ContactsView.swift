@@ -49,13 +49,16 @@ public protocol ContactsView: UIView {
 }
 
 public class ContactsViewContainer: UIView {
+
+    private struct ContactAnimation {
+        let image: UIImage?
+        let beginFrame: CGRect
+        let endFrame: CGRect
+    }
+
     public var contactsView: ContactsView? {
-        willSet {
-            contactsView?.removeFromSuperview()
-        }
         didSet {
             if let newView = contactsView {
-                
                 newView.translatesAutoresizingMaskIntoConstraints = false
                 self.addSubview(newView)
 
@@ -65,6 +68,62 @@ public class ContactsViewContainer: UIView {
                     newView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor),
                     newView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor)
                 ])
+
+                if let oldView = oldValue {
+
+                    let oldAvatars = oldView.getVisibleAvatarViews()
+                    self.bringSubviewToFront(newView)
+
+//                    setNeedsDisplay()
+//                    newView.layoutSubviews()
+//                    newView.reloadData()
+
+                    newView.alpha = 0.0
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        let newAvatars = newView.getVisibleAvatarViews()
+
+                        let animations = oldAvatars.compactMap { (id, view) -> ContactAnimation? in
+                            let begin = view.convert(view.bounds, to: self)
+                            if let newView = newAvatars[id] {
+                                let end = newView.convert(newView.bounds, to: self)
+                                return ContactAnimation(
+                                    image: view.imageView.image,
+                                    beginFrame: begin,
+                                    endFrame: end)
+                            }
+                            return nil
+                        }
+
+                        let tempViews = animations.map { (anim) -> (AvatarView, CGAffineTransform) in
+                            let view = AvatarView(frame: anim.beginFrame)
+                            view.setImage(anim.image)
+                            let transform = CGAffineTransform(
+                                translationX: anim.endFrame.midX - anim.beginFrame.midX,
+                                y: anim.endFrame.midY - anim.beginFrame.midY)
+                                .scaledBy(
+                                    x: anim.endFrame.width / anim.beginFrame.width,
+                                    y: anim.endFrame.height / anim.beginFrame.height)
+                            return (view, transform)
+                        }
+
+                        tempViews.forEach({
+                            self.addSubview($0.0)
+                        })
+
+                        UIView.animate(withDuration: 0.3, animations: {
+                            oldView.alpha = 0.0
+                            newView.alpha = 1.0
+                            tempViews.forEach { (viewTransform) in
+                                viewTransform.0.transform = viewTransform.1
+                            }
+                        }, completion: { _ in
+                            tempViews.forEach({ $0.0.removeFromSuperview() })
+                            oldView.removeFromSuperview()
+                        })
+                    }
+
+                }
             }
         }
     }

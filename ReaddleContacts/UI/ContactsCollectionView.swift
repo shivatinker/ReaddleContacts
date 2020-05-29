@@ -102,6 +102,10 @@ public class ContactsCollectionView: UICollectionView, ContactsView {
         }
         return res
     }
+    
+    public override func didMoveToSuperview() {
+//        print(getVisibleAvatarViews().count)
+    }
 }
 
 // MARK: Extensions
@@ -178,5 +182,9 @@ extension ContactsCollectionView: UICollectionViewDelegate {
             ds.onContactSelected(id: ds.contactIds[indexPath.row])
         }
         deselectItem(at: indexPath, animated: true)
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        print(getVisibleAvatarViews().count)
     }
 }

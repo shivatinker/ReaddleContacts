@@ -38,9 +38,6 @@ class AllContactsViewController: UIViewController {
         v.backgroundColor = .systemBackground
 
         contactsContainer.contactsView = v
-
-        // Request update from presenter
-        presenter.update()
     }
 
     private func setContactsStyle(_ style: ContactsStyle) {
@@ -128,6 +125,7 @@ class AllContactsViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         navigationController?.delegate = self
+        presenter.update()
     }
 
     required init?(coder: NSCoder) {
