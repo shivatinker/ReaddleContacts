@@ -13,16 +13,16 @@ class SingleContactViewController: UIViewController {
     private var presenter: SingleContactPresenter
 
     /// Contact id to display
-    internal var contactId: Int
-    internal var loadFinished: Bool = false
+    private(set) var contactId: Int
+    private(set) var loadFinished: Bool = false
 
     // MARK: UI
-    internal let avatarImageView: UIImageView = UIImageView()
+    internal let avatarView: AvatarView = AvatarView()
     private let fullNameLabel: UILabel = UILabel()
     private let onlineLabel: UILabel = UILabel()
     private let emailLabel: UITextView = UITextView()
 
-    init(contactId: Int, initialAvatar: UIImage?, dataContext: DataContext) {
+    init(contactId: Int, dataContext: DataContext) {
         self.contactId = contactId
         self.presenter = SingleContactPresenter(context: dataContext)
         super.init(nibName: nil, bundle: nil)
@@ -38,10 +38,11 @@ class SingleContactViewController: UIViewController {
         view = UIView()
         view.backgroundColor = .systemBackground
 
-        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
-        avatarImageView.tintColor = .gray
+        avatarView.translatesAutoresizingMaskIntoConstraints = false
+        avatarView.tintColor = .gray
+        avatarView.setOnline(false)
 //        avatarImageView.clipsToBounds = true
-        view.addSubview(avatarImageView)
+        view.addSubview(avatarView)
         fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
         fullNameLabel.adjustsFontSizeToFitWidth = true
         fullNameLabel.font = .systemFont(ofSize: 30)
@@ -57,12 +58,12 @@ class SingleContactViewController: UIViewController {
         view.addSubview(emailLabel)
 
         NSLayoutConstraint.activate([
-            avatarImageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
-            avatarImageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            avatarImageView.widthAnchor.constraint(equalTo: avatarImageView.heightAnchor),
-            avatarImageView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.4),
+            avatarView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            avatarView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            avatarView.widthAnchor.constraint(equalTo: avatarView.heightAnchor),
+            avatarView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.4),
 
-            fullNameLabel.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 10),
+            fullNameLabel.topAnchor.constraint(equalTo: avatarView.bottomAnchor, constant: 10),
             fullNameLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 10),
             fullNameLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -10),
             fullNameLabel.heightAnchor.constraint(equalToConstant: 50),
@@ -83,11 +84,6 @@ class SingleContactViewController: UIViewController {
         initUI()
         presenter.update(id: contactId, avatarSize: 250)
     }
-
-    private func getAvatarOrDefault(_ image: UIImage?) -> UIImage? {
-        return image ?? UIImage(systemName: "person.fill")
-    }
-
 }
 
 extension SingleContactViewController: SingleContactPresenterDelegate {
@@ -106,15 +102,12 @@ extension SingleContactViewController: SingleContactPresenterDelegate {
     
     func setAvatar(_ avatar: UIImage?, animated: Bool = true) {
         DispatchQueue.main.async {
-            let newImage = self.getAvatarOrDefault(avatar)
-            self.avatarImageView.layer.cornerRadius = self.avatarImageView.frame.size.width / 2
-            self.avatarImageView.layer.masksToBounds = true
             let anim = {
-                self.avatarImageView.image = newImage
+                self.avatarView.setImage(avatar)
             }
             if animated {
                 UIView.transition(
-                    with: self.avatarImageView,
+                    with: self.avatarView,
                     duration: 0.3,
                     options: .transitionCrossDissolve,
                     animations: anim,

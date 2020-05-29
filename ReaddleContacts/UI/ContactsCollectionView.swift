@@ -90,15 +90,17 @@ public class ContactsCollectionView: UICollectionView, ContactsView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public func getAvatarImageView(for id: Int) -> UIImageView? {
-        guard let cd = contactsDelegate,
-            let row = cd.contactIds.firstIndex(of: id) else {
-                return nil
+    public func getVisibleAvatarViews() -> [Int: AvatarView] {
+        var res = [Int: AvatarView]()
+        for cell in visibleCells {
+            guard let contactCell = cell as? ContactCollectionCell else {
+                fatalError("Expected \(ContactCollectionCell.self) type for \(self) table")
+            }
+            if let id = contactCell.currentId {
+                res[id] = contactCell.avatarView
+            }
         }
-        guard let cell = cellForItem(at: IndexPath(row: row, section: 0)) as? ContactCollectionCell else {
-            fatalError("Expected \(ContactCollectionCell.self) type for \(self) table")
-        }
-        return cell.avatarView.imageView
+        return res
     }
 }
 

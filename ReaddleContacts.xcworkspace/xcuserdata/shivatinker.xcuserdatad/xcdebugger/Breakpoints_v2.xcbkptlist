@@ -321,25 +321,40 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "26"
             endingLineNumber = "26"
-            landmarkName = "init(contactId:initialAvatar:dataContext:)"
+            landmarkName = "init(contactId:dataContext:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C179D571-E201-4FDA-B564-6479A08149F7"
+            uuid = "EB746710-9616-4E2B-8607-47070E78C438"
             shouldBeEnabled = "No"
-            condition = "avatar?.size ?? 0 &gt;= 50"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ReaddleContacts/UI/SingleContactViewController.swift"
+            filePath = "ReaddleContacts/UI/AvatarView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "109"
-            endingLineNumber = "109"
-            landmarkName = "setAvatar(_:animated:)"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "init(frame:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "130034BF-76A0-4688-BF84-48F09BCFA66B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReaddleContacts/UI/AvatarView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "bounds"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

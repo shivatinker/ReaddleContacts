@@ -22,15 +22,15 @@ class AllToSingleViewAnimator: NSObject, UIViewControllerAnimatedTransitioning {
             fatalError("Expected .from VC to be \(AllContactsViewController.self)")
         }
         guard let toVC = transitionContext.viewController(forKey: .to) as? SingleContactViewController else {
-            fatalError("Expected .from VC to be \(SingleContactViewController.self)")
+            fatalError("Expected .to VC to be \(SingleContactViewController.self)")
         }
-        let newAvatarView = toVC.avatarImageView
+        let newAvatarView = toVC.avatarView
 
         toVC.view.layoutIfNeeded()
         containerView.addSubview(toVC.view)
 
         // Check if avatar is visible on previous view
-        guard let collectionAvatarView = fromVC.getAvatarImageView(for: toVC.contactId) else {
+        guard let collectionAvatarView = fromVC.contactsView?.getVisibleAvatarViews()[toVC.contactId] else {
             // Perform basic fade animation
             toVC.view.alpha = 0
             UIView.animate(
@@ -51,26 +51,29 @@ class AllToSingleViewAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         let endFrame = newAvatarView.convert(newAvatarView.bounds, to: containerView)
 
         // Add temp view in same place as old avatar
-        let transitionView = UIImageView(frame: beginFrame)
-        transitionView.image = collectionAvatarView.image
-        transitionView.layer.cornerRadius = transitionView.frame.size.width / 2
-        transitionView.layer.masksToBounds = true
-        transitionView.tintColor = .gray
+        let transitionView = AvatarView(frame: beginFrame)
+        transitionView.setOnline(false)
+        transitionView.setImage(collectionAvatarView.imageView.image)
         containerView.addSubview(transitionView)
 
         // Preform animation
         UIView.animate(
             withDuration: duration,
             animations: {
-                transitionView.frame = endFrame
-                transitionView.layer.cornerRadius = transitionView.frame.size.width / 2
-                transitionView.layer.masksToBounds = true
+
+                transitionView.transform = CGAffineTransform(
+                    translationX: endFrame.midX - beginFrame.midX,
+                    y: endFrame.midY - beginFrame.midY)
+                    .scaledBy(
+                        x: endFrame.width / beginFrame.width,
+                        y: endFrame.height / beginFrame.height)
+
                 toVC.view.alpha = 1.0
             },
             completion: { _ in
                 // If new view still not loaded hi-res avatar, load low-res avatar for a while
                 if !toVC.loadFinished {
-                    toVC.setAvatar(transitionView.image, animated: false)
+                    toVC.setAvatar(transitionView.imageView.image, animated: false)
                 }
                 newAvatarView.alpha = 1.0
                 collectionAvatarView.alpha = 1.0

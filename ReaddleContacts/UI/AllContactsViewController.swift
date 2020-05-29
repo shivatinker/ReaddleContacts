@@ -25,7 +25,7 @@ class AllContactsViewController: UIViewController {
     private let toSingleViewTransition = AllToSingleViewAnimator()
 
     /// Current contacts display view, for now it can be table or collection
-    private var contactsView: ContactsView?
+    private(set) var contactsView: ContactsView?
 
     private enum ContactsStyle {
         case grid
@@ -152,10 +152,6 @@ class AllContactsViewController: UIViewController {
 
         setContactsStyle(.list)
     }
-
-    public func getAvatarImageView(for id: Int) -> UIImageView? {
-        return contactsView?.getAvatarImageView(for: id)
-    }
 }
 
 // MARK: Delegates
@@ -194,7 +190,6 @@ extension AllContactsViewController: AllContactsPresenterDelegate {
             }
             let newController = SingleContactViewController(
                 contactId: id,
-                initialAvatar: self.getAvatarImageView(for: id)?.image,
                 dataContext: self.dataContext)
 //            self.present(newController, animated: true, completion: nil)
             navController.pushViewController(newController, animated: true)

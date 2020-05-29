@@ -10,14 +10,20 @@ import Foundation
 import UIKit
 
 /// View with contact avatar image and online indicator
-class AvatarView: UIView {
+public class AvatarView: UIView {
     internal let imageView: UIImageView
     private let onlineView: UIImageView
+
+    public override var bounds: CGRect {
+        didSet {
+//            imageView.layer.cornerRadius = imageView.frame.size.width / 2
+//            imageView.layer.masksToBounds = true
+        }
+    }
 
     public override init(frame: CGRect) {
         imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.masksToBounds = true
         imageView.tintColor = .gray
 
         let onlineImage: UIImage? = UIImage(systemName: "circle.fill")
@@ -51,13 +57,18 @@ class AvatarView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    public override func layerWillDraw(_ layer: CALayer) {
+        imageView.layer.cornerRadius = imageView.frame.size.width / 2
+        imageView.layer.masksToBounds = true
+        super.layerWillDraw(layer)
+    }
+
     /// Sets avatar image, or default avatar, if image is nil
     /// - Parameters:
     ///   - image: Avatar image to be set
     ///   - animated: Perform animated avatar change
     public func setImage(_ image: UIImage?, animated: Bool = false) {
-        let newImage = image ?? UIImage(systemName: "person.fill")
-        imageView.layer.cornerRadius = imageView.frame.size.width / 2
+        let newImage = (image?.circleMasked ?? UIImage(systemName: "person.fill"))
 
         if animated {
             UIView.transition(

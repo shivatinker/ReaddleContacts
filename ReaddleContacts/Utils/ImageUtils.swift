@@ -63,6 +63,9 @@ public extension UIImage {
     var breadthSize: CGSize { .init(width: breadth, height: breadth) }
     var breadthRect: CGRect { .init(origin: .zero, size: breadthSize) }
     var circleMasked: UIImage? {
+        if isSymbolImage {
+            return self
+        }
         guard let cgImage = cgImage?
             .cropping(to: .init(
                 origin: .init(x: isLandscape ? ((size.width - size.height) * scale / 2).rounded(.down) : 0,
