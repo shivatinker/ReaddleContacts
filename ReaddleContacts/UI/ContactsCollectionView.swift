@@ -89,7 +89,7 @@ public class ContactsCollectionView: UICollectionView, ContactsView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     public func getAvatarImageView(for id: Int) -> UIImageView? {
         guard let cd = contactsDelegate,
             let row = cd.contactIds.firstIndex(of: id) else {
@@ -171,7 +171,6 @@ extension ContactsCollectionView: UICollectionViewDataSourcePrefetching {
 }
 
 extension ContactsCollectionView: UICollectionViewDelegate {
-
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let ds = contactsDelegate {
             ds.onContactSelected(id: ds.contactIds[indexPath.row])

@@ -84,8 +84,8 @@ class SingleContactViewController: UIViewController {
         presenter.update(id: contactId, avatarSize: 250)
     }
 
-    private func getAvatarOrDefault(_ image: UIImage?) -> UIImage {
-        return (image ?? UIImage(systemName: "person.fill")!)!
+    private func getAvatarOrDefault(_ image: UIImage?) -> UIImage? {
+        return image ?? UIImage(systemName: "person.fill")
     }
 
 }
