@@ -46,7 +46,7 @@ private class ContactTableCell: UITableViewCell {
             nameLabel.centerYAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.centerYAnchor),
             nameLabel.leftAnchor.constraint(equalTo: avatarView.rightAnchor, constant: 5),
             // Avatar constraints
-            avatarView.leftAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leftAnchor),
+            avatarView.leftAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leftAnchor, constant: 5),
             avatarView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 5),
             avatarView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -5),
             avatarView.widthAnchor.constraint(equalTo: avatarView.heightAnchor)
@@ -79,7 +79,7 @@ private class ContactTableCell: UITableViewCell {
 public class ContactsTableView: UITableView, ContactsView {
     /// Constant row height
     public static let rHeight = 50.0
-    public weak var contactsDataSource: ContactsCollectionDataSource?
+    public weak var contactsDelegate: ContactsCollectionDelegate?
 
     public override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
@@ -98,7 +98,7 @@ public class ContactsTableView: UITableView, ContactsView {
 // MARK: Extensions
 extension ContactsTableView: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return contactsDataSource?.contactIds.count ?? 0
+        return contactsDelegate?.contactIds.count ?? 0
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -111,7 +111,7 @@ extension ContactsTableView: UITableViewDataSource {
                     """)
         }
 
-        if let ds = contactsDataSource {
+        if let ds = contactsDelegate {
 
             // Configuring cell to wait data for curernt ID
             let id = ds.contactIds[indexPath.row]
@@ -145,14 +145,14 @@ extension ContactsTableView: UITableViewDataSource {
 
 extension ContactsTableView: UITableViewDataSourcePrefetching {
     public func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        if let ds = contactsDataSource {
+        if let ds = contactsDelegate {
             // Request prefetching
             ds.prefetch(ids: indexPaths.map({ ds.contactIds[$0.row] }))
         }
     }
 
     public func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
-        if let ds = contactsDataSource {
+        if let ds = contactsDelegate {
             // Request cache clearing
             ds.cancelPrefetching(ids: indexPaths.map({ ds.contactIds[$0.row] }))
         }
@@ -161,7 +161,9 @@ extension ContactsTableView: UITableViewDataSourcePrefetching {
 
 extension ContactsTableView: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
-
+        if let ds = contactsDelegate {
+            ds.onContactSelected(id: ds.contactIds[indexPath.row])
+        }
     }
 
 }

@@ -35,6 +35,7 @@ private class ContactCollectionCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
+        contentView.backgroundColor = .systemBackground
         // Setting up UI
         contentView.addSubview(avatarView)
         avatarView.translatesAutoresizingMaskIntoConstraints = false
@@ -70,7 +71,7 @@ private class ContactCollectionCell: UICollectionViewCell {
 // MARK: Collection class
 /// UICollectionView, designated to represent contacts as grid
 public class ContactsCollectionView: UICollectionView, ContactsView {
-    public weak var contactsDataSource: ContactsCollectionDataSource?
+    public weak var contactsDelegate: ContactsCollectionDelegate?
 
     public convenience init() {
         // Initialize by default with flow layout
@@ -93,7 +94,7 @@ public class ContactsCollectionView: UICollectionView, ContactsView {
 // MARK: Extensions
 extension ContactsCollectionView: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return contactsDataSource?.contactIds.count ?? 0
+        return contactsDelegate?.contactIds.count ?? 0
     }
 
     public func collectionView(_ collectionView: UICollectionView,
@@ -108,7 +109,7 @@ extension ContactsCollectionView: UICollectionViewDataSource {
                 """)
         }
 
-        if let ds = contactsDataSource {
+        if let ds = contactsDelegate {
 
             // Configuring cell to wait data for curernt ID
             let id = ds.contactIds[indexPath.row]
@@ -143,7 +144,7 @@ extension ContactsCollectionView: UICollectionViewDataSource {
 
 extension ContactsCollectionView: UICollectionViewDataSourcePrefetching {
     public func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        if let ds = contactsDataSource {
+        if let ds = contactsDelegate {
             // Request prefetching
             ds.prefetch(ids: indexPaths.map({ ds.contactIds[$0.row] }))
         }
@@ -151,7 +152,7 @@ extension ContactsCollectionView: UICollectionViewDataSourcePrefetching {
 
     public func collectionView(_ collectionView: UICollectionView,
                                cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
-        if let ds = contactsDataSource {
+        if let ds = contactsDelegate {
             // Request cache clearing
             ds.cancelPrefetching(ids: indexPaths.map({ ds.contactIds[$0.row] }))
         }
@@ -160,7 +161,9 @@ extension ContactsCollectionView: UICollectionViewDataSourcePrefetching {
 
 extension ContactsCollectionView: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-
+        if let ds = contactsDelegate {
+            ds.onContactSelected(id: ds.contactIds[indexPath.row])
+        }
     }
 
 }

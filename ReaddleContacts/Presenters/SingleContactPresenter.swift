@@ -19,7 +19,7 @@ public struct SingleContactViewData {
 public protocol SingleContactPresenterDelegate: AnyObject {
     func setData(_ data: SingleContactViewData)
     func setOnline(_ online: Bool)
-    func setAvatar(_ avatar: UIImage?)
+    func setAvatar(_ avatar: UIImage?, animated: Bool)
     func startLoading()
     func stopLoading()
 }
@@ -35,7 +35,7 @@ public class SingleContactPresenter {
         self.context = context
     }
 
-    public func update(id: Int) {
+    public func update(id: Int, avatarSize: Int) {
         delegate?.startLoading()
         when(fulfilled:
             [
@@ -48,8 +48,8 @@ public class SingleContactPresenter {
                             email: contact.email))
                     self.delegate?.setOnline(online) },
                 // Get avatar image
-                context.getAvatarP(for: id).done { image in
-                    self.delegate?.setAvatar(image)
+                context.getAvatarP(for: id, size: avatarSize).done { image in
+                    self.delegate?.setAvatar(image, animated: true)
                 }
             ])
             .catch({ self.errorHandler?.error($0) })

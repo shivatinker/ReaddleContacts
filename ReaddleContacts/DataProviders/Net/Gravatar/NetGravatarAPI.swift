@@ -51,10 +51,10 @@ public class NetGravatarAPI: GravatarAPI {
 
     private var currentTasks = [Int: DataRequest]()
 
-    public func getAvatarImage(_ params: GravatarRequest, callback: @escaping GravatarCallback) {
+    public func getAvatarImage(email: String, params: GravatarRequest, callback: @escaping GravatarCallback) {
         taskQueue.asyncAfter(deadline: .now() + delay) {
             // Create email hash according to https://ru.gravatar.com/site/implement/images/
-            guard let data = params.email.trimmingCharacters(in: [" "]).lowercased().data(using: .utf8) else {
+            guard let data = email.trimmingCharacters(in: [" "]).lowercased().data(using: .utf8) else {
                 callback(.failure(error: .unknown("Failed to convert email to data")))
                 return
             }

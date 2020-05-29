@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 /// Cached data source for UIViews that can display collections of contacts
-public protocol ContactsCollectionDataSource: AnyObject {
+public protocol ContactsCollectionDelegate: AnyObject {
     /// Contains ID's to display
     var contactIds: [Int] { get }
 
@@ -33,12 +33,14 @@ public protocol ContactsCollectionDataSource: AnyObject {
     /// Requests cancelling all pending data tasks on selected contacts
     /// - Parameter ids: Contacts ID's to cancel
     func cancelPrefetching(ids: [Int])
+
+    func onContactSelected(id: Int)
 }
 
 /// UIView, thet displays collection of contacts
 public protocol ContactsView: UIView {
     /// Data source
-    var contactsDataSource: ContactsCollectionDataSource? { get set }
+    var contactsDelegate: ContactsCollectionDelegate? { get set }
 
     /// Requests immediate data reloading, for example if item count has chenged
     func reloadData()

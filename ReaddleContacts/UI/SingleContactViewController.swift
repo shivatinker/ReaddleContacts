@@ -19,7 +19,7 @@ class SingleContactViewController: UIViewController {
     private var avatarImageView: UIImageView = UIImageView()
     private var fullNameLabel: UILabel = UILabel()
     private var onlineLabel: UILabel = UILabel()
-    private var emailLabel: UILabel = UILabel()
+    private var emailLabel: UITextView = UITextView()
 
     init(contactId: Int, dataContext: DataContext) {
         self.id = contactId
@@ -27,6 +27,7 @@ class SingleContactViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         presenter.delegate = self
         presenter.errorHandler = AlertErrorHandler(parent: self)
+
     }
 
     required init?(coder: NSCoder) {
@@ -38,22 +39,33 @@ class SingleContactViewController: UIViewController {
         view.backgroundColor = .systemBackground
 
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
+        avatarImageView.tintColor = .gray
+        avatarImageView.clipsToBounds = true
         view.addSubview(avatarImageView)
         fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        fullNameLabel.adjustsFontSizeToFitWidth = true
+        fullNameLabel.font = .systemFont(ofSize: 30)
+        fullNameLabel.textAlignment = .center
         view.addSubview(fullNameLabel)
         onlineLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(onlineLabel)
         emailLabel.translatesAutoresizingMaskIntoConstraints = false
+        emailLabel.isEditable = false
+        emailLabel.dataDetectorTypes = .link
+        emailLabel.isScrollEnabled = false
+        emailLabel.font = UIFont.systemFont(ofSize: 22)
         view.addSubview(emailLabel)
 
         NSLayoutConstraint.activate([
             avatarImageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
             avatarImageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             avatarImageView.widthAnchor.constraint(equalTo: avatarImageView.heightAnchor),
-            avatarImageView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.3),
+            avatarImageView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.4),
 
             fullNameLabel.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 10),
-            fullNameLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            fullNameLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 10),
+            fullNameLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -10),
+            fullNameLabel.heightAnchor.constraint(equalToConstant: 50),
 
             onlineLabel.topAnchor.constraint(equalTo: fullNameLabel.bottomAnchor, constant: 10),
             onlineLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
@@ -61,13 +73,16 @@ class SingleContactViewController: UIViewController {
             emailLabel.topAnchor.constraint(equalTo: onlineLabel.bottomAnchor, constant: 10),
             emailLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)
         ])
+
+        avatarImageView.layer.cornerRadius = avatarImageView.frame.size.width / 2
     }
 
     override func viewDidLoad() {
         initUI()
-
-        presenter.update(id: id)
+        setAvatar(nil, animated: false)
+        presenter.update(id: id, avatarSize: 250)
     }
+
 }
 
 extension SingleContactViewController: SingleContactPresenterDelegate {
@@ -84,17 +99,31 @@ extension SingleContactViewController: SingleContactPresenterDelegate {
         }
     }
 
-    func setAvatar(_ avatar: UIImage?) {
+    func setAvatar(_ avatar: UIImage?, animated: Bool = true) {
         DispatchQueue.main.async {
-            self.avatarImageView.image = avatar
+            let newImage = (avatar ?? UIImage(systemName: "person.fill"))
+            let anim = {
+                self.avatarImageView.image = newImage
+                self.avatarImageView.layer.cornerRadius = self.avatarImageView.frame.size.width / 2
+            }
+            if animated {
+                UIView.transition(
+                    with: self.avatarImageView,
+                    duration: 0.3,
+                    options: .transitionCrossDissolve,
+                    animations: anim,
+                    completion: nil)
+            } else {
+                anim()
+            }
         }
     }
 
     func startLoading() {
-        
+
     }
 
     func stopLoading() {
-        
+
     }
 }

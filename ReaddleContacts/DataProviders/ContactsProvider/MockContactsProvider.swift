@@ -23,6 +23,8 @@ public class MockContactsProvider {
             c.append(Contact(firstName: "Stranger", email: "\(i)@gmail.com"))
         }
 
+        c.append(Contact(firstName: "A very long name, very long, literally"))
+
         self.init(contacts: c)
     }
 

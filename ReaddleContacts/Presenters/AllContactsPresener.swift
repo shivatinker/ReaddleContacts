@@ -23,6 +23,7 @@ public struct AllContactsViewData {
 
 public protocol AllContactsPresenterDelegate: AnyObject {
     func setData(_ data: AllContactsViewData)
+    func showContactInfo(id: Int)
     func startLoading()
     func stopLoading()
 }
@@ -72,9 +73,9 @@ public class AllContactsPresenter {
     }
 
     // MARK: Private core functions
-    private func loadAvatar(for id: Int, callback: @escaping (UIImage?) -> Void) {
+    private func loadAvatar(for id: Int, size: Int, callback: @escaping (UIImage?) -> Void) {
         addTask()
-        context.getAvatarP(for: id)
+        context.getAvatarP(for: id, size: size)
             .done { callback($0) }
             .catch {
                 self.avatarErrorHandler.error($0)
@@ -118,13 +119,17 @@ public class AllContactsPresenter {
         self.errorHandler = errorHandler
 
         avatarCache = CachedStorage(maxCount: 250) { id, callback in
-            self.loadAvatar(for: id) { callback($0) }
+            self.loadAvatar(for: id, size: 50) { callback($0) }
         }
 
         contactCache = CachedStorage { id, callback in
             self.loadContact(id: id) { callback($0) }
         }
 
+    }
+
+    public func onContactSelected(id: Int) {
+        delegate?.showContactInfo(id: id)
     }
 
     public func getContactInfo(id: Int, callback: @escaping (ContactViewData?, Bool) -> Void) {

@@ -28,11 +28,9 @@ public struct GravatarRequest {
 
     public let size: Int
     public let taskId: Int
-    public let email: String
     public let defaultAvatar: DefaultAvatar
 
-    public init(email: String, taskId: Int, size: Int = 50, defaultAvatar: DefaultAvatar = .identicon) {
-        self.email = email
+    public init(taskId: Int, size: Int = 50, defaultAvatar: DefaultAvatar = .identicon) {
         self.size = size
         self.defaultAvatar = defaultAvatar
         self.taskId = taskId
@@ -46,7 +44,7 @@ public protocol GravatarAPI {
     /// - Parameters:
     ///   - params: Request parameters
     ///   - callback: Callback to be called
-    func getAvatarImage(_ params: GravatarRequest,
+    func getAvatarImage(email: String, params: GravatarRequest,
                         callback: @escaping GravatarCallback)
 
     /// Requests cancelling loading of avatar

@@ -35,7 +35,8 @@ class AllContactsViewController: UIViewController {
         contactsView?.removeFromSuperview()
 
         contactsPlaceholder.addSubview(v)
-        v.contactsDataSource = self
+        v.contactsDelegate = self
+        v.backgroundColor = .systemBackground
 
         v.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -97,12 +98,12 @@ class AllContactsViewController: UIViewController {
             shuffleButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
             shuffleButton.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor),
             shuffleButton.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor),
-            shuffleButton.heightAnchor.constraint(equalToConstant: 40),
+            shuffleButton.heightAnchor.constraint(equalToConstant: 60),
             // Seg constraints
             segmentedControl.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
             segmentedControl.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor, constant: 50),
             segmentedControl.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor, constant: -50),
-            segmentedControl.heightAnchor.constraint(equalToConstant: 25),
+            segmentedControl.heightAnchor.constraint(equalToConstant: 30),
             // Table constraints
             contactsPlaceholder.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 5),
             contactsPlaceholder.bottomAnchor.constraint(equalTo: shuffleButton.topAnchor, constant: 5),
@@ -116,11 +117,7 @@ class AllContactsViewController: UIViewController {
 
     // MARK: Input handlers
     @objc public func simulateButtonClicked() {
-        guard let navController = navigationController else {
-            fatalError("No navigation controller provided")
-        }
-        let newController = SingleContactViewController(contactId: 0, dataContext: dataContext)
-        navController.pushViewController(newController, animated: true)
+
     }
 
     @objc public func styleControlValueChanged() {
@@ -151,7 +148,11 @@ class AllContactsViewController: UIViewController {
 }
 
 // This extension binds collection views data requests to view's presenter
-extension AllContactsViewController: ContactsCollectionDataSource {
+extension AllContactsViewController: ContactsCollectionDelegate {
+    func onContactSelected(id: Int) {
+        presenter.onContactSelected(id: id)
+    }
+
     var contactIds: [Int] {
         return ids ?? []
     }
@@ -174,6 +175,16 @@ extension AllContactsViewController: ContactsCollectionDataSource {
 }
 
 extension AllContactsViewController: AllContactsPresenterDelegate {
+    func showContactInfo(id: Int) {
+        DispatchQueue.main.async {
+            guard let navController = self.navigationController else {
+                fatalError("No navigation controller provided")
+            }
+            let newController = SingleContactViewController(contactId: id, dataContext: self.dataContext)
+            navController.pushViewController(newController, animated: true)
+        }
+    }
+
     func setData(_ data: AllContactsViewData) {
         ids = data.contactsIds
         DispatchQueue.main.async {

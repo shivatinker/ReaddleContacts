@@ -45,13 +45,15 @@ public extension DataContext {
         return when(fulfilled: getContactInfoP(for: id), isOnlineP(id: id))
     }
 
-    func getAvatarP(for id: ContactID) -> Promise<UIImage?> {
+    func getAvatarP(for id: ContactID, size: Int) -> Promise<UIImage?> {
         return firstly {
             getContactInfoP(for: id)
         }.then { contact in
             Promise { seal in
                 if let email = contact.email {
-                    self.gravatar.getAvatarImage(GravatarRequest(email: email, taskId: id)) { (res) in
+                    self.gravatar.getAvatarImage(
+                        email: email,
+                        params: GravatarRequest(taskId: id, size: size)) { (res) in
                         self.applyResult(res, seal)
                     }
                 } else {
