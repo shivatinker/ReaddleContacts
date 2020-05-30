@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import PromiseKit
 
 class AllToSingleViewAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     let duration = 0.3
@@ -24,62 +25,83 @@ class AllToSingleViewAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         guard let toVC = transitionContext.viewController(forKey: .to) as? SingleContactViewController else {
             fatalError("Expected .to VC to be \(SingleContactViewController.self)")
         }
-        let newAvatarView = toVC.avatarView
 
+        let toAvatar = toVC.avatarView
         toVC.view.layoutIfNeeded()
         containerView.addSubview(toVC.view)
 
         // Check if avatar is visible on previous view
-        guard let collectionAvatarView =
+        guard let fromAvatar =
             fromVC.contactsContainer.currentView?.getVisibleAvatarViews()[toVC.contactId] else {
-            // Perform basic fade animation
-            toVC.view.alpha = 0
-            UIView.animate(
-                withDuration: duration,
-                animations: { toVC.view.alpha = 1.0 },
-                completion: { _ in transitionContext.completeTransition(true) }
-            )
-            return
+                // Perform basic fade animation
+                AnimationUtils.alphaAnimation(view: toVC.view, from: 0.0, to: 1.0, duration: duration).done {
+                    transitionContext.completeTransition(true)
+                }
+                return
         }
 
-        // Prepare views
-        newAvatarView.alpha = 0.0
-        collectionAvatarView.alpha = 0.0
-        toVC.view.alpha = 0
-
-        // Calculate frames in containerView
-        let beginFrame: CGRect = collectionAvatarView.convert(collectionAvatarView.bounds, to: containerView)
-        let endFrame = newAvatarView.convert(newAvatarView.bounds, to: containerView)
-
-        // Add temp view in same place as old avatar
-        let transitionView = AvatarView(frame: beginFrame)
-        transitionView.setOnline(false)
-        transitionView.setImage(collectionAvatarView.imageView.image)
-        containerView.addSubview(transitionView)
-
-        // Preform animation
-        UIView.animate(
-            withDuration: duration,
-            animations: {
-
-                transitionView.transform = CGAffineTransform(
-                    translationX: endFrame.midX - beginFrame.midX,
-                    y: endFrame.midY - beginFrame.midY)
-                    .scaledBy(
-                        x: endFrame.width / beginFrame.width,
-                        y: endFrame.height / beginFrame.height)
-
-                toVC.view.alpha = 1.0
-            },
-            completion: { _ in
-                // If new view still not loaded hi-res avatar, load low-res avatar for a while
+        let animations = [
+            AnimationUtils.alphaAnimation(view: toVC.view,
+                                          from: 0.0,
+                                          to: 1.0,
+                                          duration: duration),
+            AnimationUtils.travelAnimation(from: fromAvatar,
+                                           to: toAvatar,
+                                           in: containerView,
+                                           duration: duration).done {
                 if !toVC.loadFinished {
-                    toVC.setAvatar(transitionView.imageView.image, animated: false)
+                    toAvatar.setImage(fromAvatar.imageView.image, animated: false)
                 }
-                newAvatarView.alpha = 1.0
-                collectionAvatarView.alpha = 1.0
-                transitionView.removeFromSuperview()
-                transitionContext.completeTransition(true)
-            })
+            }
+        ]
+        when(guarantees: animations).done {
+            transitionContext.completeTransition(true)
+        }
+    }
+}
+
+class SingleToAllViewTransition: NSObject, UIViewControllerAnimatedTransitioning {
+    let duration = 0.3
+
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+        return duration
+    }
+
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        let containerView = transitionContext.containerView
+        guard let fromVC = transitionContext.viewController(forKey: .from) as? SingleContactViewController else {
+            fatalError("Expected .from VC to be \(SingleContactViewController.self)")
+        }
+        guard let toVC = transitionContext.viewController(forKey: .to) as? AllContactsViewController else {
+            fatalError("Expected .to VC to be \(AllContactsViewController.self)")
+        }
+
+        let fromAvatar = fromVC.avatarView
+        toVC.view.layoutIfNeeded()
+        containerView.insertSubview(toVC.view, belowSubview: fromVC.view)
+
+        // Check if avatar is visible on previous view
+        guard let toAvatar =
+            toVC.contactsContainer.currentView?.getVisibleAvatarViews()[fromVC.contactId] else {
+                // Perform basic fade animation
+                AnimationUtils.alphaAnimation(view: fromVC.view, from: 1.0, to: 0.0, duration: duration).done {
+                    transitionContext.completeTransition(true)
+                }
+                return
+        }
+        
+        let animations = [
+            AnimationUtils.alphaAnimation(view: fromVC.view,
+                                          from: 1.0,
+                                          to: 0.0,
+                                          duration: duration),
+            AnimationUtils.travelAnimation(from: fromAvatar,
+                                           to: toAvatar,
+                                           in: containerView,
+                                           duration: duration)
+        ]
+        when(guarantees: animations).done {
+            transitionContext.completeTransition(true)
+        }
     }
 }

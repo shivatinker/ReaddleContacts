@@ -11,8 +11,9 @@ import UIKit
 
 /// View with contact avatar image and online indicator
 public class AvatarView: UIView {
+    // TODO: refactor to get/set
     internal let imageView: UIImageView
-    private let onlineView: UIImageView
+    internal let onlineView: UIImageView
 
     public override init(frame: CGRect) {
         imageView = UIImageView()
@@ -44,6 +45,9 @@ public class AvatarView: UIView {
             onlineView.heightAnchor.constraint(equalToConstant: 15),
             onlineView.rightAnchor.constraint(equalTo: imageView.rightAnchor)
         ])
+        
+        setOnline(false)
+        setImage(nil, animated: false)
     }
 
     required init?(coder: NSCoder) {

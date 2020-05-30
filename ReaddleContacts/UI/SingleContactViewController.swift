@@ -77,7 +77,7 @@ class SingleContactViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.delegate = nil
+//        navigationController?.delegate = nil
     }
 
     override func viewDidLoad() {

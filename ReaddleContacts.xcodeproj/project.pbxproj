@@ -17,6 +17,7 @@
 		DA899A1B247D3FC5006F084D /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA899A1A247D3FC5006F084D /* ImageUtils.swift */; };
 		DA899A1D247D5309006F084D /* ArrayUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA899A1C247D5309006F084D /* ArrayUtils.swift */; };
 		DA899A1F247DE442006F084D /* CachedStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA899A1E247DE442006F084D /* CachedStorage.swift */; };
+		DA9D7F462481C09A000C7373 /* AnimationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9D7F452481C09A000C7373 /* AnimationUtils.swift */; };
 		DAA4A12A247C229000426E2F /* ContactsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4A129247C229000426E2F /* ContactsProvider.swift */; };
 		DAA4A12C247C240400426E2F /* ContactProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4A12B247C240400426E2F /* ContactProviderTests.swift */; };
 		DAA4A130247C264500426E2F /* DataProviderCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4A12F247C264500426E2F /* DataProviderCommon.swift */; };
@@ -65,6 +66,7 @@
 		DA899A1A247D3FC5006F084D /* ImageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
 		DA899A1C247D5309006F084D /* ArrayUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayUtils.swift; sourceTree = "<group>"; };
 		DA899A1E247DE442006F084D /* CachedStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedStorage.swift; sourceTree = "<group>"; };
+		DA9D7F452481C09A000C7373 /* AnimationUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationUtils.swift; sourceTree = "<group>"; };
 		DAA4A129247C229000426E2F /* ContactsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsProvider.swift; sourceTree = "<group>"; };
 		DAA4A12B247C240400426E2F /* ContactProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactProviderTests.swift; sourceTree = "<group>"; };
 		DAA4A12F247C264500426E2F /* DataProviderCommon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProviderCommon.swift; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 				DAD4370A247ED105005E8AAE /* ContactsCollectionView.swift */,
 				DAC6513224802BC0004EE935 /* AlertErrorHandler.swift */,
 				DA6769D12481594F0072F5DC /* AllToSingleViewAnimation.swift */,
+				DA9D7F452481C09A000C7373 /* AnimationUtils.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -450,6 +453,7 @@
 				DAF4810C247C0C9100D165D2 /* NetCommon.swift in Sources */,
 				DAD43709247EAEFA005E8AAE /* ContactsTableView.swift in Sources */,
 				DAA4A130247C264500426E2F /* DataProviderCommon.swift in Sources */,
+				DA9D7F462481C09A000C7373 /* AnimationUtils.swift in Sources */,
 				DAD4370B247ED105005E8AAE /* ContactsCollectionView.swift in Sources */,
 				DA899A14247C568E006F084D /* SingleContactPresenter.swift in Sources */,
 				DAC6513924808369004EE935 /* Promise+DataContext.swift in Sources */,

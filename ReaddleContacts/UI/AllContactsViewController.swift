@@ -22,6 +22,7 @@ class AllContactsViewController: UIViewController {
     private var activityIndicator: UIActivityIndicatorView!
 
     private let toSingleViewTransition = AllToSingleViewAnimator()
+    private let toAllViewTransition = SingleToAllViewTransition()
 
     /// Current contacts display view, for now it can be table or collection
     private(set) var contactsContainer: ContactsViewContainer = ContactsViewContainer()
@@ -94,7 +95,6 @@ class AllContactsViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         navigationController?.delegate = self
-        presenter.update()
     }
 
     required init?(coder: NSCoder) {
@@ -114,6 +114,7 @@ class AllContactsViewController: UIViewController {
         contactsContainer.contactViews = [table, collection]
 
         contactsContainer.setView(index: 0)
+        presenter.update()
     }
 }
 
@@ -184,6 +185,10 @@ extension AllContactsViewController: UINavigationControllerDelegate {
                               animationControllerFor operation: UINavigationController.Operation,
                               from fromVC: UIViewController,
                               to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return toSingleViewTransition
+        if operation == .push {
+            return toSingleViewTransition
+        } else {
+            return toAllViewTransition
+        }
     }
 }

@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import PromiseKit
 
 /// Cached data source for UIViews that can display collections of contacts
 public protocol ContactsCollectionDelegate: AnyObject {
@@ -59,12 +60,6 @@ public class ContactsViewContainer: UIView {
         currentView = contactViews[index]
     }
 
-    private struct ContactAnimation {
-        let image: UIImage?
-        let beginFrame: CGRect
-        let endFrame: CGRect
-    }
-
     var currentView: ContactsView? {
         didSet {
             if let newView = currentView {
@@ -78,65 +73,31 @@ public class ContactsViewContainer: UIView {
                     newView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor)
                 ])
 
+                var animations = [Guarantee<Void>]()
                 if let oldView = oldValue {
-
                     let oldAvatars = oldView.getVisibleAvatarViews()
                     self.bringSubviewToFront(newView)
-
-//                    setNeedsDisplay()
-//                    newView.layoutSubviews()
-//                    newView.reloadData()
-
-                    newView.alpha = 0.0
-
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    after(.milliseconds(10)).done {
                         let newAvatars = newView.getVisibleAvatarViews()
-
-                        let animations = oldAvatars.compactMap { (id, view) -> ContactAnimation? in
-                            let begin = view.convert(view.bounds, to: self)
-                            if let newView = newAvatars[id] {
-                                let end = newView.convert(newView.bounds, to: self)
-                                return ContactAnimation(
-                                    image: view.imageView.image,
-                                    beginFrame: begin,
-                                    endFrame: end)
+                        for (id, from) in oldAvatars {
+                            if let to = newAvatars[id] {
+                                animations.append(AnimationUtils.travelAnimation(from: from,
+                                                                                 to: to,
+                                                                                 in: self,
+                                                                                 duration: 0.3))
                             }
-                            return nil
                         }
-
-                        let tempViews = animations.map { (anim) -> (AvatarView, CGAffineTransform) in
-                            let view = AvatarView(frame: anim.beginFrame)
-                            view.setImage(anim.image)
-                            let transform = CGAffineTransform(
-                                translationX: anim.endFrame.midX - anim.beginFrame.midX,
-                                y: anim.endFrame.midY - anim.beginFrame.midY)
-                                .scaledBy(
-                                    x: anim.endFrame.width / anim.beginFrame.width,
-                                    y: anim.endFrame.height / anim.beginFrame.height)
-                            return (view, transform)
-                        }
-
-                        tempViews.forEach({
-                            self.addSubview($0.0)
-                        })
-
-                        newAvatars.forEach({ if oldAvatars[$0] != nil { $1.alpha = 0.0 } })
-                        oldAvatars.forEach({ $1.alpha = 0.0 })
-                        UIView.animate(withDuration: 0.3, animations: {
-                            oldView.alpha = 0.0
-                            newView.alpha = 1.0
-                            tempViews.forEach { (viewTransform) in
-                                viewTransform.0.transform = viewTransform.1
-                            }
-                        }, completion: { _ in
-                            tempViews.forEach({ $0.0.removeFromSuperview() })
-                            newAvatars.forEach({ if oldAvatars[$0] != nil { $1.alpha = 1.0 } })
-                            oldAvatars.forEach({ $1.alpha = 1.0 })
-                            oldView.removeFromSuperview()
-                        })
                     }
-
+                    animations.append(AnimationUtils.alphaAnimation(view: oldView,
+                                                                    from: 1.0,
+                                                                    to: 0.0,
+                                                                    duration: 0.3))
                 }
+
+                animations.append(AnimationUtils.alphaAnimation(view: newView,
+                                                                from: 0.0,
+                                                                to: 1.0,
+                                                                duration: 0.3))
             }
         }
     }
