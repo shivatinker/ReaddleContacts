@@ -77,12 +77,47 @@ class SingleContactViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-//        navigationController?.delegate = nil
+        navigationController?.delegate = self
     }
 
     override func viewDidLoad() {
         initUI()
         presenter.update(id: contactId, avatarSize: 250)
+
+        let swipe = UIPanGestureRecognizer(target: self, action: #selector(handleGesture(_:)))
+
+//        let edge = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleEdge(_:)))
+//        edge.edges = .left
+        view.addGestureRecognizer(swipe)
+    }
+
+    private var backTransition = SingleToAllViewTransition()
+    private var interactiveBackTransition: UIPercentDrivenInteractiveTransition?
+    @objc func handleGesture(_ gesture: UIPanGestureRecognizer) {
+        let translate = gesture.translation(in: gesture.view)
+        let percent = translate.x / gesture.view!.bounds.size.width
+
+        switch gesture.state {
+        case .began:
+            guard let navController = navigationController else {
+                fatalError("No navigation controller provided for \(self)")
+            }
+            interactiveBackTransition = UIPercentDrivenInteractiveTransition()
+            navController.popViewController(animated: true)
+        case .changed:
+            interactiveBackTransition?.update(percent)
+        case .ended:
+            let velocity = gesture.velocity(in: gesture.view)
+
+            if percent > 0.5 || velocity.x > 300 {
+                interactiveBackTransition?.finish()
+            } else {
+                interactiveBackTransition?.cancel()
+            }
+            interactiveBackTransition = nil
+        default:
+            break
+        }
     }
 }
 
@@ -99,7 +134,7 @@ extension SingleContactViewController: SingleContactPresenterDelegate {
             self.onlineLabel.text = online ? "online" : "offline"
         }
     }
-    
+
     func setAvatar(_ avatar: UIImage?, animated: Bool = true) {
         DispatchQueue.main.async {
             let anim = {
@@ -128,5 +163,20 @@ extension SingleContactViewController: SingleContactPresenterDelegate {
         DispatchQueue.main.async {
             self.loadFinished = true
         }
+    }
+}
+
+extension SingleContactViewController: UINavigationControllerDelegate {
+    func navigationController(_ navigationController: UINavigationController,
+                              interactionControllerFor animationController: UIViewControllerAnimatedTransitioning)
+        -> UIViewControllerInteractiveTransitioning? {
+            return interactiveBackTransition
+    }
+
+    func navigationController(_ navigationController: UINavigationController,
+                              animationControllerFor operation: UINavigationController.Operation,
+                              from fromVC: UIViewController,
+                              to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return backTransition
     }
 }

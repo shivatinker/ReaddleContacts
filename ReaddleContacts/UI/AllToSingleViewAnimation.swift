@@ -85,11 +85,11 @@ class SingleToAllViewTransition: NSObject, UIViewControllerAnimatedTransitioning
             toVC.contactsContainer.currentView?.getVisibleAvatarViews()[fromVC.contactId] else {
                 // Perform basic fade animation
                 AnimationUtils.alphaAnimation(view: fromVC.view, from: 1.0, to: 0.0, duration: duration).done {
-                    transitionContext.completeTransition(true)
+                    transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
                 }
                 return
         }
-        
+
         let animations = [
             AnimationUtils.alphaAnimation(view: fromVC.view,
                                           from: 1.0,
@@ -101,7 +101,7 @@ class SingleToAllViewTransition: NSObject, UIViewControllerAnimatedTransitioning
                                            duration: duration)
         ]
         when(guarantees: animations).done {
-            transitionContext.completeTransition(true)
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         }
     }
 }
