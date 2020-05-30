@@ -12,36 +12,8 @@ public class MockContactsProvider {
 
     private var queue = DispatchQueue(label: "Contacts provider", qos: .userInitiated)
     private var contacts = Contacts()
+    private var online = [ContactID: Bool]()
     private var nextID = 0
-
-    public convenience init() {
-        var c: [Contact] = [
-            Contact(firstName: "Andrii", email: "zinoviev@stud.onu.edu.ua")
-        ]
-
-        for i in 0...1000 {
-            c.append(Contact(firstName: "Stranger", email: "\(i)@gmail.com"))
-        }
-
-        c.append(Contact(firstName: "A very long name, very long, literally"))
-
-        self.init(contacts: c)
-    }
-
-    public convenience init(randomCount: Int) {
-        var c = [Contact]()
-        for i in 0..<randomCount {
-            c.append(Contact(firstName: "Stranger", email: "\(i)@gmail.com"))
-        }
-        self.init(contacts: c)
-    }
-
-    public init(contacts: [Contact]) {
-        contacts.forEach({
-            self.contacts[nextID] = $0
-            nextID += 1
-        })
-    }
 
     private func callbackBackground<T>(_ f: @escaping ContactsProviderCallback<T>, _ r: ContactsResult<T>) {
         queue.async {
@@ -51,6 +23,13 @@ public class MockContactsProvider {
 }
 
 extension MockContactsProvider: ContactsProvider {
+    public func updateOnline(callback: @escaping ContactsProviderCallback<Void>) {
+        for id in contacts.map({ id, _ in id }) {
+            online[id] = Bool.random()
+        }
+        callbackBackground(callback, .success(result: ()))
+    }
+
     public var contactsCount: Int {
         contacts.count
     }
@@ -71,12 +50,13 @@ extension MockContactsProvider: ContactsProvider {
         if contacts[id] == nil {
             callbackBackground(callback, .failure(error: .noSuchContact(id: id)))
         } else {
-            callbackBackground(callback, .success(result: Bool.random()))
+            callbackBackground(callback, .success(result: self.online[id] ?? false))
         }
     }
 
     public func addContact(_ contact: Contact, callback: @escaping ContactsProviderCallback<ContactID>) {
         contacts[nextID] = contact
+        online[nextID] = Bool.random()
         callbackBackground(callback, .success(result: nextID))
         nextID += 1
     }

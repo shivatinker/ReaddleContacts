@@ -28,8 +28,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let dataContext = DataContext(
             contact: MockContactsProvider(),
-            gravatar: NetGravatarAPI(simulatedDelay: 0))
+            gravatar: NetGravatarAPI(simulatedDelay: 0),
+            randomInfo: RandomNameAPI())
+
         let rootController: AllContactsViewController = AllContactsViewController(dataContext: dataContext)
+
+        dataContext.addRandomContacts(count: 500).done {
+            rootController.presenter.update()
+        }.catch { e in
+            rootController.presenter.errorHandler?.error(e)
+        }
 
         let navController = UINavigationController(rootViewController: rootController)
         navController.navigationBar.isTranslucent = false

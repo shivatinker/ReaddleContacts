@@ -10,7 +10,7 @@ import Foundation
 import PromiseKit
 
 public extension DataContext {
-    private func applyResult<T, E: Error>(_ result: ConditionalResult<T, E>, _ seal: Resolver<T>) {
+    internal func applyResult<T, E: Error>(_ result: ConditionalResult<T, E>, _ seal: Resolver<T>) {
         switch result {
         case .failure(let error): seal.reject(error)
         case .success(let result): seal.fulfill(result)

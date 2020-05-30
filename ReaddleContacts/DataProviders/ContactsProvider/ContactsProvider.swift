@@ -86,4 +86,6 @@ public protocol ContactsProvider {
     ///   - id: Contact ID to remove
     ///   - callback: Returns removed contact object
     func removeContact(id: ContactID, callback: @escaping ContactsProviderCallback<Contact>)
+
+    func updateOnline(callback: @escaping ContactsProviderCallback<Void>)
 }

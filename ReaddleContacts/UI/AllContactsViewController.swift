@@ -10,7 +10,7 @@ import UIKit
 
 class AllContactsViewController: UIViewController {
 
-    private var presenter: AllContactsPresenter
+    internal var presenter: AllContactsPresenter
     private var dataContext: DataContext
 
     /// Contact IDs to display

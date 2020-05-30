@@ -47,7 +47,7 @@ public class NetGravatarAPI: GravatarAPI {
     }
 
     private let afSession = Session(startRequestsImmediately: false)
-    private var taskQueue = DispatchQueue(label: "Gravatar API")
+    private var taskQueue = DispatchQueue(label: "com.shivatinker.contacts.gravatar")
 
     private var currentTasks = [Int: DataRequest]()
 

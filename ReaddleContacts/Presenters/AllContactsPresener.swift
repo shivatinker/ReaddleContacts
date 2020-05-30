@@ -32,7 +32,7 @@ public class AllContactsPresenter {
     // MARK: Private members
     private let context: DataContext
     public weak var delegate: AllContactsPresenterDelegate?
-    private let errorHandler: ErrorHandler?
+    public let errorHandler: ErrorHandler?
 
     private class AvatarEH: ErrorHandler {
         func error(_ e: Error) {
@@ -133,7 +133,7 @@ public class AllContactsPresenter {
     }
 
     public func onSimulateChangesClicked() {
-        context.simulateChanges().done {
+        context.simulateChanges(amount: 300).done {
             self.update()
         }.catch {
             self.errorHandler?.error($0)
