@@ -17,9 +17,9 @@ class AllContactsViewController: UIViewController {
     private var ids: [Int]?
 
     // MARK: UI
-    private var segmentedControl: UISegmentedControl!
     private var shuffleButton: UIButton!
     private var activityIndicator: UIActivityIndicatorView!
+    private var helpLabel: UILabel!
 
     private let toSingleViewTransition = AllToSingleViewAnimator()
     private let toAllViewTransition = SingleToAllViewTransition()
@@ -28,6 +28,10 @@ class AllContactsViewController: UIViewController {
     private(set) var contactsContainer: ContactsViewContainer = ContactsViewContainer()
 
     private func initUI() {
+        guard let navController = self.navigationController else {
+            fatalError("No navigation controller provided")
+        }
+
         // UI Init
         title = "Contacts"
 
@@ -40,50 +44,44 @@ class AllContactsViewController: UIViewController {
         shuffleButton.addTarget(self, action: #selector(simulateButtonClicked), for: .touchUpInside)
         view.addSubview(shuffleButton)
 
-        segmentedControl = UISegmentedControl(items: ["List", "Grid"])
-        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.addTarget(self, action: #selector(styleControlValueChanged), for: .valueChanged)
-        view.addSubview(segmentedControl)
-
         activityIndicator = UIActivityIndicatorView(style: .medium)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(activityIndicator)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
 
         contactsContainer.translatesAutoresizingMaskIntoConstraints = false
         contactsContainer.accessibilityIdentifier = "ContactsPlaceholder"
         view.addSubview(contactsContainer)
 
+        helpLabel = UILabel()
+        helpLabel.translatesAutoresizingMaskIntoConstraints = false
+        helpLabel.numberOfLines = 0
+        helpLabel.text = "Use swipe gestures to toggle view mode\n Created by Andrii Zinoviev"
+        view.addSubview(helpLabel)
+
         // Constraints init
         NSLayoutConstraint.activate([
             // Button constraints
-            shuffleButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
-            shuffleButton.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor),
-            shuffleButton.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor),
+            shuffleButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            shuffleButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            shuffleButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
             shuffleButton.heightAnchor.constraint(equalToConstant: 60),
-            // Seg constraints
-            segmentedControl.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-            segmentedControl.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor, constant: 50),
-            segmentedControl.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor, constant: -50),
-            segmentedControl.heightAnchor.constraint(equalToConstant: 30),
             // Table constraints
-            contactsContainer.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 5),
-            contactsContainer.bottomAnchor.constraint(equalTo: shuffleButton.topAnchor, constant: 5),
+            contactsContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            contactsContainer.bottomAnchor.constraint(equalTo: helpLabel.topAnchor, constant: -5),
             contactsContainer.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             contactsContainer.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
-            // Activity indicator constraints
-            activityIndicator.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -5),
-            activityIndicator.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5)
+            // Label constraints
+            helpLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            helpLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            helpLabel.bottomAnchor.constraint(equalTo: shuffleButton.topAnchor, constant: -5)
+//            helpLabel.heightAnchor.constraint(equalToConstant: 60)
+            
         ])
     }
 
     // MARK: Input handlers
     @objc public func simulateButtonClicked() {
 
-    }
-
-    @objc public func styleControlValueChanged() {
-        contactsContainer.setView(index: segmentedControl.selectedSegmentIndex)
     }
 
     public init(dataContext: DataContext) {

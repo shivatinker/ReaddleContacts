@@ -52,12 +52,37 @@ public protocol ContactsView: UIView {
 public class ContactsViewContainer: UIView {
 
     public var contactViews: [ContactsView] = []
+    private var currentIndex: Int = 0
 
     public func setView(index: Int) {
         guard contactViews.indices.contains(index) else {
             fatalError("Requested index \(index) does not exists in \(ContactsViewContainer.self)")
         }
         currentView = contactViews[index]
+        currentIndex = index
+    }
+
+    public override func willMove(toSuperview newSuperview: UIView?) {
+        let swipeleft = UISwipeGestureRecognizer(target: self, action: #selector(swipe(_:)))
+        swipeleft.direction = [.left]
+        addGestureRecognizer(swipeleft)
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(swipe(_:)))
+        swipeRight.direction = [.right]
+        addGestureRecognizer(swipeRight)
+    }
+
+    @objc public func swipe(_ gesture: UISwipeGestureRecognizer) {
+        if gesture.state == .recognized {
+            if gesture.direction == .right {
+                if currentIndex > 0 {
+                    setView(index: currentIndex - 1)
+                }
+            } else {
+                if currentIndex < contactViews.count - 1 {
+                    setView(index: currentIndex + 1)
+                }
+            }
+        }
     }
 
     var currentView: ContactsView? {
