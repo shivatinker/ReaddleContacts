@@ -62,4 +62,20 @@ public extension DataContext {
             }
         }
     }
+
+    func addContactP(_ contact: Contact) -> Promise<ContactID> {
+        Promise { seal in
+            self.contact.addContact(contact) { (res) in
+                self.applyResult(res, seal)
+            }
+        }
+    }
+
+    func removeContactP(id: ContactID) -> Promise<Contact> {
+        Promise { seal in
+            self.contact.removeContact(id: id) { (res) in
+                self.applyResult(res, seal)
+            }
+        }
+    }
 }

@@ -28,10 +28,6 @@ class AllContactsViewController: UIViewController {
     private(set) var contactsContainer: ContactsViewContainer = ContactsViewContainer()
 
     private func initUI() {
-        guard let navController = self.navigationController else {
-            fatalError("No navigation controller provided")
-        }
-
         // UI Init
         title = "Contacts"
 
@@ -75,13 +71,13 @@ class AllContactsViewController: UIViewController {
             helpLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
             helpLabel.bottomAnchor.constraint(equalTo: shuffleButton.topAnchor, constant: -5)
 //            helpLabel.heightAnchor.constraint(equalToConstant: 60)
-            
+
         ])
     }
 
     // MARK: Input handlers
     @objc public func simulateButtonClicked() {
-
+        presenter.onSimulateChangesClicked()
     }
 
     public init(dataContext: DataContext) {

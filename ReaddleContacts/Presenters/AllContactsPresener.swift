@@ -132,6 +132,14 @@ public class AllContactsPresenter {
         delegate?.showContactInfo(id: id)
     }
 
+    public func onSimulateChangesClicked() {
+        context.simulateChanges().done {
+            self.update()
+        }.catch {
+            self.errorHandler?.error($0)
+        }
+    }
+
     public func getContactInfo(id: Int, callback: @escaping (ContactViewData?, Bool) -> Void) {
         contactCache?.get(id, callback) ?? callback(nil, false)
     }
