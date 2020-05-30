@@ -11,9 +11,7 @@
 		68A7C8D99D4D6445CA2D2CFC /* Pods_ReaddleContactsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D75EC9B60BB67E7B97905B41 /* Pods_ReaddleContactsTests.framework */; };
 		DA6769D22481594F0072F5DC /* AllToSingleViewAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6769D12481594F0072F5DC /* AllToSingleViewAnimation.swift */; };
 		DA899A10247C3B2C006F084D /* AllContactsPresener.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA899A0F247C3B2C006F084D /* AllContactsPresener.swift */; };
-		DA899A12247C49BB006F084D /* AllContactsPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA899A11247C49BB006F084D /* AllContactsPresenterTests.swift */; };
 		DA899A14247C568E006F084D /* SingleContactPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA899A13247C568E006F084D /* SingleContactPresenter.swift */; };
-		DA899A18247C5B3D006F084D /* SingleContactPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA899A17247C5B3D006F084D /* SingleContactPresenterTests.swift */; };
 		DA899A1B247D3FC5006F084D /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA899A1A247D3FC5006F084D /* ImageUtils.swift */; };
 		DA899A1D247D5309006F084D /* ArrayUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA899A1C247D5309006F084D /* ArrayUtils.swift */; };
 		DA899A1F247DE442006F084D /* CachedStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA899A1E247DE442006F084D /* CachedStorage.swift */; };
@@ -62,9 +60,7 @@
 		D75EC9B60BB67E7B97905B41 /* Pods_ReaddleContactsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReaddleContactsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA6769D12481594F0072F5DC /* AllToSingleViewAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllToSingleViewAnimation.swift; sourceTree = "<group>"; };
 		DA899A0F247C3B2C006F084D /* AllContactsPresener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContactsPresener.swift; sourceTree = "<group>"; };
-		DA899A11247C49BB006F084D /* AllContactsPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContactsPresenterTests.swift; sourceTree = "<group>"; };
 		DA899A13247C568E006F084D /* SingleContactPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleContactPresenter.swift; sourceTree = "<group>"; };
-		DA899A17247C5B3D006F084D /* SingleContactPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleContactPresenterTests.swift; sourceTree = "<group>"; };
 		DA899A1A247D3FC5006F084D /* ImageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
 		DA899A1C247D5309006F084D /* ArrayUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayUtils.swift; sourceTree = "<group>"; };
 		DA899A1E247DE442006F084D /* CachedStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedStorage.swift; sourceTree = "<group>"; };
@@ -228,8 +224,6 @@
 				DAF480F8247C048000D165D2 /* GravatarTests.swift */,
 				DAF480FA247C048000D165D2 /* Info.plist */,
 				DAA4A12B247C240400426E2F /* ContactProviderTests.swift */,
-				DA899A11247C49BB006F084D /* AllContactsPresenterTests.swift */,
-				DA899A17247C5B3D006F084D /* SingleContactPresenterTests.swift */,
 				DAEA0AF92482AF6E005F8F00 /* RandomNameAPITests.swift */,
 			);
 			path = ReaddleContactsTests;
@@ -488,10 +482,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAEA0AFA2482AF6E005F8F00 /* RandomNameAPITests.swift in Sources */,
-				DA899A12247C49BB006F084D /* AllContactsPresenterTests.swift in Sources */,
 				DAF480F9247C048000D165D2 /* GravatarTests.swift in Sources */,
 				DAA4A12C247C240400426E2F /* ContactProviderTests.swift in Sources */,
-				DA899A18247C5B3D006F084D /* SingleContactPresenterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

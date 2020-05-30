@@ -14,13 +14,11 @@ class ContactProviderTests: XCTestCase {
     func testGetContact(_ p: ContactsProvider, id: ContactID) -> Contact {
         let e = expectation(description: "Getting contact")
         var cr: Contact!
-        p.getContact(id: id) { (res) in
-            switch res {
-            case .failure(let error): XCTFail(error.localizedDescription)
-            case .success(let result):
-                cr = result
-                e.fulfill()
-            }
+        p.getContact(id: id).done {
+            cr = $0
+            e.fulfill()
+        }.catch {
+            XCTFail($0.localizedDescription)
         }
         waitForExpectations(timeout: 1, handler: nil)
         return cr
@@ -28,18 +26,15 @@ class ContactProviderTests: XCTestCase {
 
     func testGetWrongContact(_ p: ContactsProvider, id: ContactID) {
         let e = expectation(description: "Getting contact")
-        p.getContact(id: id) { (res) in
-            switch res {
-            case .failure(let error):
-                switch error {
-                case .noSuchContact(let nid):
-                    XCTAssertEqual(nid, id)
-                    e.fulfill()
-                default:
-                    XCTFail("Wrong error type")
-                }
-            case .success(let result):
-                XCTFail("Contact \(result) should had been deleted!")
+        p.getContact(id: id).done { contact in
+            XCTFail("Contact \(contact) should had been deleted!")
+        }.catch { error in
+            switch error {
+            case ContactsProviderError.noSuchContact(let nid):
+                XCTAssertEqual(nid, id)
+                e.fulfill()
+            default:
+                XCTFail("Wrong error type")
             }
         }
         waitForExpectations(timeout: 1, handler: nil)
@@ -49,13 +44,11 @@ class ContactProviderTests: XCTestCase {
         let e = expectation(description: "Adding contact")
         let preCount = p.contactsCount
         var cid: Int!
-        p.addContact(c) { (res) in
-            switch res {
-            case .failure(let error): XCTFail(error.localizedDescription)
-            case .success(let result):
-                cid = result
-                e.fulfill()
-            }
+        p.addContact(c).done {
+            cid = $0
+            e.fulfill()
+        }.catch {
+            XCTFail($0.localizedDescription)
         }
         waitForExpectations(timeout: 1, handler: nil)
         XCTAssertEqual(p.contactsCount, preCount + 1)
@@ -73,13 +66,11 @@ class ContactProviderTests: XCTestCase {
         let preCount = p.contactsCount
 
         var removed: Contact!
-        p.removeContact(id: id) { (res) in
-            switch res {
-            case .failure(let error): XCTFail(error.localizedDescription)
-            case .success(let result):
-                removed = result
-                e.fulfill()
-            }
+        p.removeContact(id: id).done {
+            removed = $0
+            e.fulfill()
+        }.catch {
+            XCTFail($0.localizedDescription)
         }
         waitForExpectations(timeout: 1, handler: nil)
         XCTAssertEqual(p.contactsCount, preCount - 1)
@@ -91,13 +82,11 @@ class ContactProviderTests: XCTestCase {
     func testGetAllContacts(_ p: ContactsProvider) -> Contacts {
         let e = expectation(description: "Getting all contacts")
         var cr: Contacts!
-        p.getAllContacts() { (res) in
-            switch res {
-            case .failure(let error): XCTFail(error.localizedDescription)
-            case .success(let result):
-                cr = result
-                e.fulfill()
-            }
+        p.getAllContacts().done {
+            cr = $0
+            e.fulfill()
+        }.catch {
+            XCTFail($0.localizedDescription)
         }
         waitForExpectations(timeout: 1, handler: nil)
         return cr
@@ -110,7 +99,10 @@ class ContactProviderTests: XCTestCase {
 
     func testMock() {
         let testContact: Contact = Contact(firstName: "Andrii", lastName: "Zinoviev")
-        let p = MockContactsProvider(contacts: [testContact])
+        let p = MockContactsProvider()
+        p.addContact(testContact).catch {
+            XCTFail($0.localizedDescription)
+        }
 
         let all = testGetAllContacts(p)
         XCTAssert(all.values.first(where: { $0.fullName == testContact.fullName }) != nil)
