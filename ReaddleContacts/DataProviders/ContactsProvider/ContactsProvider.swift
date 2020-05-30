@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PromiseKit
 
 /// Plain data struct for contacts
 public struct Contact {
@@ -19,11 +20,8 @@ public struct Contact {
     public let firstName: String
     public let lastName: String?
     public let email: String?
-}
-
-// Util methods
-public extension Contact {
-    var fullName: String {
+    
+    public var fullName: String {
         var res = firstName
         if let l = lastName {
             res = [res, l].joined(separator: " ")
@@ -32,6 +30,7 @@ public extension Contact {
     }
 }
 
+// Error
 public enum ContactsProviderError: Error {
     case noSuchContact(id: ContactID)
     case unknown(_ description: String)
@@ -46,46 +45,39 @@ extension ContactsProviderError: LocalizedError {
     }
 }
 
+// Typealiases
 public typealias Contacts = [ContactID: Contact]
 public typealias ContactID = Int
 
 /// Provides contacts data methods for async queries
 public protocol ContactsProvider {
-    typealias ContactsResult<T> = ConditionalResult<T, ContactsProviderError>
-    typealias ContactsProviderCallback<T> = (ContactsResult<T>) -> Void
-
     // Read queries
     var contactsCount: Int { get }
 
-    /// Returns all contacts
-    /// - Parameter callback: callback
-    func getAllContacts(callback: @escaping ContactsProviderCallback<Contacts>)
+    /// Gets all contacts
+    func getAllContacts() -> Promise<Contacts>
 
     /// Gets contact by ID, returns error if no such contact
     /// - Parameters:
     ///   - id: Contact ID
-    ///   - callback: Returns contact with specified ID
-    func getContact(id: ContactID, callback: @escaping ContactsProviderCallback<Contact>)
+    func getContact(id: ContactID) -> Promise<Contact>
 
-    /// Returns online status of contact, returns error if no such contact
+    /// Gets online status of contact, returns error if no such contact
     /// - Parameters:
     ///   - id: Contact ID
-    ///   - callback: Returns bool value (is online)
-    func isOnline(id: ContactID, callback: @escaping ContactsProviderCallback<Bool>)
+    func isOnline(id: ContactID) -> Promise<Bool>
 
     // Modify queries
 
     /// Adds contact and return added contact ID
     /// - Parameters:
     ///   - contact: Contact object to add
-    ///   - callback: Returns ID of added contact
-    func addContact(_ contact: Contact, callback: @escaping ContactsProviderCallback<ContactID>)
+    func addContact(_ contact: Contact) -> Promise<ContactID>
 
     /// Removes contact with specified ID, returns error if no such contact
     /// - Parameters:
     ///   - id: Contact ID to remove
-    ///   - callback: Returns removed contact object
-    func removeContact(id: ContactID, callback: @escaping ContactsProviderCallback<Contact>)
+    func removeContact(id: ContactID) -> Promise<Contact>
 
-    func updateOnline(callback: @escaping ContactsProviderCallback<Void>)
+    func updateOnline() -> Promise<Void>
 }

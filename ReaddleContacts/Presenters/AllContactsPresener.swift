@@ -75,7 +75,7 @@ public class AllContactsPresenter {
     // MARK: Private core functions
     private func loadAvatar(for id: Int, size: Int, callback: @escaping (UIImage?) -> Void) {
         addTask()
-        context.getAvatarP(for: id, size: size)
+        context.getAvatar(for: id, size: size)
             .done { callback($0) }
             .catch {
                 self.avatarErrorHandler.error($0)
@@ -86,7 +86,7 @@ public class AllContactsPresenter {
 
     private func loadContact(id: Int, callback: @escaping (ContactViewData?) -> Void) {
         addTask()
-        context.getContactInfoAndOnlineP(for: id)
+        context.getContactInfoAndOnline(for: id)
             .done { contact, online in
                 let contactData = ContactViewData(
                     id: id,
@@ -102,14 +102,16 @@ public class AllContactsPresenter {
 
     private func loadContactIDs(callback: @escaping ([Int]?) -> Void) {
         addTask()
-        context.getAllContactP()
+        context.contact.getAllContacts()
             .done { contacts in
                 // Sorting contacts alphabeticly
                 callback(contacts.sorted(by: { $0.1.fullName < $1.1.fullName }).map({ $0.0 }))
-            }.catch {
-                self.errorHandler?.error($0)
+            }.catch { e in
+                self.errorHandler?.error(e)
                 callback(nil)
-            }.finally { self.removeTask() }
+            }.finally {
+                self.removeTask()
+        }
     }
 
     // MARK: Public API

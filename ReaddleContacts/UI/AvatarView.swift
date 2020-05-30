@@ -11,7 +11,6 @@ import UIKit
 
 /// View with contact avatar image and online indicator
 public class AvatarView: UIView {
-    // TODO: refactor to get/set
     internal let imageView: UIImageView
     internal let onlineView: UIImageView
 

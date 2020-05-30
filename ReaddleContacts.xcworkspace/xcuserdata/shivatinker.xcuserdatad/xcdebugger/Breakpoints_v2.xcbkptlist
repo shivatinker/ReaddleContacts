@@ -335,8 +335,8 @@
             filePath = "ReaddleContacts/UI/AvatarView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
             landmarkName = "init(frame:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -627,6 +627,69 @@
             endingLineNumber = "76"
             landmarkName = "swipe(_:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "49467745-0360-4272-89E1-04C418EC772F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReaddleContacts/Presenters/AllContactsPresener.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
+            landmarkName = "loadContactIDs(callback:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "49467745-0360-4272-89E1-04C418EC772F - 33f4a75451bd5a29"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Dictionary&lt;Swift.Int, ReaddleContacts.Contact&gt;) -&gt; () in ReaddleContacts.AllContactsPresenter.(loadContactIDs in _021D844B99F96B5E6BC8FAD174E8BC75)(callback: (Swift.Optional&lt;Swift.Array&lt;Swift.Int&gt;&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "ReaddleContacts"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shivatinker/Documents/ReaddleContacts/ReaddleContacts/Presenters/AllContactsPresener.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "108"
+                  endingLineNumber = "108"
+                  offsetFromSymbolStart = "56">
+               </Location>
+               <Location
+                  uuid = "49467745-0360-4272-89E1-04C418EC772F - c09db0edca6eddcc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 ((key: Swift.Int, value: ReaddleContacts.Contact), (key: Swift.Int, value: ReaddleContacts.Contact)) -&gt; Swift.Bool in closure #1 (Swift.Dictionary&lt;Swift.Int, ReaddleContacts.Contact&gt;) -&gt; () in ReaddleContacts.AllContactsPresenter.(loadContactIDs in _021D844B99F96B5E6BC8FAD174E8BC75)(callback: (Swift.Optional&lt;Swift.Array&lt;Swift.Int&gt;&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "ReaddleContacts"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shivatinker/Documents/ReaddleContacts/ReaddleContacts/Presenters/AllContactsPresener.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "108"
+                  endingLineNumber = "108"
+                  offsetFromSymbolStart = "208">
+               </Location>
+               <Location
+                  uuid = "49467745-0360-4272-89E1-04C418EC772F - 52e4aa2c1d839540"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 ((key: Swift.Int, value: ReaddleContacts.Contact)) -&gt; Swift.Int in closure #1 (Swift.Dictionary&lt;Swift.Int, ReaddleContacts.Contact&gt;) -&gt; () in ReaddleContacts.AllContactsPresenter.(loadContactIDs in _021D844B99F96B5E6BC8FAD174E8BC75)(callback: (Swift.Optional&lt;Swift.Array&lt;Swift.Int&gt;&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "ReaddleContacts"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shivatinker/Documents/ReaddleContacts/ReaddleContacts/Presenters/AllContactsPresener.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "108"
+                  endingLineNumber = "108"
+                  offsetFromSymbolStart = "128">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

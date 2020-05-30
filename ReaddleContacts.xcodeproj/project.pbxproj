@@ -20,17 +20,18 @@
 		DA9D7F462481C09A000C7373 /* AnimationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9D7F452481C09A000C7373 /* AnimationUtils.swift */; };
 		DAA4A12A247C229000426E2F /* ContactsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4A129247C229000426E2F /* ContactsProvider.swift */; };
 		DAA4A12C247C240400426E2F /* ContactProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4A12B247C240400426E2F /* ContactProviderTests.swift */; };
-		DAA4A130247C264500426E2F /* DataProviderCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4A12F247C264500426E2F /* DataProviderCommon.swift */; };
 		DAA4A132247C27E000426E2F /* MockContactsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4A131247C27E000426E2F /* MockContactsProvider.swift */; };
 		DAC6513324802BC0004EE935 /* AlertErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC6513224802BC0004EE935 /* AlertErrorHandler.swift */; };
 		DAC6513624807C0E004EE935 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = DAC6513524807C0E004EE935 /* .swiftlint.yml */; };
-		DAC6513924808369004EE935 /* Promise+DataContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC6513824808369004EE935 /* Promise+DataContext.swift */; };
 		DAC6513C24809907004EE935 /* SingleContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC6513B24809907004EE935 /* SingleContactViewController.swift */; };
 		DAD43707247EA9F0005E8AAE /* ContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD43706247EA9F0005E8AAE /* ContactsView.swift */; };
 		DAD43709247EAEFA005E8AAE /* ContactsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD43708247EAEFA005E8AAE /* ContactsTableView.swift */; };
 		DAD4370B247ED105005E8AAE /* ContactsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD4370A247ED105005E8AAE /* ContactsCollectionView.swift */; };
 		DAEA0AF82482AB97005F8F00 /* RandomNameAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEA0AF72482AB97005F8F00 /* RandomNameAPI.swift */; };
 		DAEA0AFA2482AF6E005F8F00 /* RandomNameAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEA0AF92482AF6E005F8F00 /* RandomNameAPITests.swift */; };
+		DAEA0AFC2482B712005F8F00 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEA0AFB2482B712005F8F00 /* StringUtils.swift */; };
+		DAEA0AFE2482C266005F8F00 /* DataProviderCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEA0AFD2482C266005F8F00 /* DataProviderCommon.swift */; };
+		DAEA0B002482C535005F8F00 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEA0AFF2482C535005F8F00 /* Utils.swift */; };
 		DAF480E2247C047E00D165D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF480E1247C047E00D165D2 /* AppDelegate.swift */; };
 		DAF480E4247C047E00D165D2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF480E3247C047E00D165D2 /* SceneDelegate.swift */; };
 		DAF480E6247C047E00D165D2 /* AllContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF480E5247C047E00D165D2 /* AllContactsViewController.swift */; };
@@ -71,17 +72,18 @@
 		DA9D7F452481C09A000C7373 /* AnimationUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationUtils.swift; sourceTree = "<group>"; };
 		DAA4A129247C229000426E2F /* ContactsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsProvider.swift; sourceTree = "<group>"; };
 		DAA4A12B247C240400426E2F /* ContactProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactProviderTests.swift; sourceTree = "<group>"; };
-		DAA4A12F247C264500426E2F /* DataProviderCommon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProviderCommon.swift; sourceTree = "<group>"; };
 		DAA4A131247C27E000426E2F /* MockContactsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockContactsProvider.swift; sourceTree = "<group>"; };
 		DAC6513224802BC0004EE935 /* AlertErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertErrorHandler.swift; sourceTree = "<group>"; };
 		DAC6513524807C0E004EE935 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
-		DAC6513824808369004EE935 /* Promise+DataContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Promise+DataContext.swift"; sourceTree = "<group>"; };
 		DAC6513B24809907004EE935 /* SingleContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleContactViewController.swift; sourceTree = "<group>"; };
 		DAD43706247EA9F0005E8AAE /* ContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsView.swift; sourceTree = "<group>"; };
 		DAD43708247EAEFA005E8AAE /* ContactsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTableView.swift; sourceTree = "<group>"; };
 		DAD4370A247ED105005E8AAE /* ContactsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsCollectionView.swift; sourceTree = "<group>"; };
 		DAEA0AF72482AB97005F8F00 /* RandomNameAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNameAPI.swift; sourceTree = "<group>"; };
 		DAEA0AF92482AF6E005F8F00 /* RandomNameAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNameAPITests.swift; sourceTree = "<group>"; };
+		DAEA0AFB2482B712005F8F00 /* StringUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
+		DAEA0AFD2482C266005F8F00 /* DataProviderCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataProviderCommon.swift; sourceTree = "<group>"; };
+		DAEA0AFF2482C535005F8F00 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		DAF480DE247C047E00D165D2 /* ReaddleContacts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReaddleContacts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAF480E1247C047E00D165D2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DAF480E3247C047E00D165D2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -153,6 +155,8 @@
 				DA899A1A247D3FC5006F084D /* ImageUtils.swift */,
 				DA899A1C247D5309006F084D /* ArrayUtils.swift */,
 				DA899A1E247DE442006F084D /* CachedStorage.swift */,
+				DAEA0AFB2482B712005F8F00 /* StringUtils.swift */,
+				DAEA0AFF2482C535005F8F00 /* Utils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -169,20 +173,11 @@
 		DAA4A12E247C262F00426E2F /* DataProviders */ = {
 			isa = PBXGroup;
 			children = (
-				DAC6513724808345004EE935 /* Promise Binding */,
+				DAEA0AFD2482C266005F8F00 /* DataProviderCommon.swift */,
 				DAF48103247C056A00D165D2 /* Net */,
 				DAA4A128247C227400426E2F /* ContactsProvider */,
-				DAA4A12F247C264500426E2F /* DataProviderCommon.swift */,
 			);
 			path = DataProviders;
-			sourceTree = "<group>";
-		};
-		DAC6513724808345004EE935 /* Promise Binding */ = {
-			isa = PBXGroup;
-			children = (
-				DAC6513824808369004EE935 /* Promise+DataContext.swift */,
-			);
-			path = "Promise Binding";
 			sourceTree = "<group>";
 		};
 		DAEA0AF62482AB84005F8F00 /* Random Name */ = {
@@ -467,11 +462,11 @@
 				DAF4810C247C0C9100D165D2 /* NetCommon.swift in Sources */,
 				DAD43709247EAEFA005E8AAE /* ContactsTableView.swift in Sources */,
 				DAEA0AF82482AB97005F8F00 /* RandomNameAPI.swift in Sources */,
-				DAA4A130247C264500426E2F /* DataProviderCommon.swift in Sources */,
 				DA9D7F462481C09A000C7373 /* AnimationUtils.swift in Sources */,
 				DAD4370B247ED105005E8AAE /* ContactsCollectionView.swift in Sources */,
+				DAEA0B002482C535005F8F00 /* Utils.swift in Sources */,
+				DAEA0AFC2482B712005F8F00 /* StringUtils.swift in Sources */,
 				DA899A14247C568E006F084D /* SingleContactPresenter.swift in Sources */,
-				DAC6513924808369004EE935 /* Promise+DataContext.swift in Sources */,
 				DA6769D22481594F0072F5DC /* AllToSingleViewAnimation.swift in Sources */,
 				DA899A10247C3B2C006F084D /* AllContactsPresener.swift in Sources */,
 				DAA4A132247C27E000426E2F /* MockContactsProvider.swift in Sources */,
@@ -488,6 +483,7 @@
 				DAF480E4247C047E00D165D2 /* SceneDelegate.swift in Sources */,
 				DAF7E2E8247E9CD800FAC543 /* AvatarView.swift in Sources */,
 				DA899A1B247D3FC5006F084D /* ImageUtils.swift in Sources */,
+				DAEA0AFE2482C266005F8F00 /* DataProviderCommon.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,6 +8,7 @@
 
 import Foundation
 import AlamofireImage
+import PromiseKit
 
 /// Wrapper object for gravatar parameters
 public struct GravatarRequest {
@@ -39,13 +40,11 @@ public struct GravatarRequest {
 
 /// Gravatar API, that supports basic user avatar operations
 public protocol GravatarAPI {
-    typealias GravatarCallback = (ConditionalResult<Image?, NetError>) -> Void
     /// Asynchroniusly get user avatar from email
     /// - Parameters:
     ///   - params: Request parameters
     ///   - callback: Callback to be called
-    func getAvatarImage(email: String, params: GravatarRequest,
-                        callback: @escaping GravatarCallback)
+    func getAvatarImage(email: String, params: GravatarRequest) -> Promise<UIImage?>
 
     /// Requests cancelling loading of avatar
     /// - Parameter taskId: taskId, given to parameters of request to cancel

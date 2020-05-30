@@ -40,7 +40,7 @@ public class SingleContactPresenter {
         when(fulfilled:
             [
                 // Get contact info and online status
-                context.getContactInfoAndOnlineP(for: id).done { contact, online in
+                context.getContactInfoAndOnline(for: id).done { contact, online in
                     self.delegate?.setData(
                         SingleContactViewData(
                             id: id,
@@ -48,7 +48,7 @@ public class SingleContactPresenter {
                             email: contact.email))
                     self.delegate?.setOnline(online) },
                 // Get avatar image
-                context.getAvatarP(for: id, size: avatarSize).done { image in
+                context.getAvatar(for: id, size: avatarSize).done { (image) in
                     self.delegate?.setAvatar(image, animated: true)
                 }
             ])
