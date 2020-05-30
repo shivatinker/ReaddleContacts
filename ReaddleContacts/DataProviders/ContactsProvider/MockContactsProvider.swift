@@ -9,6 +9,7 @@
 import Foundation
 import PromiseKit
 
+/// Mock implementation of `ContactsProvider`
 public class MockContactsProvider {
 
     private var queue = DispatchQueue(label: "com.shivatinker.contacts.contactsProvider", qos: .userInitiated)

@@ -35,6 +35,7 @@ public class SingleContactPresenter {
         self.context = context
     }
 
+    /// Requests update from presenter
     public func update(id: Int, avatarSize: Int) {
         delegate?.startLoading()
         when(fulfilled:

@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import PromiseKit
 
+/// Data, representing contact in collection
 public struct ContactViewData {
     public let id: Int
     public let fullName: String
@@ -17,6 +18,7 @@ public struct ContactViewData {
     public let online: Bool
 }
 
+/// Data, representing objects, that needs to be passed in view
 public struct AllContactsViewData {
     public let contactsIds: [Int]
 }
@@ -32,15 +34,10 @@ public class AllContactsPresenter {
     // MARK: Private members
     private let context: DataContext
     public weak var delegate: AllContactsPresenterDelegate?
-    public let errorHandler: ErrorHandler?
+    public var errorHandler: ErrorHandler?
 
     private class AvatarEH: ErrorHandler {
         func error(_ e: Error) {
-            if let e = e as? NetError,
-                case .requestCancelled = e {
-                // Request was cancelled
-                return
-            }
             debugPrint("Failed to get avatar: \(e)")
         }
     }
@@ -48,8 +45,8 @@ public class AllContactsPresenter {
     private let avatarErrorHandler = AvatarEH()
 
     // MARK: Cache
-    private var avatarCache: CachedStorage<Int, UIImage>?
-    private var contactCache: CachedStorage<Int, ContactViewData>?
+    private var avatarCache: CachedStorage<Int, UIImage>!
+    private var contactCache: CachedStorage<Int, ContactViewData>!
 
     // MARK: Thread safe task counting
     private var currentTaskCount = 0
@@ -127,7 +124,6 @@ public class AllContactsPresenter {
         contactCache = CachedStorage { id, callback in
             self.loadContact(id: id) { callback($0) }
         }
-
     }
 
     public func onContactSelected(id: Int) {
@@ -143,16 +139,16 @@ public class AllContactsPresenter {
     }
 
     public func getContactInfo(id: Int, callback: @escaping (ContactViewData?, Bool) -> Void) {
-        contactCache?.get(id, callback) ?? callback(nil, false)
+        contactCache.get(id, callback)
     }
 
     public func getAvatar(for id: Int, callback: @escaping (UIImage?, Bool) -> Void) {
-        avatarCache?.get(id, callback) ?? callback(nil, false)
+        avatarCache.get(id, callback)
     }
 
     public func prefetch(id: Int) {
-        avatarCache?.load(id)
-        contactCache?.load(id)
+        avatarCache.load(id)
+        contactCache.load(id)
     }
 
     public func cancelPrefetching(id: Int) {
@@ -160,8 +156,8 @@ public class AllContactsPresenter {
     }
 
     public func free(id: Int) {
-        avatarCache?.remove(id)
-        contactCache?.remove(id)
+        avatarCache.remove(id)
+        contactCache.remove(id)
     }
 
     public func update() {

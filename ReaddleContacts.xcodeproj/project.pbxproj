@@ -31,7 +31,6 @@
 		DAEA0AFA2482AF6E005F8F00 /* RandomNameAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEA0AF92482AF6E005F8F00 /* RandomNameAPITests.swift */; };
 		DAEA0AFC2482B712005F8F00 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEA0AFB2482B712005F8F00 /* StringUtils.swift */; };
 		DAEA0AFE2482C266005F8F00 /* DataProviderCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEA0AFD2482C266005F8F00 /* DataProviderCommon.swift */; };
-		DAEA0B002482C535005F8F00 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEA0AFF2482C535005F8F00 /* Utils.swift */; };
 		DAF480E2247C047E00D165D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF480E1247C047E00D165D2 /* AppDelegate.swift */; };
 		DAF480E4247C047E00D165D2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF480E3247C047E00D165D2 /* SceneDelegate.swift */; };
 		DAF480E6247C047E00D165D2 /* AllContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF480E5247C047E00D165D2 /* AllContactsViewController.swift */; };
@@ -83,7 +82,6 @@
 		DAEA0AF92482AF6E005F8F00 /* RandomNameAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNameAPITests.swift; sourceTree = "<group>"; };
 		DAEA0AFB2482B712005F8F00 /* StringUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
 		DAEA0AFD2482C266005F8F00 /* DataProviderCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataProviderCommon.swift; sourceTree = "<group>"; };
-		DAEA0AFF2482C535005F8F00 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		DAF480DE247C047E00D165D2 /* ReaddleContacts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReaddleContacts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAF480E1247C047E00D165D2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DAF480E3247C047E00D165D2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -156,7 +154,6 @@
 				DA899A1C247D5309006F084D /* ArrayUtils.swift */,
 				DA899A1E247DE442006F084D /* CachedStorage.swift */,
 				DAEA0AFB2482B712005F8F00 /* StringUtils.swift */,
-				DAEA0AFF2482C535005F8F00 /* Utils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -464,7 +461,6 @@
 				DAEA0AF82482AB97005F8F00 /* RandomNameAPI.swift in Sources */,
 				DA9D7F462481C09A000C7373 /* AnimationUtils.swift in Sources */,
 				DAD4370B247ED105005E8AAE /* ContactsCollectionView.swift in Sources */,
-				DAEA0B002482C535005F8F00 /* Utils.swift in Sources */,
 				DAEA0AFC2482B712005F8F00 /* StringUtils.swift in Sources */,
 				DA899A14247C568E006F084D /* SingleContactPresenter.swift in Sources */,
 				DA6769D22481594F0072F5DC /* AllToSingleViewAnimation.swift in Sources */,

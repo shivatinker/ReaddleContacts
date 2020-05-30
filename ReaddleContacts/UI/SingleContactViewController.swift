@@ -39,9 +39,8 @@ class SingleContactViewController: UIViewController {
         view.backgroundColor = .systemBackground
 
         avatarView.translatesAutoresizingMaskIntoConstraints = false
-        avatarView.tintColor = .gray
         avatarView.setOnline(false)
-//        avatarImageView.clipsToBounds = true
+        
         view.addSubview(avatarView)
         fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
         fullNameLabel.adjustsFontSizeToFitWidth = true
@@ -85,12 +84,10 @@ class SingleContactViewController: UIViewController {
         presenter.update(id: contactId, avatarSize: 250)
 
         let swipe = UIPanGestureRecognizer(target: self, action: #selector(handleGesture(_:)))
-
-//        let edge = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleEdge(_:)))
-//        edge.edges = .left
         view.addGestureRecognizer(swipe)
     }
 
+    // Interactive back transition
     private var backTransition = SingleToAllViewTransition()
     private var interactiveBackTransition: UIPercentDrivenInteractiveTransition?
     @objc func handleGesture(_ gesture: UIPanGestureRecognizer) {
@@ -137,19 +134,7 @@ extension SingleContactViewController: SingleContactPresenterDelegate {
 
     func setAvatar(_ avatar: UIImage?, animated: Bool = true) {
         DispatchQueue.main.async {
-            let anim = {
-                self.avatarView.setImage(avatar)
-            }
-            if animated {
-                UIView.transition(
-                    with: self.avatarView,
-                    duration: 0.3,
-                    options: .transitionCrossDissolve,
-                    animations: anim,
-                    completion: nil)
-            } else {
-                anim()
-            }
+            self.avatarView.setImage(avatar, animated: animated)
         }
     }
 

@@ -25,7 +25,7 @@ class AllContactsViewController: UIViewController {
     private let toAllViewTransition = SingleToAllViewTransition()
 
     /// Current contacts display view, for now it can be table or collection
-    private(set) var contactsContainer: ContactsViewContainer = ContactsViewContainer()
+    internal var contactsContainer: ContactsViewContainer = ContactsViewContainer()
 
     private func initUI() {
         // UI Init
@@ -85,9 +85,11 @@ class AllContactsViewController: UIViewController {
         self.dataContext = dataContext
         super.init(nibName: nil, bundle: nil)
         presenter.delegate = self
+        presenter.errorHandler = AlertErrorHandler(parent: self)
     }
 
     override func viewDidAppear(_ animated: Bool) {
+        // Set delegate to self, so it will use custom transitions
         navigationController?.delegate = self
     }
 
@@ -99,6 +101,7 @@ class AllContactsViewController: UIViewController {
     override func loadView() {
         initUI()
 
+        // Create contacts views
         let table = ContactsTableView()
         table.contactsDelegate = self
 
@@ -140,6 +143,7 @@ extension AllContactsViewController: ContactsCollectionDelegate {
     }
 }
 
+// Presenter delegate
 extension AllContactsViewController: AllContactsPresenterDelegate {
     func showContactInfo(id: Int) {
         DispatchQueue.main.async {
@@ -149,7 +153,6 @@ extension AllContactsViewController: AllContactsPresenterDelegate {
             let newController = SingleContactViewController(
                 contactId: id,
                 dataContext: self.dataContext)
-//            self.present(newController, animated: true, completion: nil)
             navController.pushViewController(newController, animated: true)
         }
     }
@@ -174,6 +177,7 @@ extension AllContactsViewController: AllContactsPresenterDelegate {
     }
 }
 
+// Setup custom transitioins
 extension AllContactsViewController: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController,
                               animationControllerFor operation: UINavigationController.Operation,

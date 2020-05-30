@@ -13,6 +13,7 @@ import PromiseKit
 class AnimationUtils {
     private init() { }
 
+    /// Performs animation, where `from` view will resize and change position to match `to` view.
     public static func travelAnimation(from: AvatarView,
                                        to: AvatarView,
                                        in container: UIView,
@@ -39,6 +40,7 @@ class AnimationUtils {
         }
     }
 
+    /// Performs basic animation on `view`'s alpha
     public static func alphaAnimation(view: UIView,
                                       from: CGFloat,
                                       to: CGFloat,

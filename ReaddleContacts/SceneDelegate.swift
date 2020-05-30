@@ -26,6 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
 
+        // Inject data context in root view controller
         let dataContext = DataContext(
             contact: MockContactsProvider(),
             gravatar: NetGravatarAPI(simulatedDelay: 0),
@@ -33,6 +34,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let rootController: AllContactsViewController = AllContactsViewController(dataContext: dataContext)
 
+        // Fill injected context with random contacts and notify root controller
         dataContext.addRandomContacts(count: 500).done {
             rootController.presenter.update()
         }.catch { e in

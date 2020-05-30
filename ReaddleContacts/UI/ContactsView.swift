@@ -46,6 +46,7 @@ public protocol ContactsView: UIView {
     /// Requests immediate data reloading, for example if item count has chenged
     func reloadData()
 
+    /// Returns visible avatar views
     func getVisibleAvatarViews() -> [Int: AvatarView]
 }
 
@@ -85,6 +86,7 @@ public class ContactsViewContainer: UIView {
         }
     }
 
+    // Transition between list and grid views
     var currentView: ContactsView? {
         didSet {
             if let newView = currentView {

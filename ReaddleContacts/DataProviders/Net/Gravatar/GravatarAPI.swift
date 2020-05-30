@@ -11,7 +11,7 @@ import AlamofireImage
 import PromiseKit
 
 /// Wrapper object for gravatar parameters
-public struct GravatarRequest {
+public struct GravatarParams {
 
     public enum DefaultAvatar {
         case error
@@ -44,7 +44,7 @@ public protocol GravatarAPI {
     /// - Parameters:
     ///   - params: Request parameters
     ///   - callback: Callback to be called
-    func getAvatarImage(email: String, params: GravatarRequest) -> Promise<UIImage?>
+    func getAvatarImage(email: String, params: GravatarParams) -> Promise<UIImage?>
 
     /// Requests cancelling loading of avatar
     /// - Parameter taskId: taskId, given to parameters of request to cancel

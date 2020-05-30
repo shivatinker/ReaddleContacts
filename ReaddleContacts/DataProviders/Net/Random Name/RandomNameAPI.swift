@@ -10,6 +10,7 @@ import Foundation
 import Alamofire
 import PromiseKit
 
+/// Class for requests to `randomuser.me`
 public class RandomNameAPI {
     private static let API_URL = URL(string: "https://randomuser.me/api")!
     private let taskQueue = DispatchQueue(label: "com.shivatinker.contacts.randomname")
@@ -33,7 +34,10 @@ public class RandomNameAPI {
     private struct ResponseJSON: Codable {
         let results: [ResultJSON]
     }
-
+    
+    /// Gets random names and emails
+    /// - Parameter count: Random info objects count
+    /// - Returns: Promise
     public func getRandomNames(count: Int) -> Promise<[RandomInfo]> {
         Promise { seal in
             taskQueue.async {

@@ -78,6 +78,7 @@ public protocol ContactsProvider {
     /// - Parameters:
     ///   - id: Contact ID to remove
     func removeContact(id: ContactID) -> Promise<Contact>
-
+    
+    /// Update cached online statuses
     func updateOnline() -> Promise<Void>
 }
