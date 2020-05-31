@@ -3,6 +3,11 @@ Test task for Readdle 2020 internship
 
 ReaddleContacts application, developed by Andrii Zinoviev (Telegram: @shivatinker)
 
+## Installation
+* Download zip
+* Use 'pod install' in project directory
+* Open project using workspace file
+
 ## Features
 * Asynchronous contacts provider, that works in separate background `DispatchQueue`
 * `MockContactsProvider`, that behaves like network API
