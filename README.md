@@ -30,7 +30,7 @@ ReaddleContacts application, developed by Andrii Zinoviev (Telegram: @shivatinke
 * Dark theme support
 * iPad support
 * UI implemented **fully** in code using AutoLayout. Storyboard completely deleted
-* No singletons. Dependency injection used (see `AppDelegate`)
+* No singletons. Dependency injection used (see `SceneDelegate`)
 * SwiftLint code-style control. No warning in current build
 * Unit tests, testing async API's
 * Self-explaining and clean code (at least I tried :) ), comments in important places
