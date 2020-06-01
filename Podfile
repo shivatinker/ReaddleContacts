@@ -6,9 +6,9 @@ target 'ReaddleContacts' do
   use_frameworks!
 
   # Pods for ReaddleContacts
-pod 'Alamofire'
-pod 'AlamofireImage'
-pod 'PromiseKit'
+pod 'Alamofire', '5.1.0'
+pod 'AlamofireImage', '4.1.0'
+pod 'PromiseKit', '6.13.1'
   target 'ReaddleContactsTests' do
     inherit! :search_paths
     # Pods for testing

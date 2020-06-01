@@ -17,11 +17,6 @@ public struct DataContext {
     public let contact: ContactsProvider
     public let gravatar: GravatarAPI
     public let randomInfo: RandomNameAPI
-
-    private func randomString(length: Int) -> String {
-        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        return String((0..<length).map { _ in letters.randomElement()! })
-    }
     
     /// Gets contact info and online status
     /// - Parameter id: contact id
